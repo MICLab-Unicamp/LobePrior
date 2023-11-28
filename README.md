@@ -7,13 +7,17 @@
    * This work was submitted to ISBI 2024 (https://biomedicalimaging.org/2024).
 
 <figure>
-	    <img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/Lobes_coronacases_001.png", alt="Unet", height="50" width="100">
+	    <img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/Lobes_coronacases_001.png", alt="Unet", height="300" width="300">
 </figure>
 
-<figure>
-	    <img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/Model_fusion_vertical.png" alt="Unet", height="100" width="100">
-</figure>
+* Implemented network diagram
 
 <figure>
-	    <img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/lobeprior.png" alt="Unet", height="100" width="100">
+	    <img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/Model_fusion_vertical.png" alt="Unet", height="300" width="300">
+</figure>
+
+* Example of segmentation
+* 
+<figure>
+	    <img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/lobeprior.png" alt="Unet", height="300" width="300">
 </figure>
