@@ -6,11 +6,11 @@
 
    * This work was submitted to ISBI 2024 (https://biomedicalimaging.org/2024).
 
-<center>
+   <center>
 	<figure>
 	    <img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/Lobes_coronacases_001.png", alt="Unet", height="300" width="300">
 	</figure>
-</center>
+   </center>
 
 <!-- * Implemented network diagram
 
@@ -23,8 +23,8 @@
 
 * Example of segmentation
 
-<center>
+   <center>
 	<figure>
 	    <img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/lobeprior.png" alt="Unet", height="300" width="300">
 	</figure>
-</center>
+   </center>
