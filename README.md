@@ -21,7 +21,7 @@
 </center>
 -->
 
-* Example of segmentation
+* Example of segmentation of the LobePrior network in the CT image coronacases_007
 
    <center>
 	<figure>
