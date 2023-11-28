@@ -10,11 +10,8 @@ import SimpleITK as sitk
 import matplotlib.pyplot as plt
 from torch.utils.data import Dataset
 
-from utils.unified_img_reading import unified_img_reading
 from utils.to_onehot import to_onehot
-from utils.transforms_nnunet import TransformsnnUNet
 from utils.transform3D import random_crop
-from utils.visualize import surface_render_itksnap
 
 RAW_DATA_FOLDER = os.getenv("HOME")
 RAW_DATA_FOLDER_ISOMETRIC = os.path.join(RAW_DATA_FOLDER, "DataSets/outputs_registered_high/isometric_cliped_and_normalized")
