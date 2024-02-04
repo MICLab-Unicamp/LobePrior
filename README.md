@@ -9,7 +9,7 @@ Project developed for ISBI 2024 (https://biomedicalimaging.org/2024)
 # To install dependencies
 > sh requirements.txt
 
-#To run project
+# To run project
 > python main.py
 
 <!--
