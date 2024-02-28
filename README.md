@@ -1,6 +1,6 @@
 # LobePrior: Segmenting lung lobes in CT images in the presence of severe abnormalities
 
-Project developed for ISBI 2024 (https://biomedicalimaging.org/2024)
+Project developed for XXIX Congresso Brasileiro de Engenharia Biomédica (CBEB) 2024 (https://sbeb.org.br/cbeb2024)
 
 ## Abstract
 
