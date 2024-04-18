@@ -39,7 +39,7 @@ We present an approach using probabilistic models, constructed from lung CT imag
 
    <center>
 	<figure>
-	    <img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/coronacases_007/coronacases_007_150_lung.png" alt="CT image", height="200" width="200"><br>CT image and Ground Truth<br>
+	    <img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/coronacases_007/coronacases_007_150_lung.png" alt="CT image", height="200" width="200">
 		<img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/coronacases_007/coronacases_007_150_gt.png" alt="Ground Truth", height="200" width="200"></td>
 		<br>CT image and Ground Truth<br>
 	<figure>
@@ -84,8 +84,9 @@ Outputs for LobePrior       |  Outputs for nnUnet    |  Outputs for Lungmask
 
 <center>
 	<figure>
-	    <img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/gifs/coronacases_010_nnUnet.gif" alt="nnUnet", style="width: 33%;">
+		<img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/gifs/coronacases_010_lobeprior.gif" alt="LobePrior", style="width: 33%;">
 		<img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/gifs/coronacases_010_lungmask.gif" alt="Lungmask", style="width: 33%;">
-		<img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/gifs/coronacases_010_lobeprior.gif" alt="LobePrior", style="width: 33%;">td>
+	    <img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/gifs/coronacases_010_nnUnet.gif" alt="nnUnet", style="width: 33%;">
+		 <br>LobePrior, Lungmask and nnUnet<\br>
 	</figure>
 </center>
