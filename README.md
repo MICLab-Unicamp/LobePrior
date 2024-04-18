@@ -74,12 +74,12 @@ We present an approach using probabilistic models, constructed from lung CT imag
 * Segmentations using the LobePrior, nnUnet and LungMask methods on the CT image coronacases_010 (image without annotation):
 
 
-
+<!--
 Outputs for LobePrior       |  Outputs for nnUnet    |  Outputs for Lungmask
 :-------------------------:|:-------------------------:
-![LobePrior](images/gifs/coronacases_010_lobeprior.gif) "LobePriore" |
-![nnUnet](images/gifs/coronacases_010_nnUnet.gif)  "nnUnet" |
-![Lungmask](images/gifs/coronacases_010_lungmask.gif) "Lungmask"
+![LobePrior](images/gifs/coronacases_010_lobeprior.gif)  |
+![nnUnet](images/gifs/coronacases_010_nnUnet.gif)   |
+![Lungmask](images/gifs/coronacases_010_lungmask.gif)
 -->
 
 <center>
