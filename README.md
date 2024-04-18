@@ -26,19 +26,35 @@ We present an approach using probabilistic models, constructed from lung CT imag
 	</figure>
    </center>
 
-<!-- * Implemented network diagram
+* Diagram of the method implemented using CCN and a priori information, incorporated into the network input as probabilistic models.
 
-<center>
+	<center>
 	<figure>
-	    <img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/Model_fusion_vertical.png" alt="Unet", height="300" width="300">
+	    <img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/Model_fusion_CBEB.png" alt="Unet", height="300" width="300">
 	</figure>
-</center>
--->
+	</center>
+
 
 * Example of segmentation of the LobePrior network in the CT image coronacases_007
 
    <center>
 	<figure>
 	    <img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/lobeprior.png" alt="Unet", height="300" width="300">
+	</figure>
+   </center>
+
+* Qualitative evaluation using 3D representations in CT images of lungs from patients with severe injuries.
+
+ 	<center>
+	<figure>
+	    <img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/Cbeb_images.png" alt="Unet", height="300" width="300">
+	</figure>
+   </center>
+
+* Qualitative evaluation using 3D representations in CT images of lungs from patients with severe injuries.
+
+   <center>
+	<figure>
+	    <img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/Cbeb_volumes.png" alt="Unet", height="300" width="300">
 	</figure>
    </center>
