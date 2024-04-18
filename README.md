@@ -50,7 +50,7 @@ We present an approach using probabilistic models, constructed from lung CT imag
 		<img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/coronacases_007/coronacases_007_150_LobePrior_5_2.png" alt="LobePrior (0,953)", height="200" width="200">
 		<img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/coronacases_007/coronacases_007_150_nnunet_2.png" alt="nnUnet (0,943)", height="200" width="200">
 		<img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/coronacases_007/coronacases_007_150_LTRCLobes_R231_2.png" alt="LungMask (0,945)", height="200" width="200">
-		<br>LobePrior (Dice score = 0,953), nnUnet (Dice score = 0,943) and Lungmask (Dice score = 0,945)<br>
+		<br>LobePrior (Dice score = 0.953), nnUnet (Dice score = 0.943) and Lungmask (Dice score = 0.945)<br>
 	</figure>
    </center>
 
@@ -87,6 +87,5 @@ Outputs for LobePrior       |  Outputs for nnUnet    |  Outputs for Lungmask
 		<img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/gifs/coronacases_010_lobeprior.gif" alt="LobePrior", style="width: 50%;">
 		<img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/gifs/coronacases_010_lungmask.gif" alt="Lungmask", style="width: 50%;">
 	    <img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/gifs/coronacases_010_nnUnet.gif" alt="nnUnet", style="width: 50%;">
-		 <br>LobePrior, Lungmask and nnUnet<br>
 	</figure>
 </center>
