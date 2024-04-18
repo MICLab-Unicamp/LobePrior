@@ -62,3 +62,10 @@ We present an approach using probabilistic models, constructed from lung CT imag
 	    <img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/Cbeb_volumes.png" alt="Unet", height="300" width="600">
 	</figure>
    </center>
+
+
+* Segmentations using the LobePrior, nnUnet and LungMask methods on the CT image coronacases_010 (image without annotation):
+
+Outputs for LobePrior       |  Outputs for nnUnet    |  Outputs for Lungmask
+:-------------------------:|:-------------------------:
+![](gifs/coronacases_010_lobeprior.gif)  |  ![](gifs/coronacases_010_nnUnet.gif)   |  ![](gifs/coronacases_010_lungmask.gif)
