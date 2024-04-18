@@ -67,17 +67,18 @@ We present an approach using probabilistic models, constructed from lung CT imag
 * Segmentations using the LobePrior, nnUnet and LungMask methods on the CT image coronacases_010 (image without annotation):
 
 
+<!--
 Outputs for LobePrior       |  Outputs for nnUnet    |  Outputs for Lungmask
 :-------------------------:|:-------------------------:
-![LobePrior](images/gifs/coronacases_010_lobeprior.gif){ width=200 height=200 }  |
+![LobePrior](images/gifs/coronacases_010_lobeprior.gif)  |
 ![nnUnet](images/gifs/coronacases_010_nnUnet.gif)   |
 ![Lungmask](images/gifs/coronacases_010_lungmask.gif)
-
+-->
 
 <center>
 	<figure>
-	    <img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/gifs/coronacases_010_nnUnet.gif" alt="nnUnet", style="width:33.33%;">
-		<img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/gifs/coronacases_010_lungmask.gif" alt="Lungmask", style="width:33.33%;">
-		<img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/gifs/coronacases_010_lobeprior.gif" alt="LobePrior", style="width:33.33%;">
+	    <img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/gifs/coronacases_010_nnUnet.gif" alt="nnUnet", style="width: 33%;">
+		<img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/gifs/coronacases_010_lungmask.gif" alt="Lungmask", style="width: 33%;">
+		<img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/gifs/coronacases_010_lobeprior.gif" alt="LobePrior", style="width: 33%;">
 	</figure>
 </center>
