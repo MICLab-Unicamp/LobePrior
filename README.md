@@ -30,7 +30,7 @@ We present an approach using probabilistic models, constructed from lung CT imag
 
 	<center>
 	<figure>
-	    <img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/Model_fusion_CBEB.png" alt="Unet", height="300" width="300">
+	    <img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/Model_fusion_CBEB.png" alt="Unet", height="300" width="600">
 	</figure>
 	</center>
 
@@ -47,7 +47,7 @@ We present an approach using probabilistic models, constructed from lung CT imag
 
  	<center>
 	<figure>
-	    <img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/Cbeb_images.png" alt="Unet", height="300" width="300">
+	    <img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/Cbeb_images.png" alt="Unet", height="300" width="600">
 	</figure>
    </center>
 
@@ -55,6 +55,6 @@ We present an approach using probabilistic models, constructed from lung CT imag
 
    <center>
 	<figure>
-	    <img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/Cbeb_volumes.png" alt="Unet", height="300" width="300">
+	    <img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/Cbeb_volumes.png" alt="Unet", height="300" width="600">
 	</figure>
    </center>
