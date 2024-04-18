@@ -68,4 +68,4 @@ We present an approach using probabilistic models, constructed from lung CT imag
 
 Outputs for LobePrior       |  Outputs for nnUnet    |  Outputs for Lungmask
 :-------------------------:|:-------------------------:
-![](gifs/coronacases_010_lobeprior.gif)  |  ![](gifs/coronacases_010_nnUnet.gif)   |  ![](gifs/coronacases_010_lungmask.gif)
+![](images/gifs/coronacases_010_lobeprior.gif)  |  ![](images/gifs/coronacases_010_nnUnet.gif)   |  ![](images/gifs/coronacases_010_lungmask.gif)
