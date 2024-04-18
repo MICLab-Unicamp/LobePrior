@@ -39,8 +39,8 @@ We present an approach using probabilistic models, constructed from lung CT imag
 
    <center>
 	<figure>
-	    <img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/coronacases_007/coronacases_007_150_lung.png" alt="CT image", height="300" width="300">
-		<img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/coronacases_007/coronacases_007_150_gt.png" alt="Golden pattern", height="300" width="300">
+	    <img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/coronacases_007/coronacases_007_150_lung.png" alt="CT image", height="400" width="400">
+		<img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/coronacases_007/coronacases_007_150_gt.png" alt="Golden pattern", height="400" width="400">
 		<img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/coronacases_007/coronacases_007_150_LobePrior_5_2.png" alt="LobePrior (0,953)", height="300" width="300">
 		<img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/coronacases_007/coronacases_007_150_nnunet_2.png" alt="nnUnet (0,943)", height="300" width="300">
 		<img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/coronacases_007/coronacases_007_150_LTRCLobes_R231_2.png" alt="LungMask (0,945)", height="300" width="300">
