@@ -53,8 +53,6 @@ We present an approach using probabilistic models, constructed from lung CT imag
 		<br>LobePrior (Dice score = 0.953), nnUnet (Dice score = 0.943) and Lungmask (Dice score = 0.945)<br>
 	</figure>
    </center>
-
-* Segmentation of the lung lobes using the LobePrior, LungMask and nnUnet methods, respectively, on the coronacases_010 CT image (image without annotation):
  
 <center>
 	<figure>
@@ -81,14 +79,6 @@ We present an approach using probabilistic models, constructed from lung CT imag
    </center>
 
 
-
-<center>
-	<figure>
-		<img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/gifs/coronacases_010_lobeprior.gif" alt="LobePrior", height="200" width="200">
-		<img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/gifs/coronacases_010_lungmask.gif" alt="Lungmask", height="200" width="200">
-	    	<img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/gifs/coronacases_010_nnUnet.gif" alt="nnUnet", height="200" width="200">
-	</figure>
-</center>
 
 <center>
 	<figure>
