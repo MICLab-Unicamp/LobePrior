@@ -54,6 +54,14 @@ We present an approach using probabilistic models, constructed from lung CT imag
 	</figure>
    </center>
 
+   <center>
+	<figure>
+		<img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/gifs/coronacases_010_lobeprior.gif" alt="LobePrior", style="width: 50%;">
+		<img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/gifs/coronacases_010_lungmask.gif" alt="Lungmask", style="width: 50%;">
+	    	<img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/gifs/coronacases_010_nnUnet.gif" alt="nnUnet", style="width: 50%;">
+	</figure>
+</center>
+
 * Qualitative evaluation using 3D representations in CT images of lungs from patients with severe injuries:
 
  	<center>
