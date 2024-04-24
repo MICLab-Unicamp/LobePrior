@@ -54,11 +54,13 @@ We present an approach using probabilistic models, constructed from lung CT imag
 	</figure>
    </center>
 
-   <center>
+* Segmentation of the lung lobes using the LobePrior, LungMask and nnUnet methods, respectively, on the coronacases_010 CT image (image without annotation):
+ 
+<center>
 	<figure>
-		<img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/gifs/coronacases_010_lobeprior.gif" alt="LobePrior", height="100" width="100">
-		<img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/gifs/coronacases_010_lungmask.gif" alt="Lungmask", height="100" width="100">
-	    	<img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/gifs/coronacases_010_nnUnet.gif" alt="nnUnet", height="100" width="100">
+		<img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/gifs/coronacases_010_lobeprior.gif" alt="LobePrior", height="200" width="200">
+		<img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/gifs/coronacases_010_lungmask.gif" alt="Lungmask", height="200" width="200">
+	    	<img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/gifs/coronacases_010_nnUnet.gif" alt="nnUnet", height="200" width="200">
 	</figure>
 </center>
 
@@ -85,7 +87,7 @@ We present an approach using probabilistic models, constructed from lung CT imag
 	<figure>
 		<img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/gifs/coronacases_010_lobeprior.gif" alt="LobePrior", height="200" width="200">
 		<img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/gifs/coronacases_010_lungmask.gif" alt="Lungmask", height="200" width="200">
-	    	<img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/gifs/coronacases_010_nnUnet.gif" alt="nnUnet", height="200" width="100200
+	    	<img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/gifs/coronacases_010_nnUnet.gif" alt="nnUnet", height="200" width="200
 	</figure>
 </center>
 
