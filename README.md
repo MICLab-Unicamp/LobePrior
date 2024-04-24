@@ -81,7 +81,6 @@ We present an approach using probabilistic models, constructed from lung CT imag
    </center>
 
 
-* Segmentation of the lung lobes using the LobePrior, LungMask and nnUnet methods, respectively, on the coronacases_010 CT image (image without annotation):
 
 <center>
 	<figure>
