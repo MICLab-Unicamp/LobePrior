@@ -73,15 +73,6 @@ We present an approach using probabilistic models, constructed from lung CT imag
 
 * Segmentation of the lung lobes using the LobePrior, LungMask and nnUnet methods, respectively, on the coronacases_010 CT image (image without annotation):
 
-
-<!--
-Outputs for LobePrior       |  Outputs for nnUnet    |  Outputs for Lungmask
-:-------------------------:|:-------------------------:
-![LobePrior](images/gifs/coronacases_010_lobeprior.gif)  |
-![nnUnet](images/gifs/coronacases_010_nnUnet.gif)   |
-![Lungmask](images/gifs/coronacases_010_lungmask.gif)
--->
-
 <center>
 	<figure>
 		<img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/gifs/coronacases_010_lobeprior.gif" alt="LobePrior", style="width: 50%;">
@@ -90,19 +81,10 @@ Outputs for LobePrior       |  Outputs for nnUnet    |  Outputs for Lungmask
 	</figure>
 </center>
 
-<center>
-	<figure>
-	    <img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/coronacases_007/coronacases_007_150_lung.png" alt="CT image", height="200" width="200">
-		<img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/coronacases_007/coronacases_007_150_gt.png" alt="Ground Truth", height="200" width="200"></td>
-		<br>CT image and Ground Truth<br>
-	</figure>
-</center>
-	<br>
-<center>
-	<figure>
-		<img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/coronacases_007/coronacases_007_150_LobePrior_5_2.png" alt="LobePrior (0,953)", height="200" width="200">
-		<img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/coronacases_007/coronacases_007_150_nnunet_2.png" alt="nnUnet (0,943)", height="200" width="200">
-		<img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/coronacases_007/coronacases_007_150_LTRCLobes_R231_2.png" alt="LungMask (0,945)", height="200" width="200">
-		<br>LobePrior (Dice score = 0.953), nnUnet (Dice score = 0.943) and Lungmask (Dice score = 0.945)<br>
-	</figure>
-</center>
+<!--
+Outputs for LobePrior       |  Outputs for nnUnet    |  Outputs for Lungmask
+:-------------------------:|:-------------------------:
+![LobePrior](images/gifs/coronacases_010_lobeprior.gif)  |
+![nnUnet](images/gifs/coronacases_010_nnUnet.gif)   |
+![Lungmask](images/gifs/coronacases_010_lungmask.gif)
+-->
