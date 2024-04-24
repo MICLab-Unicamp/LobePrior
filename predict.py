@@ -11,9 +11,7 @@ import numpy as np
 import torchio as tio
 import SimpleITK as sitk
 import pytorch_lightning as pl
-from lungmask import mask as lungmask
 from matplotlib import pyplot as plt
-from monai.metrics import DiceMetric
 from monai.inferers import sliding_window_inference
 
 from utils.general import SalvaFile
@@ -21,11 +19,10 @@ from model.unet_diedre import UNet_Diedre
 from utils.post_processed_3D import pos_processed
 from utils.to_onehot import to_onehot
 from utils.metric import Dice_chavg_per_label_metric
-from utils.loss import FocalLossKaggle, BayesianLossByChannel
+from utils.loss import BayesianLossByChannel
 from utils.metric import Dice_metric
 from utils.post_processed_3D import pos_processed
 from utils.seg_metrics import initialize_metrics_dict, seg_metrics
-from utils.unified_img_reading_resample import unified_img_reading
 
 RAW_DATA_FOLDER = os.getenv("HOME")
 DATA_FOLDER_NPZ = 'output_predict'
@@ -90,24 +87,18 @@ class LoberModule(pl.LightningModule):
 		self.save_hyperparameters(hparams)
 
 		# Loss
-		#self.criterion_seg = FocalLossKaggle()
-		self.criterion_baysian = BayesianLossByChannel()
 		self.criterion_by_lobe = monai.losses.DiceLoss(reduction='mean')
 
 		# Métricas
 		self.metric = Dice_chavg_per_label_metric()
 
 		if self.hparams.mode == "segmentation":
-			#self.model_seg = BB_Unet(n_organs=1, BB_boxes=1)
-			#self.model_seg = BB_Unet_pytorch(in_channels=1, n_classes=1, s_channels=64, BB_boxes=1)
-			#self.model_seg = UNet_Diedre(n_channels=3, n_classes=1, norm=True, dim='3d', init_channel=16, joany_conv=False, dict_return=False)
 			self.model_hat = UNet_Diedre(n_channels=1, n_classes=6, norm="instance", dim='3d', init_channel=16, joany_conv=False, dict_return=False)
 			self.model_seg_0 = UNet_Diedre(n_channels=3, n_classes=1, norm="instance", dim='3d', init_channel=8, joany_conv=False, dict_return=False)
 			self.model_seg_1 = UNet_Diedre(n_channels=3, n_classes=1, norm="instance", dim='3d', init_channel=8, joany_conv=False, dict_return=False)
 			self.model_seg_2 = UNet_Diedre(n_channels=3, n_classes=1, norm="instance", dim='3d', init_channel=8, joany_conv=False, dict_return=False)
 			self.model_seg_3 = UNet_Diedre(n_channels=3, n_classes=1, norm="instance", dim='3d', init_channel=8, joany_conv=False, dict_return=False)
 			self.model_seg_4 = UNet_Diedre(n_channels=3, n_classes=1, norm="instance", dim='3d', init_channel=8, joany_conv=False, dict_return=False)
-			#self.model_hat = monai.networks.nets.VNet(in_channels = 6, out_channels = self.hparams.snout)
 
 	def forward_per_lobe(self, x, template, y_seg, y):
 		#print(x.shape, y.shape, template.shape)
@@ -157,7 +148,7 @@ class LoberModule(pl.LightningModule):
 				roi_size=(128, 128, 128),
 				sw_batch_size=1,
 				predictor=model.cuda(),
-				overlap=0.3,
+				#overlap=0.3,
 				mode="gaussian",
 				progress=False,
 				device=torch.device('cuda')

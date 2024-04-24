@@ -6,12 +6,9 @@ import glob
 import torch
 import numpy as np
 import torchio as tio
-import SimpleITK as sitk
-import matplotlib.pyplot as plt
 from torch.utils.data import Dataset
 
 from utils.to_onehot import to_onehot
-from utils.transform3D import random_crop
 
 RAW_DATA_FOLDER = os.getenv("HOME")
 RAW_DATA_FOLDER_ISOMETRIC = os.path.join(RAW_DATA_FOLDER, "DataSets/outputs_registered_high/isometric_cliped_and_normalized")
@@ -27,75 +24,6 @@ TEMPLATE_8_PATH  = os.path.join(RAW_DATA_FOLDER_ISOMETRIC, 'model_fusion/group_8
 TEMPLATE_9_PATH  = os.path.join(RAW_DATA_FOLDER_ISOMETRIC, 'model_fusion/group_9.npz')
 TEMPLATE_10_PATH = os.path.join(RAW_DATA_FOLDER_ISOMETRIC, 'model_fusion/group_10.npz')
 TEMPLATE_11_PATH = os.path.join(RAW_DATA_FOLDER_ISOMETRIC, 'model_fusion/group_11.npz')
-
-def showImages(image, label):
-	f, (plot1, plot2, plot3, plot4, plot5, plot6) = plt.subplots(1, 6, figsize = (12, 6))
-	plot1.imshow(image[0][image.shape[1]//2])
-	plot1.set_axis_off()
-	plot2.imshow(label[0][label.shape[1]//2])
-	plot2.set_axis_off()
-	plot3.imshow(image[0][:,image.shape[1]//2])
-	plot3.set_axis_off()
-	plot4.imshow(label[0][:,label.shape[1]//2])
-	plot4.set_axis_off()
-	plot5.imshow(image[0][:,:,image.shape[1]//2])
-	plot5.set_axis_off()
-	plot6.imshow(label[0][:,:,label.shape[1]//2])
-	plot6.set_axis_off()
-	plt.show()
-	plt.close()
-
-class CTDataset3D(Dataset):
-	def __init__(self, mode, labels_name=[1,2,3,4,5], bronchi=False, transforms=None):
-		self.bronchi = bronchi
-		self.mode = mode
-		self.labels_name = labels_name
-		self.dataset = sorted(glob.glob(os.path.join(RAW_DATA_FOLDER_ISOMETRIC, mode, "*.npz")))
-
-		print('\tFolder:', RAW_DATA_FOLDER_ISOMETRIC)
-		print('\tTamanho do dataset ({}): {}'.format(mode, len(self.dataset)))
-		print('\tMode:', self.mode)
-
-	def __len__(self):
-		return len(self.dataset)
-
-	def __getitem__(self, i):
-		npz_path = self.dataset[i]
-		npz = np.load(npz_path)
-		img, tgt = npz["image"][:].astype(np.float32), npz["label"][:].astype(np.float32)
-
-		ID = os.path.basename(npz_path).replace('.npz','').replace('_affine3D','').replace('_rigid3D','')
-
-		##########################################################################
-		subject = tio.Subject(
-			image=tio.ScalarImage(tensor = img),
-			label=tio.LabelMap(tensor = tgt),
-		)
-		transform = tio.Resize((64, 64, 64))
-		transformed = transform(subject)
-		img_high = transformed.image.numpy()
-		tgt_high = transformed.label.numpy()
-		##########################################################################
-
-		img_high = torch.from_numpy(img_high).float()
-		tgt_high = torch.from_numpy(tgt_high).float()
-
-		segmentation = np.array(tgt.squeeze().argmax(axis=0)).astype(np.uint8)
-		if segmentation.max()>8:
-			segmentation[segmentation>8]=0
-		segmentation[segmentation>0]=1
-
-		new_image = np.zeros(img[0].shape).astype(img.dtype)
-		new_image = np.where(segmentation == 1, img, img.min())
-		img = new_image
-
-		if self.mode=='train':
-			img, tgt = random_crop(img, tgt, 64, 128, 128)
-
-		img = torch.from_numpy(img).float()
-		tgt = torch.from_numpy(tgt).float()
-
-		return {"image_h": img_high, "label_h": tgt_high, "image": img, "label": tgt, "npz_path":npz_path, "ID":ID}
 
 def buscaImagesByGoup(GROUP):
 	images_all = glob.glob(os.path.join(RAW_DATA_FOLDER_ISOMETRIC, 'groups','group_'+str(GROUP),'npz_rigid/*.npz'))

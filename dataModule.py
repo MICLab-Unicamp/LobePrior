@@ -6,7 +6,7 @@ import pytorch_lightning as pl
 from tqdm import tqdm
 from torch.utils.data import DataLoader
 
-from dataset import CTDataset3D, CTDataset3DWithTemplate
+from dataset import CTDataset3DWithTemplate
 from utils.transform3D import get_transform
 
 class DataModule(pl.LightningDataModule):
@@ -20,12 +20,8 @@ class DataModule(pl.LightningDataModule):
 	def check_dataset(self):
 		# Tentar carregar todos os exemplos do dataset
 		for mode in ["train", "val"]:
-			if self.hparams.datatype=='template':
-				for sample in tqdm(CTDataset3DWithTemplate(mode, labels_name=self.hparams.labels_name), leave=True, position=0, desc="Load testing..."):
-					pass
-			else:
-				for sample in tqdm(CTDataset3D(mode, labels_name=self.hparams.labels_name), leave=True, position=0, desc="Load testing..."):
-					pass
+			for sample in tqdm(CTDataset3DWithTemplate(mode, labels_name=self.hparams.labels_name), leave=True, position=0, desc="Load testing..."):
+				pass
 
 	def setup(self, stage=None):
 		'''
@@ -36,12 +32,8 @@ class DataModule(pl.LightningDataModule):
 				self.hparams.train_transform = get_transform(self.hparams.train_transform_str)
 				self.hparams.eval_transform = get_transform(self.hparams.eval_transform_str)
 
-				if self.hparams.datatype=='template':
-					self.train = CTDataset3DWithTemplate("train", labels_name=self.hparams.labels_name, transforms=None)
-					self.val = CTDataset3DWithTemplate("val", labels_name=self.hparams.labels_name, transforms=None)
-				else:
-					self.train = CTDataset3D("train", labels_name=self.hparams.labels_name, transforms=None)
-					self.val = CTDataset3D("val", labels_name=self.hparams.labels_name, transforms=None)
+				self.train = CTDataset3DWithTemplate("train", labels_name=self.hparams.labels_name, transforms=None)
+				self.val = CTDataset3DWithTemplate("val", labels_name=self.hparams.labels_name, transforms=None)
 			except Exception as e:
 				print("Empty dataset!")
 				sys.exit(1)

@@ -5,9 +5,7 @@ import torch
 import monai
 import skimage
 import numpy as np
-import torch.nn as nn
 import pytorch_lightning as pl
-import matplotlib.pyplot as plt
 from monai.inferers import sliding_window_inference
 
 from model.unet_diedre import UNet_Diedre
