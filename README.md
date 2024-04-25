@@ -22,7 +22,7 @@ We present an approach using probabilistic models, constructed from lung CT imag
 
    <center>
 	<figure>
-	    <img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/Lobes_coronacases_001.png", alt="Unet", height="300" width="300">
+	    <img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/Lobes_coronacases_001_com_fundo_branco.png", alt="Unet", height="300" width="300">
 	</figure>
    </center>
 
@@ -53,7 +53,7 @@ We present an approach using probabilistic models, constructed from lung CT imag
 		<br>LobePrior (Dice score = 0.953), nnUnet (Dice score = 0.943) and Lungmask (Dice score = 0.945)<br>
 	</figure>
    </center>
- 
+
 
 * Qualitative evaluation using 3D representations in CT images of lungs from patients with severe injuries:
 
