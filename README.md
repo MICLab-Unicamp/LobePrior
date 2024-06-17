@@ -1,4 +1,4 @@
-# LobePrior: Segmenting lung lobes in CT images in the presence of severe abnormalities
+# Deep learning with probabilistic models for segmenting lung lobes on computed tomography images with severe abnormalities
 
 Project developed for XXIX Congresso Brasileiro de Engenharia Biomédica (CBEB) 2024 (https://sbeb.org.br/cbeb2024)
 
