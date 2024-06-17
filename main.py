@@ -168,12 +168,3 @@ if __name__ == '__main__':
 	print(f"Pytorch Lightning version: {pl.__version__}\n")
 
 	sys.exit(main(sys.argv))
-
-
-#https://pytorch-lightning.readthedocs.io/en/0.8.5/weights_loading.html
-#https://lightning.ai/docs/pytorch/stable/common/checkpointing_basic.html
-#checkpoint = torch.load(pre_trained_model_path, map_location=lambda storage, loc: storage)
-#print('hyper_parameters:', checkpoint["hyper_parameters"])
-#print('keys:', checkpoint.keys())
-#print('epoch:', checkpoint['epoch'])
-#print('global_step:', checkpoint['global_step'])
