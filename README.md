@@ -96,12 +96,8 @@ Outputs for LobePrior       |  Outputs for nnUnet    |  Outputs for Lungmask
 @ARTICLE{Jean2024,
 	title = {Deep learning with probabilistic models for segmenting lung lobes on computed tomography images with severe abnormalities},
 	journal = {CBEB 2024},
-	!volume = {42},
 	pages = {1-6},
 	year = {2024},
-	!issn = {1361-8415},
-	!doi = {https://doi.org/10.1016/j.media.2017.06.015},
-	!url = {https://www.sciencedirect.com/science/article/pii/S1361841517301020},
 	author = {Jean Antonio Ribeiro and Diedre Santos do Carmo and Fabiano Reis and Leticia Rittner}
 }
 ```
