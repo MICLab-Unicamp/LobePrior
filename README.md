@@ -21,7 +21,7 @@ We present an approach using probabilistic models, constructed from lung CT imag
    * This work was submitted to ISBI 2024 (https://biomedicalimaging.org/2024).
 
    <div align="center">
-       <a href="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/Lobes_coronacases_001_com_fundo_branco.png"><img width="700px" height="auto" src="appendix/Parse_1.webp"></a>
+       <a href="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/Lobes_coronacases_001_com_fundo_branco.png"><img width="300px" height="auto" src="[appendix/Parse_1.webp](https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/Lobes_coronacases_001_com_fundo_branco.png)"></a>
    </div>
 
    <center>
