@@ -24,11 +24,11 @@ We present an approach using probabilistic models, constructed from lung CT imag
        <a href="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/Lobes_coronacases_001_com_fundo_branco.png"><img width="300px" height="auto" src="[appendix/Parse_1.webp](https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/Lobes_coronacases_001_com_fundo_branco.png)"></a>
    </div>
 
-   <center>
+   <div align="center">
 	<figure>
 	    <img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/Lobes_coronacases_001_com_fundo_branco.png", alt="Unet", height="300" width="300">
 	</figure>
-   </center>
+   </div>
 
 * Diagram of the method implemented using CCN and a priori information, incorporated into the network input as probabilistic models:
 
