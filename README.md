@@ -1,4 +1,4 @@
-# Deep learning with probabilistic models for segmenting lung lobes on computed tomography images with severe abnormalities
+![image](https://github.com/user-attachments/assets/b7c87d01-6f65-4544-8e96-296d11c8248f)# Deep learning with probabilistic models for segmenting lung lobes on computed tomography images with severe abnormalities
 
 Project developed for XXIX Congresso Brasileiro de Engenharia Biomédica (CBEB) 2024 (https://sbeb.org.br/cbeb2024)
 
@@ -50,7 +50,7 @@ We present an approach using probabilistic models, constructed from lung CT imag
 		<img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/coronacases_007/coronacases_007_150_LobePrior_5_2.png" alt="LobePrior (0,953)", height="200" width="200">
 		<img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/coronacases_007/coronacases_007_150_nnunet_2.png" alt="nnUnet (0,943)", height="200" width="200">
 		<img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/coronacases_007/coronacases_007_150_LTRCLobes_R231_2.png" alt="LungMask (0,945)", height="200" width="200">
-		<br>LobePrior (Dice score = 0.953), nnUnet (Dice score = 0.943) and Lungmask (Dice score = 0.945)<br>
+		<br>LobePrior (Dice score = 0.980), nnUnet (Dice score = 0.943) and Lungmask (Dice score = 0.945)<br>
 	</figure>
    </div>
 
