@@ -100,4 +100,14 @@ Outputs for LobePrior       |  Outputs for nnUnet    |  Outputs for Lungmask
 	year = {2024},
 	author = {Jean Antonio Ribeiro and Diedre Santos do Carmo and Fabiano Reis and Leticia Rittner}
 }
+
+@DATASET{redu_ORXJKS_2025,
+	author = {Jean Antonio Ribeiro and Leticia Rittner and Diedre Santos do Carmo and Simone Appenzeller and Ricardo Siufi Magalhães and Sergio San Juan Dertkigil and Fabiano Reis},
+	publisher = {Repositório de Dados de Pesquisa da Unicamp},
+	title = {{LOCCA: Manual annotations for lung lobes in CT images of patients with cancer and COVID-19}},
+	year = {2025},
+	version = {V1},
+	doi = {10.25824/redu/ORXJKS},
+	url = {https://doi.org/10.25824/redu/ORXJKS}
+}
 ```
