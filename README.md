@@ -103,7 +103,7 @@ Outputs for LobePrior       |  Outputs for nnUnet    |  Outputs for Lungmask
 	url = {https://doi.org/10.25824/redu/ORXJKS}
 }
 
-@ARTICLE{Jean2024,
+@ARTICLE{CBEB2024,
 	title = {Deep learning with probabilistic models for segmenting lung lobes on computed tomography images with severe abnormalities},
 	journal = {CBEB 2024},
 	pages = {1-6},
@@ -111,7 +111,7 @@ Outputs for LobePrior       |  Outputs for nnUnet    |  Outputs for Lungmask
 	author = {Jean Antonio Ribeiro and Diedre Santos do Carmo and Fabiano Reis and Leticia Rittner}
 }
 
-@ARTICLE{Carmo04122022,
+@ARTICLE{review2022,
 	title = {{A Systematic Review of Automated Segmentation Methods and Public Datasets for the Lung and its Lobes and Findings on Computed Tomography Images}},
 	author={Diedre Santos do Carmo and Jean Antonio Ribeiro and Sergio Dertkigil and Simone Appenzeller and Roberto Lotufo and Leticia Rittner},
 	journal={Yearbook of Medical Informatics},
