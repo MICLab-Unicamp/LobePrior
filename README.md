@@ -18,7 +18,7 @@ We present an approach using probabilistic models, constructed from lung CT imag
 
 # Project
 
-   * This work was submitted to ISBI 2024 (https://biomedicalimaging.org/2024).
+   * This work was accepted in CBEB 2024 (https://sbeb.org.br/cbeb2024).
 
    <div align="center">
 	<figure>
