@@ -30,7 +30,7 @@ We present an approach using probabilistic models, constructed from lung CT imag
 
      <div align="center">
 	<figure>
-	    <img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/Network_final_post_new.png" alt="Unet", width="800", height="auto" >
+	    <img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/Network_final_post_new.png" alt="LobePrior", width="800", height="auto" >
 	</figure>
      </div>
 
