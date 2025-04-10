@@ -18,7 +18,7 @@ from model.unet_diedre import UNet_SeisDecoders
 from utils.general import pos_processamento, post_processing_dist_lung, post_processing_lung
 from utils.general import unified_img_reading, mask_to_onehot, busca_path, salvaImageRebuilt
 from utils.transform3D import CTHUClip
-from predict_lung_completo import LungModule
+from predict_lung  import LungModule
 
 HOME = os.getenv("HOME")
 TEMP_IMAGES = 'temp_images'

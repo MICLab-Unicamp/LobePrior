@@ -16,8 +16,8 @@ from utils.general import register_single, teste_pickle_by_image
 from utils.general import unified_img_reading
 from utils.general import analyze_registration_quality, find_best_registration
 from utils.transform3D import CTHUClip
-from predict_7_decoders_complete import LoberModule
-from predict_6_normal import LoberModuleNormal
+from predict_decoders import LoberModule
+from predict_normal import LoberModuleNormal
 
 HOME = os.getenv("HOME")
 TEMP_IMAGES = 'temp_images'

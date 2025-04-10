@@ -15,7 +15,7 @@ import multiprocessing as mp
 from monai.inferers import sliding_window_inference
 
 from model.unet_diedre import UNet_SeteDecoders
-from predict_lung_completo import LungModule
+from predict_lung import LungModule
 from utils.general import pos_processamento, post_processing_dist_lung, post_processing_lung
 from utils.general import register_single, teste_pickle_by_image
 from utils.general import unified_img_reading, mask_to_onehot, busca_path, salvaImageRebuilt
