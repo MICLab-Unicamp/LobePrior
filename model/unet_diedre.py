@@ -20,10 +20,8 @@ import torch.nn as nn
 import torch.nn.functional as F
 from scipy.ndimage import zoom
 
-
 def assert_dim(dim):
 	assert dim in ('2d', '3d'), "dim {} not supported".format(dim)
-
 
 class Joany25D(nn.Module):
 	'''
@@ -47,7 +45,7 @@ class Joany25D(nn.Module):
 
 		# Non linear activation
 		x = self.act(x)
-		
+
 		return x
 
 
@@ -74,7 +72,7 @@ class SelfAttention(nn.Module):
 class DoubleConv(nn.Module):
 	def __init__(self, in_ch, out_ch, norm, reduce, dim):
 		super().__init__()
-		
+
 		if norm == "group":
 			norms = [nn.GroupNorm(num_groups=8, num_channels=out_ch) for _ in range(2)]
 		elif norm == "instance":
@@ -99,7 +97,7 @@ class DoubleConv(nn.Module):
 	def forward(self, x):
 		y = self.conv(x)
 		return y + self.residual_connection(x)
-		
+
 
 class Up(nn.Module):
 	'''
@@ -220,7 +218,7 @@ class UNetDecoder(nn.Module):
 class UNet_Diedre(nn.Module):
 	'''
 	Main model class, final version
-	Fixing design choices. 
+	Fixing design choices.
 	For old tunable unet check git history
 	Removed residual, small, sigmoid and softmax applications
 	joany_conv: experimental multi modal 2.5D with 3D conv
@@ -232,10 +230,10 @@ class UNet_Diedre(nn.Module):
 		self.enc = UNetEncoder(n_channels=n_channels, init_channel=init_channel, norm=norm, dim=dim, joany_conv=joany_conv)
 		self.dec = UNetDecoder(n_classes=n_classes, init_channel=init_channel, norm=norm, dim=dim)
 
+
 		print(f"UNet in channels: {n_channels}"
 			  f" batch_norm: {norm} dim: {dim}"
 			  f" out_channels {n_classes} "
-			  f" joany_conv {joany_conv} "
 			  f" dict_return {dict_return}")
 
 	def forward(self, x):
@@ -243,6 +241,141 @@ class UNet_Diedre(nn.Module):
 			return {"main": self.dec(*self.enc(x))}
 		else:
 			return self.dec(*self.enc(x))
+
+class UNet_DoisDecoder(nn.Module):
+	'''
+	UNet compartilha conhecimento no encoder
+	Sai Lobes e Airways
+	key: "lobes", "airways"
+	'''
+	def __init__(self, n_channels, n_classes_lobes, n_classes_airways, norm, dim, init_channel, joany_conv=False, dict_return=False):
+		super(UNet_DoisDecoder, self).__init__()
+
+		self.dict_return = dict_return
+		self.enc = UNetEncoder(n_channels=n_channels, init_channel=init_channel, norm=norm, dim=dim, joany_conv=joany_conv)
+		self.dec_lobes = UNetDecoder(n_classes=n_classes_lobes, init_channel=init_channel, norm=norm, dim=dim)
+		self.dec_airways = UNetDecoder(n_classes=n_classes_airways, init_channel=init_channel, norm=norm, dim=dim)
+
+
+		print(f"UNet in channels: {n_channels}"
+			f" batch_norm: {norm} dim: {dim}"
+			f" out lobes channels {n_classes_lobes} out airways channels {n_classes_airways}"
+			f" dict_return {dict_return}")
+
+	def forward(self, x):
+		encoder_features = self.enc(x)
+
+		if self.dict_return:
+			return {"lobes": self.dec_lobes(*encoder_features),
+		   			"airways": self.dec_airways(*encoder_features)}
+		else:
+			return self.dec_lobes(*encoder_features), self.dec_airways(*encoder_features)
+
+class UNet_CincoDecoders(nn.Module):
+	'''
+	UNet compartilha conhecimento no encoder
+	Sai Lobes
+	key: "lobes""
+	'''
+	def __init__(self, n_channels, n_classes, norm, dim, init_channel, joany_conv=False, dict_return=False):
+		super(UNet_CincoDecoders, self).__init__()
+
+		self.dict_return = dict_return
+		self.enc = UNetEncoder(n_channels=n_channels, init_channel=init_channel, norm=norm, dim=dim, joany_conv=joany_conv)
+		self.dec_one = UNetDecoder(n_classes=n_classes, init_channel=init_channel, norm=norm, dim=dim)
+		self.dec_two = UNetDecoder(n_classes=n_classes, init_channel=init_channel, norm=norm, dim=dim)
+		self.dec_three = UNetDecoder(n_classes=n_classes, init_channel=init_channel, norm=norm, dim=dim)
+		self.dec_four = UNetDecoder(n_classes=n_classes, init_channel=init_channel, norm=norm, dim=dim)
+		self.dec_five = UNetDecoder(n_classes=n_classes, init_channel=init_channel, norm=norm, dim=dim)
+
+
+		print(f"UNet in channels: {n_channels}"
+			f" batch_norm: {norm} dim: {dim}"
+			f" out lobes channels {n_classes}"
+			f" dict_return {dict_return}")
+
+	def forward(self, x):
+		encoder_features = self.enc(x)
+
+		if self.dict_return:
+			return {"lobes": self.dec_lobes(*encoder_features),
+		   			"airways": self.dec_airways(*encoder_features)}
+		else:
+			return self.dec_one(*encoder_features), self.dec_two(*encoder_features), self.dec_three(*encoder_features), self.dec_four(*encoder_features), self.dec_five(*encoder_features)
+
+class UNet_SeisDecoders(nn.Module):
+	'''
+	UNet compartilha conhecimento no encoder
+	Sai Lobes
+	key: "lobes""
+	'''
+	def __init__(self, n_channels, n_classes, norm, dim, init_channel, joany_conv=False, dict_return=False):
+		super(UNet_SeisDecoders, self).__init__()
+
+		self.dict_return = dict_return
+		self.enc = UNetEncoder(n_channels=n_channels, init_channel=init_channel, norm=norm, dim=dim, joany_conv=joany_conv)
+		self.dec_one = UNetDecoder(n_classes=n_classes, init_channel=init_channel, norm=norm, dim=dim)
+		self.dec_two = UNetDecoder(n_classes=n_classes, init_channel=init_channel, norm=norm, dim=dim)
+		self.dec_three = UNetDecoder(n_classes=n_classes, init_channel=init_channel, norm=norm, dim=dim)
+		self.dec_four = UNetDecoder(n_classes=n_classes, init_channel=init_channel, norm=norm, dim=dim)
+		self.dec_five = UNetDecoder(n_classes=n_classes, init_channel=init_channel, norm=norm, dim=dim)
+		self.dec_airway = UNetDecoder(n_classes=n_classes, init_channel=init_channel, norm=norm, dim=dim)
+
+
+		print(f"UNet in channels: {n_channels}"
+			f" batch_norm: {norm} dim: {dim}"
+			f" out lobes channels {n_classes}"
+			f" dict_return {dict_return}")
+
+	def forward(self, x):
+		encoder_features = self.enc(x)
+
+		if self.dict_return:
+			return {"lobes": self.dec_lobes(*encoder_features),
+					"airways": self.dec_airways(*encoder_features)}
+		else:
+			return self.dec_one(*encoder_features), self.dec_two(*encoder_features), self.dec_three(*encoder_features), self.dec_four(*encoder_features), self.dec_five(*encoder_features), self.dec_airway(*encoder_features)
+
+class UNet_SeteDecoders(nn.Module):
+	'''
+	UNet compartilha conhecimento no encoder
+	Sai Lobes
+	key: "lobes""
+	'''
+	def __init__(self, n_channels, n_classes, norm, dim, init_channel, joany_conv=False, dict_return=False):
+		super(UNet_SeteDecoders, self).__init__()
+
+		self.dict_return = dict_return
+		self.enc = UNetEncoder(n_channels=n_channels, init_channel=init_channel, norm=norm, dim=dim, joany_conv=joany_conv)
+		self.dec_lung = UNetDecoder(n_classes=n_classes, init_channel=init_channel, norm=norm, dim=dim)
+		self.dec_one = UNetDecoder(n_classes=n_classes, init_channel=init_channel, norm=norm, dim=dim)
+		self.dec_two = UNetDecoder(n_classes=n_classes, init_channel=init_channel, norm=norm, dim=dim)
+		self.dec_three = UNetDecoder(n_classes=n_classes, init_channel=init_channel, norm=norm, dim=dim)
+		self.dec_four = UNetDecoder(n_classes=n_classes, init_channel=init_channel, norm=norm, dim=dim)
+		self.dec_five = UNetDecoder(n_classes=n_classes, init_channel=init_channel, norm=norm, dim=dim)
+		self.dec_airway = UNetDecoder(n_classes=n_classes, init_channel=init_channel, norm=norm, dim=dim)
+
+
+		print(f"UNet in channels: {n_channels}"
+			f" batch_norm: {norm} dim: {dim}"
+			f" out lobes channels {n_classes}"
+			f" dict_return {dict_return}")
+
+	def forward(self, x):
+		encoder_features = self.enc(x)
+
+		if self.dict_return:
+			return {
+						"lung": self.dec_lung(*encoder_features),
+						"LUL": self.dec_one(*encoder_features),
+						"LLL": self.dec_two(*encoder_features),
+						"RLL": self.dec_three(*encoder_features),
+						"RML": self.dec_four(*encoder_features),
+						"RLL": self.dec_five(*encoder_features),
+						"airways": self.dec_airways(*encoder_features)
+					}
+		else:
+			return self.dec_lung(*encoder_features), self.dec_one(*encoder_features), self.dec_two(*encoder_features), self.dec_three(*encoder_features), self.dec_four(*encoder_features), self.dec_five(*encoder_features), self.dec_airway(*encoder_features)
 
 if __name__ == '__main__':
 	import os
@@ -273,4 +406,63 @@ if __name__ == '__main__':
 	out = net(data)
 
 	#summary(net,data)
-	print("out size: {}".format(out.size()))
+	print(f'{out.size()}')
+
+
+
+
+
+
+	net = UNet_DoisDecoder(n_channels=1, n_classes_lobes=1, n_classes_airways=1, norm=False, dim='3d', init_channel=64, joany_conv=False, dict_return=False)
+
+	data = Variable(torch.randn(1, 1, 32, 128, 128))
+	print("input size: {}".format(data.size()))
+
+	out_lobes, out_airway = net(data)
+
+	#summary(net,data)
+	print(f'{out_lobes.size()} {out_airway.size()}')
+
+
+
+
+
+	net = UNet_CincoDecoders(n_channels=1, n_classes=1, norm=False, dim='3d', init_channel=64, joany_conv=False, dict_return=False)
+
+	data = Variable(torch.randn(1, 1, 32, 128, 128))
+	print("input size: {}".format(data.size()))
+
+	out_one, out_two, out_three, out_four, out_five = net(data)
+
+	#summary(net,data)
+	print("out size: {}".format(out_one.size()))
+
+
+
+
+
+	net = UNet_SeisDecoders(n_channels=1, n_classes=1, norm="instance", dim='3d', init_channel=64, joany_conv=False, dict_return=False)
+
+	data = Variable(torch.randn(1, 1, 32, 128, 128))
+	print("input size: {}".format(data.size()))
+
+	out_one, out_two, out_three, out_four, out_five, airway = net(data)
+
+	#summary(net,data)
+	print(f'out size: {out_one.size()}, {airway.size()}')
+
+
+
+
+
+
+
+	net = UNet_SeteDecoders(n_channels=1, n_classes=1, norm="instance", dim='3d', init_channel=64, joany_conv=False, dict_return=False)
+
+	data = Variable(torch.randn(1, 1, 32, 128, 128))
+	print("input size: {}".format(data.size()))
+
+	out_lung, out_one, out_two, out_three, out_four, out_five, airway = net(data)
+
+	#summary(net,data)
+	print(f'out size: {out_lung.size()}, {out_one.size()}, {airway.size()}')

@@ -2,54 +2,53 @@
 # -*- coding: utf-8 -*-
 
 import os
+import sys
 import glob
 import torch
+import random
+
 import numpy as np
 import torchio as tio
 from torch.utils.data import Dataset
 
-from utils.to_onehot import to_onehot
+from utils.general import mask_to_onehot
+from utils.transform3D import TransformsnnUNet
 
-RAW_DATA_FOLDER = os.getenv("HOME")
-RAW_DATA_FOLDER_ISOMETRIC = os.path.join(RAW_DATA_FOLDER, "DataSets/outputs_registered_high/isometric_cliped_and_normalized")
+HOME = os.getenv("HOME")
+RAW_DATA_FOLDER = '/media/jean/SSD-03/registered_images_no_dice'
+RAW_DATA_FOLDER_MODEL_FUSION = '/mnt/data/registered_images_no_dice/model_fusion'
 
-TEMPLATE_1_PATH  = os.path.join(RAW_DATA_FOLDER_ISOMETRIC, 'model_fusion/group_1.npz')
-TEMPLATE_2_PATH  = os.path.join(RAW_DATA_FOLDER_ISOMETRIC, 'model_fusion/group_2.npz')
-TEMPLATE_3_PATH  = os.path.join(RAW_DATA_FOLDER_ISOMETRIC, 'model_fusion/group_3.npz')
-TEMPLATE_4_PATH  = os.path.join(RAW_DATA_FOLDER_ISOMETRIC, 'model_fusion/group_4.npz')
-TEMPLATE_5_PATH  = os.path.join(RAW_DATA_FOLDER_ISOMETRIC, 'model_fusion/group_5.npz')
-TEMPLATE_6_PATH  = os.path.join(RAW_DATA_FOLDER_ISOMETRIC, 'model_fusion/group_6.npz')
-TEMPLATE_7_PATH  = os.path.join(RAW_DATA_FOLDER_ISOMETRIC, 'model_fusion/group_7.npz')
-TEMPLATE_8_PATH  = os.path.join(RAW_DATA_FOLDER_ISOMETRIC, 'model_fusion/group_8.npz')
-TEMPLATE_9_PATH  = os.path.join(RAW_DATA_FOLDER_ISOMETRIC, 'model_fusion/group_9.npz')
-TEMPLATE_10_PATH = os.path.join(RAW_DATA_FOLDER_ISOMETRIC, 'model_fusion/group_10.npz')
-TEMPLATE_11_PATH = os.path.join(RAW_DATA_FOLDER_ISOMETRIC, 'model_fusion/group_11.npz')
+NOMES = [
+			'No',
+			'covid19severity_1063',
+			'covid19severity_1107',
+			'covid19severity_1128',
+			'covid19severity_183',
+			'covid19severity_414',
+			'covid19severity_693',
+			'covid19severity_6',
+			'No',
+			'covid19severity_749',
+			'covid19severity_892',
+			'covid19severity_947',
+			'covid19severity_97',
+			'No'
+		]
 
-def buscaImagesByGoup(GROUP):
-	images_all = glob.glob(os.path.join(RAW_DATA_FOLDER_ISOMETRIC, 'groups','group_'+str(GROUP),'npz_rigid/*.npz'))
-	#print(len(images_all))
-	return [os.path.basename(npz_path).replace("_affine3D.npz", '').replace(".npz", '') for npz_path in images_all]
+def insere_lesao(img, lung, img_lesion, lesion):
 
-class CTDataset3DWithTemplate(Dataset):
+	output = torch.where((lung == 1)&(lesion == 1), img_lesion, img)
+
+	return output
+
+class CTDataset3DTemplateAirway(Dataset):
 	def __init__(self, mode, labels_name=[1,2,3,4,5], bronchi=False, transforms=None):
-		self.bronchi = bronchi
 		self.mode = mode
 		self.labels_name = labels_name
-		self.dataset = sorted(glob.glob(os.path.join(RAW_DATA_FOLDER_ISOMETRIC, 'npz_rigid', mode, "*.npz")))
+		self.bronchi = bronchi
+		self.transform = TransformsnnUNet(verbose=False)
+		self.dataset = sorted(glob.glob(os.path.join(RAW_DATA_FOLDER, mode, '*/*.npz')))
 
-		self.group_1 = buscaImagesByGoup(GROUP = 1)
-		self.group_2 = buscaImagesByGoup(GROUP = 2)
-		self.group_3 = buscaImagesByGoup(GROUP = 3)
-		self.group_4 = buscaImagesByGoup(GROUP = 4)
-		self.group_5 = buscaImagesByGoup(GROUP = 5)
-		self.group_6 = buscaImagesByGoup(GROUP = 6)
-		self.group_7 = buscaImagesByGoup(GROUP = 7)
-		self.group_8 = buscaImagesByGoup(GROUP = 8)
-		self.group_9 = buscaImagesByGoup(GROUP = 9)
-		self.group_10 = buscaImagesByGoup(GROUP = 10)
-		self.group_11 = buscaImagesByGoup(GROUP = 11)
-
-		print('\tFolder:', RAW_DATA_FOLDER_ISOMETRIC)
 		print('\tTamanho do dataset ({}): {}'.format(mode, len(self.dataset)))
 		print('\tMode:', self.mode)
 
@@ -59,103 +58,117 @@ class CTDataset3DWithTemplate(Dataset):
 	def __getitem__(self, i):
 		npz_path = self.dataset[i]
 		npz = np.load(npz_path)
-		img, tgt = npz["image"][:].astype(np.float32), npz["label"][:].astype(np.float32)
-		ID = os.path.basename(npz_path).replace('.npz','').replace('_affine3D','').replace('_rigid3D','')
+		img, tgt, airway = npz["image"][:].astype(np.float32), npz["label"][:].astype(np.float32), npz["airway"][:].astype(np.float32)
+
+		ID_image = os.path.basename(npz_path).replace('.npz','').replace('_affine3D','').replace('_rigid3D','')
+
+		group = npz["group"]
+		npz_template_path = os.path.join(RAW_DATA_FOLDER_MODEL_FUSION, 'group_'+str(group)+'.npz')
+		template = np.load(npz_template_path)["model"][:].astype(np.float32)
 
 		img = img.transpose(2,1,0)
 		tgt = tgt.transpose(2,1,0)
+		airway = airway.transpose(2,1,0)
 
-		if len(tgt.shape)==3:
-			if tgt.max()==8 or tgt.max()==520:
-				mask_one, onehot, labels_one = to_onehot(tgt, [7,8,4,5,6], single_foregound_lable=False, onehot_type=np.dtype(np.int8))
-			elif tgt.max()==5:
-				mask_one, onehot, labels_one = to_onehot(tgt, [1,2,3,4,5], single_foregound_lable=False, onehot_type=np.dtype(np.int8))
+		lung = tgt.copy()
+		lung[lung>0]=1
 
-			tgt = onehot
+		ID_lesion = random.choice(NOMES)
+
+		if ID_lesion!='No':
+			npz_lesion_path = os.path.join('/mnt/datassd/DataSets/registered_images_lesions/groups/group_'+str(group)+'/npz_rigid', ID_lesion+'_rigid3D.npz')
+			npz_lesion_path = os.path.join('/mnt/data/registered_images_no_dice/registered_images_lesions/groups/group_'+str(group)+'/npz_rigid', ID_lesion+'_rigid3D.npz')
+			#print(npz_lesion_path)
+
+			if os.path.exists((npz_template_path)):
+				npz_lesion = np.load(npz_lesion_path)
+				img_lesion, lung_lesion, lesion = npz_lesion["image"][:].astype(np.float32), npz_lesion["lung"][:].astype(np.float32), npz_lesion["lesion"][:].astype(np.float32)
+
+				img_lesion = img_lesion.transpose(2,1,0)
+				lung_lesion = lung_lesion.transpose(2,1,0)
+				lesion = lesion.transpose(2,1,0)
+
+				img = torch.from_numpy(img).float()
+				lung = torch.from_numpy(lung).float()
+
+				img_lesion = torch.from_numpy(img_lesion).float()
+				lung_lesion = torch.from_numpy(lung_lesion).float()
+				lesion = torch.from_numpy(lesion).float()
+
+				assert img.shape==lung_lesion.shape==img_lesion.shape==lesion.shape
+
+				lesion = lesion*lung
+
+				img = insere_lesao(img, lung, img_lesion, lesion)
+
+				img = img.numpy()
+				lung = lung.numpy()
+
+		tgt = mask_to_onehot(tgt)
+
+		if len(img.shape)==3:
 			img = np.expand_dims(img, 0)
+		if len(airway.shape)==3:
+			airway = np.expand_dims(airway, 0)
 
-		my_ID = []
-		my_ID.append(ID)
+		if (img.shape[1]*img.shape[2]*img.shape[3])>60000000:
+			subject = tio.Subject(
+					image=tio.ScalarImage(tensor = img),
+					label=tio.LabelMap(tensor = tgt),
+					#lung=tio.LabelMap(tensor = lung),
+					airway=tio.LabelMap(tensor = airway),
+					template=tio.LabelMap(tensor = template),
+			)
+			transform = tio.Resize((350, 400, 400))
+			#transform = tio.Resize((400, 400, 350))
+			transformed = transform(subject)
 
-		if my_ID[0] in self.group_1:
-			template = np.load(TEMPLATE_1_PATH)["model"][:].astype(np.float32)
-		elif my_ID[0] in self.group_2:
-			template = np.load(TEMPLATE_2_PATH)["model"][:].astype(np.float32)
-		elif my_ID[0] in self.group_3:
-			template = np.load(TEMPLATE_3_PATH)["model"][:].astype(np.float32)
-		elif my_ID[0] in self.group_4:
-			template = np.load(TEMPLATE_4_PATH)["model"][:].astype(np.float32)
-		elif my_ID[0] in self.group_5:
-			template = np.load(TEMPLATE_5_PATH)["model"][:].astype(np.float32)
-		elif my_ID[0] in self.group_6:
-			template = np.load(TEMPLATE_6_PATH)["model"][:].astype(np.float32)
-		elif my_ID[0] in self.group_7:
-			template = np.load(TEMPLATE_7_PATH)["model"][:].astype(np.float32)
-		elif my_ID[0] in self.group_8:
-			template = np.load(TEMPLATE_8_PATH)["model"][:].astype(np.float32)
-		elif my_ID[0] in self.group_9:
-			template = np.load(TEMPLATE_9_PATH)["model"][:].astype(np.float32)
-		elif my_ID[0] in self.group_10:
-			template = np.load(TEMPLATE_10_PATH)["model"][:].astype(np.float32)
-		elif my_ID[0] in self.group_11:
-			template = np.load(TEMPLATE_11_PATH)["model"][:].astype(np.float32)
-		else:
-			print('Template model não expecificado.')
-
-		##########################################################################
+			img = transformed.image.numpy()
+			tgt = transformed.label.numpy()
+			#lung = transformed.lung.numpy()
+			airway = transformed.airway.numpy()
+			template = transformed.template.numpy()
 
 		subject = tio.Subject(
 			image=tio.ScalarImage(tensor = img),
 			label=tio.LabelMap(tensor = tgt),
-			template=tio.LabelMap(tensor = template),
+			#lung=tio.LabelMap(tensor = lung),
+			airway=tio.LabelMap(tensor = airway),
+			#template=tio.LabelMap(tensor = template),
 		)
 		transform = tio.Resize((128, 128, 128))
 		transformed = transform(subject)
 		img_high = transformed.image.numpy()
 		tgt_high = transformed.label.numpy()
-		template_high = transformed.template.numpy()
+		#lung_high = transformed.lung.numpy()
+		airway_high = transformed.airway.numpy()
+		#template_high = transformed.template.numpy()
 
-		#assert template_high.shape == tgt_high.shape, 'Template and label should be same shape, instead are {}, {}'.format(template.shape, tgt.shape)
-		#assert len(template.shape) == 4, 'Inputs should be B*W*H*N tensors, instead have shape {}'.format(img.shape)
+		#print(tgt_high.shape, airway_high.shape)
 
-		#showImages(img_high, tgt_high)
+		#segmentation = np.array(tgt.squeeze().argmax(axis=0)).astype(np.uint8)
+		#if segmentation.max()>8:
+		#	segmentation[segmentation>8]=0
+		#segmentation[segmentation>0]=1
 
-		##########################################################################
-
-		if len(tgt.shape)==3:
-			if tgt.max()==8 or tgt.max()==520:
-				mask_one, onehot, labels_one = to_onehot(tgt, [7,8,4,5,6], single_foregound_lable=False, onehot_type=np.dtype(np.int8))
-			elif tgt.max()==5:
-				mask_one, onehot, labels_one = to_onehot(tgt, [1,2,3,4,5], single_foregound_lable=False, onehot_type=np.dtype(np.int8))
-
-			tgt = onehot
-			img = np.expand_dims(img, 0)
-
-		assert tgt.shape==template.shape, f'Label and template with different shapes: {tgt.shape} and {template.shape}'
-
-		#showImages(img, tgt)
-
-		##########################################################################
-
-		segmentation = np.array(tgt.squeeze().argmax(axis=0)).astype(np.uint8)
-		if segmentation.max()>8:
-			segmentation[segmentation>8]=0
-		segmentation[segmentation>0]=1
-
-		new_image = np.zeros(img[0].shape).astype(img.dtype)
-		new_image = np.where(segmentation == 1, img, img.min())
-		img = new_image
-
-		#showImages(img, tgt)
-		#showImages(img, template)
-
-		##########################################################################
+		#new_image = np.zeros(img[0].shape).astype(img.dtype)
+		#new_image = np.where(segmentation == 1, img, img.min())
+		#img = new_image
 
 		img_high = torch.from_numpy(img_high).float()
 		tgt_high = torch.from_numpy(tgt_high).float()
-		template_high = torch.from_numpy(template_high).float()
+		#lung_high = torch.from_numpy(lung_high).float()
 		img = torch.from_numpy(img).float()
 		tgt = torch.from_numpy(tgt).float()
+		#lung = torch.from_numpy(lung).float()
+		airway = torch.from_numpy(airway).float()
 		template = torch.from_numpy(template).float()
 
-		return {"image_h": img_high, "label_h": tgt_high, 'template_high': template_high, "image": img, "label": tgt, "template": template, "npz_path": npz_path, "ID":ID}
+		if self.mode=='train':
+			if self.transform is not None:
+				img, tgt = self.transform(img, tgt)
+
+		assert img[0,0].shape==tgt[0,0].shape==airway[0,0].shape==template[0,0].shape, f'Imagem e label {ID_image} no grupo {group} com tamanho de shapes diferentes: {img.shape} {tgt.shape} {airway.shape} {template.shape}'
+		assert len(img.shape)==len(tgt.shape)==len(airway.shape)==len(template.shape), f'Imagem e label {ID_image} no grupo {group} com tamanho de shapes diferentes: {len(img.shape)} {len(tgt.shape)} {len(airway.shape)} {len(template.shape)}'
+
+		return {"image_h": img_high, "label_h": tgt_high, "airway_h": airway_high, "image": img, "label": tgt, 'airway': airway, "template": template, 'group': group}
