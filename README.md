@@ -1,10 +1,10 @@
 # Deep learning with probabilistic models for segmenting lung lobes on computed tomography images with severe abnormalities
 
-Project developed for XXIX Congresso Brasileiro de Engenharia Biomédica (CBEB) 2024 (https://sbeb.org.br/cbeb2024)
+Initial project presented at the XXIX Congresso Brasileiro de Engenharia Biomédica (CBEB) 2024 (https://sbeb.org.br/cbeb2024)
 
 ## Abstract
 
-> The development of efficient and robust algorithms in automated tools for segmenting the lung and its lobes is useful for the diagnosis and monitoring of lung diseases that cause lung abnormalities, such as pneumonia caused by COVID-19 and cancerous nodules. The amount of available data containing manual annotations of the lobes in patients with severe lung abnormalities such as consolidations and ground glass opacities is scarce, due to the difficulty of visualizing the lobar fissures. This work aims to develop a method for automated segmentation of lung lobes using deep neural networks in computed tomography images of the lungs of patients with severe abnormalities. The method is based on probabilistic models built from labels fusion, used not only to guide the deep neural networks while learning to segment the lobes, but also for postprocessing the network prediction to obtain the final segmentation. Segmentation is performed in two stages: a coarse stage working on downsampled images and a second high-resolution stage, where specialized AttUNets compete for each lobe's segmentation. The performance of the proposed approach was assessed using two public datasets with lobe annotations, in the presence of cancer nodules and COVID-19 consolidations. Open source implementation is available at
+> The development of efficient and robust algorithms for lung and lobe segmentation is essential for diagnosing and monitoring pulmonary diseases, such as pneumonia caused by COVID-19 and lung cancer. However, obtaining manual or automatic annotations of lung lobes is challenging, especially in patients with severe pulmonary abnormalities due to the difficulty of visualizing the lobar fissures. This work aims to provide an automated lung lobe segmentation method using deep neural networks and probabilistic models, called LobePrior. Segmentation is performed in three stages: a coarse stage that processes images with reduced resolution; a high-resolution stage, in which specialized AttUNets compete for the segmentation of each lung lobe; and a final stage where post-processing is applied to the segmented lobes. Probabilistic models, constructed from label fusion, are used to guide the model in regions where severe abnormalities have caused segmentation failures. The performance of the proposed approach was evaluated on LOLA11 (Grand Challenge) and four datasets with manual lobe annotations, in the presence of cancerous nodules and COVID-19 consolidations. Qualitative and quantitative results demonstrate that LobePrior achieved more accurate segmentations, closely matching the reference segmentation. All these results, when compared to other approaches, indicate that the LobePrior method achieved superior performance in lung lobe segmentation. The method has been incorporated into a tool developed by the MICLab group, called MEDPSeg, available on GitHub at [MEDPSeg](https://github.com/MICLab-Unicamp/medpseg).
 
 # To install dependencies
 > sh requirements.txt
@@ -20,7 +20,7 @@ We present an approach using probabilistic models, constructed from lung CT imag
 
 The data required to run the project can be downloaded from the link below.
 
-[Download](https://github.com/MICLab-Unicamp/LobePrior/releases/download/LobePrior/dados.zip)
+[Data](https://github.com/MICLab-Unicamp/LobePrior/releases/download/LobePrior/dados.zip)
 
 # Project
 
