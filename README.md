@@ -17,18 +17,19 @@ First, clone the repository:
 
 Due to the large size of network weights, you need to go into the Releases in this repository, download the data.zip file, and put it inside the medpseg folder. This can be done through the command line with:
 
-cd lobeprior/lobeprior
-wget https://github.com/MICLab-Unicamp/medpseg/releases/download/v4.0.0/data_poly.zip
+> cd LobePrior
+> wget https://github.com/MICLab-Unicamp/LobePrior/releases/download/LobePrior/dados.zip
 
 If this method of downloading the weights doesn't work for you, use this alternative link [Data](https://github.com/MICLab-Unicamp/LobePrior/releases/download/LobePrior/dados.zip).
 
-Extract the .ckpt files inside the lobeprior/lobeprior folder. The .ckpt files should be in the same directory level as the run.py file. weight
+Extract the .ckpt files inside the LobePrior/weight folder and raw_images inside the LobePrior folder.
 
-unzip data.zip
+> unzip data.zip
 
-Finally, go into the top level folder.
+Finally, go into the top level folder, inside LobePrior folder.
 
 # To run project
+
 > python main.py
 
 <!--
