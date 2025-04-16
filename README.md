@@ -20,7 +20,7 @@ We present an approach using probabilistic models, constructed from lung CT imag
 
 The data required to run the project can be downloaded from the link below.
 
-[Download dos dados](https://github.com/MICLab-Unicamp/LobePrior/releases/download/LobePrior/dados.zip)
+[Download](https://github.com/MICLab-Unicamp/LobePrior/releases/download/LobePrior/dados.zip)
 
 # Project
 
