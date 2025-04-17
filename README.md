@@ -12,7 +12,7 @@ Initial project presented at the XXIX Congresso Brasileiro de Engenharia Bioméd
 
 > sh requirements.txt
 
-# Installation
+## Installation
 
 First, clone the repository:
 
@@ -32,11 +32,11 @@ Extract the .ckpt files inside the LobePrior/weight folder and raw_images inside
 
 Finally, go into the top level folder, inside LobePrior folder.
 
-# To predict lung lobe segmentation from an image with probabilistic templates
+## To predict lung lobe segmentation from an image with probabilistic templates
 
 > python predict.py -i input -o output
 
-# To predict lung lobe segmentation from an image without probabilistic templates
+## To predict lung lobe segmentation from an image without probabilistic templates
 
 > python predict.py -i input -o output -n
 
