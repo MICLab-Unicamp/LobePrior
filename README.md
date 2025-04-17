@@ -20,6 +20,7 @@ First, clone the repository:
 Due to the large size of network weights, you need to go into the Releases in this repository, download the data.zip file, and put it inside the medpseg folder. This can be done through the command line with:
 
 > cd LobePrior
+
 > wget https://github.com/MICLab-Unicamp/LobePrior/releases/download/LobePrior/dados.zip
 
 If this method of downloading the weights doesn't work for you, use this alternative link [Data](https://github.com/MICLab-Unicamp/LobePrior/releases/download/LobePrior/dados.zip).
@@ -30,9 +31,13 @@ Extract the .ckpt files inside the LobePrior/weight folder and raw_images inside
 
 Finally, go into the top level folder, inside LobePrior folder.
 
-# To run project
+# To predict lung lobe segmentation from an image with probabilistic templates
 
-> python main.py
+> python predict.py -i <input> -o <output>
+
+> # To predict lung lobe segmentation from an image without probabilistic templates
+
+> python predict.py -i <input> -o <output> -n
 
 <!--
 We present an approach using probabilistic models, constructed from lung CT images. The images were recorded and separated into groups, according to shape and appearance. The images were separated into groups because of the great difference between the shapes that the lung has between patients. Added to post-processing and templates, a model capable of segmenting CT images of lungs affected by severe diseases was developed. The main contribution of this work was to improve the quality of these segmentations and present a model capable of identifying lobar fissures more efficiently, as this is a task considered very difficult, overcoming the difficulty of the methods in finding the fissures correctly, as they are healthy. deformed by lung diseases such as cancer and COVID-19.
