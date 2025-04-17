@@ -35,7 +35,7 @@ Finally, go into the top level folder, inside LobePrior folder.
 
 > python predict.py -i input -o output
 
-> # To predict lung lobe segmentation from an image without probabilistic templates
+# To predict lung lobe segmentation from an image without probabilistic templates
 
 > python predict.py -i input -o output -n
 
