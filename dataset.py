@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 
 import os
-import sys
 import glob
 import torch
 import random
@@ -13,10 +12,8 @@ from torch.utils.data import Dataset
 from scipy.ndimage import gaussian_filter
 from tqdm import tqdm
 
-from utils.to_onehot import mask_to_onehot
-from utils.transforms_nnunet import TransformsnnUNet
-from utils.transform3D import random_crop
-from utils.general import large_connected_domain
+from utils.general import mask_to_onehot
+from utils.transform3D import TransformsnnUNet
 
 RAW_DATA_FOLDER = '/mnt/data/registered_images_no_dice'
 RAW_DATA_FOLDER_MODEL_FUSION = '/mnt/data/registered_images_no_dice/model_fusion'
