@@ -12,7 +12,7 @@ from torch.utils.data import Dataset
 from scipy.ndimage import gaussian_filter
 from tqdm import tqdm
 
-from utils.general import mask_to_onehot
+from utils.to_onehot import mask_to_onehot
 from utils.transform3D import TransformsnnUNet
 
 RAW_DATA_FOLDER = '/mnt/data/registered_images_no_dice'

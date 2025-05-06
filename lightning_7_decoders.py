@@ -9,7 +9,7 @@ from monai.inferers import sliding_window_inference
 
 from model.unet_diedre import UNet_SeteDecoders
 from utils.metric import Dice_chavg_per_label_metric
-from utils.transform3D import random_crop
+from utils.general import random_crop
 
 class Lightning(pl.LightningModule):
 	def __init__(self, hparams):

@@ -21,83 +21,6 @@ from dipy.align.transforms import (TranslationTransform3D, RigidTransform3D)
 TEMP_IMAGES = 'temp_images'
 RAW_DATA_FOLDER = 'raw_images' #os.path.join(HOME, 'raw_images')
 
-def corrige_label(label):
-	if label.max()==8 or label.max()==520:
-		label[label == 7] = 1
-		label[label == 8] = 2
-		label[label == 4] = 3
-		label[label == 5] = 4
-		label[label == 6] = 5
-
-		label[label > 6] = 0
-
-	return label
-
-def to_onehot(matrix, labels=[], single_foregound_lable=True, background_channel=True, onehot_type=np.dtype(np.float32)):
-	matrix = np.around(matrix)
-	if len(labels) == 0:
-		labels = np.unique(matrix)
-		labels = labels[1::]
-
-	mask = np.zeros(matrix.shape, dtype=onehot_type)
-	for i, label in enumerate(labels):
-		mask += ((matrix == label) * (i+1))
-
-	if single_foregound_lable:
-		mask = (mask > 0)
-		labels = [1]
-
-	labels_len = len(labels)
-
-	onehot = np.zeros((labels_len+1,) + matrix.shape, dtype=onehot_type)
-	for i in range(mask.max()+1):
-		onehot[i] = (mask == i)
-
-	if background_channel == False:
-		onehot = onehot[1::]
-
-	return mask, onehot, labels
-
-def mask_to_onehot(mask):
-	#print('Shape:', mask.shape)
-	#print('MinMax:', mask.min(), mask.max())
-
-	if len(mask.shape)==5:
-		mask = mask.squeeze()
-
-	if len(mask.shape)==4 and mask.shape[0]==6:
-		return mask
-	else:
-		mask = mask.squeeze()
-
-	if torch.is_tensor(mask):
-		mask = mask.numpy()
-
-	if len(mask.shape)==3:
-		#mask = corrige_label(mask)
-
-		if mask.max()==2:
-			mask_one, onehot, labels_one = to_onehot(mask, [1,2], single_foregound_lable=False, onehot_type=np.dtype(np.int8))
-		if mask.max()==3:
-			mask_one, onehot, labels_one = to_onehot(mask, [1,2,3], single_foregound_lable=False, onehot_type=np.dtype(np.int8))
-		if mask.max()==4:
-			mask_one, onehot, labels_one = to_onehot(mask, [1,2,3,4], single_foregound_lable=False, onehot_type=np.dtype(np.int8))
-		elif mask.max()==8 or mask.max()==520:
-			mask_one, onehot, labels_one = to_onehot(mask, [7,8,4,5,6], single_foregound_lable=False, onehot_type=np.dtype(np.int8))
-		elif mask.max()==5:
-			mask_one, onehot, labels_one = to_onehot(mask, [1,2,3,4,5], single_foregound_lable=False, onehot_type=np.dtype(np.int8))
-		elif mask.max()==6:
-			mask_one, onehot, labels_one = to_onehot(mask, [1,2,3,4,5,6], single_foregound_lable=False, onehot_type=np.dtype(np.int8))
-		elif mask.max()==7:
-			mask_one, onehot, labels_one = to_onehot(mask, [1,2,3,4,5,6,7], single_foregound_lable=False, onehot_type=np.dtype(np.int8))
-		elif mask.max()==11:
-			mask_one, onehot, labels_one = to_onehot(mask, [1,2,3,4,5,6,7,8,9,10,11], single_foregound_lable=False, onehot_type=np.dtype(np.int8))
-		mask = onehot
-	else:
-		print('Wrong shape!')
-
-	return mask
-
 def get_connected_components(volume, return_largest=2, verbose=False):
 	'''
 	volume: input volume
@@ -808,3 +731,55 @@ def register_single(moving_path, moving_label_path, moving_lung_path, moving_air
 		print('RigidTransform3D done!')
 
 	return None
+
+def random_crop_ZXY(image, lung, label, airway, crop_size=(128,128,128)):
+	depth, width, height = crop_size[0], crop_size[1], crop_size[2]
+
+	assert (len(image.shape)==5 and len(lung.shape)==5 and len(label.shape)==5 and len(airway.shape)==5), f'Tamanho de shape diferente de 5.'
+	assert image.shape[3] == image.shape[4], f'{image.shape}'
+
+	if (image.shape[2] < depth):
+		depth = image.shape[2]
+	assert image.shape[4] >= depth
+	assert image.shape[2] >= height
+	assert image.shape[3] >= width
+
+	z = random.randint(0, image.shape[2] - depth)
+	x = random.randint(0, image.shape[3] - height)
+	y = random.randint(0, image.shape[4] - width)
+
+	image = image[:, :, z:z+depth, x:x+height, y:y+width]
+	lung = lung[:, :, z:z+depth, x:x+height, y:y+width]
+	label = label[:, :, z:z+depth, x:x+height, y:y+width]
+	airway = airway[:, :, z:z+depth, x:x+height, y:y+width]
+
+	return image, lung, label, airway
+
+def random_crop_XYZ(image, lung, label, airway, crop_size=(128,128,128)):
+	depth, width, height = crop_size[0], crop_size[1], crop_size[2]
+
+	assert (len(image.shape)==5 and len(lung.shape)==5 and len(label.shape)==5 and len(airway.shape)==5), f'Tamanho de shape diferente de 5.'
+	assert image.shape[2] == image.shape[3], f'{image.shape}'
+
+	if (image.shape[4] < depth):
+		depth = image.shape[4]
+	assert image.shape[4] >= depth
+	assert image.shape[2] >= height
+	assert image.shape[3] >= width
+
+	z = random.randint(0, image.shape[4] - depth)
+	x = random.randint(0, image.shape[2] - height)
+	y = random.randint(0, image.shape[3] - width)
+
+	image = image[:, :, x:x+height, y:y+width, z:z+depth]
+	lung = lung[:, :, z:z+depth, x:x+height, y:y+width]
+	label = label[:, :, x:x+height, y:y+width, z:z+depth]
+	airway = airway[:, :, x:x+height, y:y+width, z:z+depth]
+
+	return image, lung, label, airway
+
+def random_crop(image, lung, label, airway, crop_size=(128,128,128)):
+	if image.shape[2]==image.shape[3]:
+		return random_crop_XYZ(image, lung, label, airway, crop_size=crop_size)
+	elif image.shape[3]==image.shape[4]:
+		return random_crop_ZXY(image, lung, label, airway, crop_size=crop_size)

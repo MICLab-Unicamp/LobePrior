@@ -275,3 +275,25 @@ class TransformsnnUNet():
 
 	def __str__(self):
 		return f'nnUNet transforms {self.dim}\n' + str(self.transform) + '\n'
+
+def get_transform(string):
+	print('transform:', string)
+	'''
+	Mapeamento de uma string a uma transformadas.
+	'''
+	if string is None:
+		image_transform = None
+		target_transform = None
+	elif string == "my_transforms":
+		image_transform = transforms.Compose([
+											RandomNoise(),
+											RandomBrightness(),
+											RandomContrast(),
+											])
+		target_transform = transforms.Compose([
+
+											])
+	else:
+		raise ValueError(f"{string} does not correspond to a transform.")
+
+	return SegmentationTransform(image_transform, target_transform)
