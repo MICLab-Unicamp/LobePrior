@@ -176,8 +176,8 @@ class LoberModule(pl.LightningModule):
 
 	def predict(self, npz_path, image_original_path, output_path, group=None, post_processed=True) -> np.ndarray:
 
-		#ckpt_path = os.path.join(TEMP_IMAGES, 'results/outputs')
-		#os.makedirs(ckpt_path, exist_ok=True)
+		ckpt_path = os.path.join(TEMP_IMAGES, 'results/outputs')
+		os.makedirs(ckpt_path, exist_ok=True)
 
 		ID_image = os.path.basename(image_original_path).replace('.npz','').replace('.nii.gz','').replace('.nii','').replace('.mhd','').replace('.mha','')
 
