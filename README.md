@@ -20,6 +20,12 @@ It is recommended to use a Miniconda/Anaconda environment for installation. To i
 
 > conda create -n lobeprior python=3.8
 
+To activate the lobeprior environment and install the required packages:
+
+> conda activate lobeprior
+
+> pip install -r requirements.txt
+
 ## Installation
 
 First, clone the repository:
