@@ -22,7 +22,7 @@ Due to the large size of network weights, you need to go into the Releases in th
 
 > cd LobePrior
 
-> wget https://github.com/MICLab-Unicamp/LobePrior/releases/download/LobePrior/dados.zip
+> wget https://github.com/MICLab-Unicamp/LobePrior/releases/download/LobePrior/data.zip
 
 If this method of downloading the weights doesn't work for you, use this alternative link [Data](https://github.com/MICLab-Unicamp/LobePrior/releases/download/LobePrior/dados.zip).
 
