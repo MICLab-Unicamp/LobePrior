@@ -14,6 +14,11 @@ This tool was tested on Ubuntu 20.04. The following instructions refer to quickl
 
 > sh requirements.txt
 
+To activate the lobeprior environment and install the required packages
+
+> conda activate lobeprior
+> pip install -r requirements.txt
+
 ## Miniconda
 
 It is recommended to use a Miniconda/Anaconda environment for installation. To install Miniconda on Linux, follow the instructions available at: [Miniconda](https://docs.conda.io/en/latest/miniconda.html). It is also recommended to create a dedicated environment to run the LobePrior method to avoid interference with your current environment. This can be done, for example, with the following command:
