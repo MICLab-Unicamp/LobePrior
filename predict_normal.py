@@ -154,9 +154,9 @@ class LoberModuleNormal(pl.LightningModule):
 		if (rebuild):
 			assert save_image==True, f'Erro: save_image == False'
 
-		if (save_image):
-			ckpt_path = os.path.join(TEMP_IMAGES, 'results/outputs')
-			os.makedirs(ckpt_path, exist_ok=True)
+		#if (save_image):
+		#	ckpt_path = os.path.join(TEMP_IMAGES, 'results/outputs')
+		#	os.makedirs(ckpt_path, exist_ok=True)
 
 		sample = get_sample(npz_path)
 
