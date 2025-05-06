@@ -17,6 +17,7 @@ This tool was tested on Ubuntu 20.04. The following instructions refer to quickl
 To activate the lobeprior environment and install the required packages
 
 > conda activate lobeprior
+
 > pip install -r requirements.txt
 
 ## Miniconda
