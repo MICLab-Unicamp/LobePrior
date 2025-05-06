@@ -8,9 +8,11 @@ Initial project presented at the XXIX Congresso Brasileiro de Engenharia Bioméd
 
 > The development of efficient and robust algorithms for lung and lobe segmentation is essential for diagnosing and monitoring pulmonary diseases, such as pneumonia caused by COVID-19 and lung cancer. However, obtaining manual or automatic annotations of lung lobes is challenging, especially in patients with severe pulmonary abnormalities due to the difficulty of visualizing the lobar fissures. This work aims to provide an automated lung lobe segmentation method using deep neural networks and probabilistic models, called LobePrior. Segmentation is performed in three stages: a coarse stage that processes images with reduced resolution; a high-resolution stage, in which specialized AttUNets compete for the segmentation of each lung lobe; and a final stage where post-processing is applied to the segmented lobes. Probabilistic models, constructed from label fusion, are used to guide the model in regions where severe abnormalities have caused segmentation failures. The performance of the proposed approach was evaluated on LOLA11 (Grand Challenge) and four datasets with manual lobe annotations, in the presence of cancerous nodules and COVID-19 consolidations. Qualitative and quantitative results demonstrate that LobePrior achieved more accurate segmentations, closely matching the reference segmentation. All these results, when compared to other approaches, indicate that the LobePrior method achieved superior performance in lung lobe segmentation. The method has been incorporated into a tool developed by the MICLab group, called MEDPSeg, available on GitHub at [MEDPSeg](https://github.com/MICLab-Unicamp/medpseg).
 
-## To install dependencies
+## To install Miniconda and dependencies
 
-This tool was tested on Ubuntu 20.04. The following instructions refer to quickly running the tool by installing it with Miniconda and pip. The minimum recommended GPU memory is 12 GB for inference and 24 GB for training. The required dependencies are installed during setup and are listed in the requirements.txt file.
+This tool was tested on Ubuntu 20.04. The following instructions refer to quickly running the tool by installing it with Miniconda and pip. The minimum recommended GPU memory is 12 GB for inference and 24 GB for training. The required dependencies are installed during setup and are listed in the requirements.txt file.  
+
+To create a Miniconda environment named lobeprior, run:
 
 > conda create -n lobeprior python=3.8
 
