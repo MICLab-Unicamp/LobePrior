@@ -24,7 +24,7 @@ Due to the large size of network weights, you need to go into the Releases in th
 
 > wget https://github.com/MICLab-Unicamp/LobePrior/releases/download/LobePrior/data.zip
 
-If this method of downloading the weights doesn't work for you, use this alternative link [Data](https://github.com/MICLab-Unicamp/LobePrior/releases/download/LobePrior/dados.zip).
+If this method of downloading the weights doesn't work for you, use this alternative link [Data](https://github.com/MICLab-Unicamp/LobePrior/releases/download/LobePrior/data.zip).
 
 Extract the .ckpt files inside the LobePrior/weight folder and raw_images inside the LobePrior folder.
 
