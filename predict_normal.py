@@ -16,7 +16,8 @@ from monai.inferers import sliding_window_inference
 
 from model.unet_diedre import UNet_SeisDecoders
 from utils.general import pos_processamento, post_processing_dist_lung, post_processing_lung
-from utils.general import unified_img_reading, mask_to_onehot, busca_path, salvaImageRebuilt
+from utils.general import unified_img_reading, busca_path, salvaImageRebuilt
+from utils.to_onehot import mask_to_onehot
 from utils.transform3D import CTHUClip
 from predict_lung  import LungModule
 
