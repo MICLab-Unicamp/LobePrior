@@ -263,6 +263,8 @@ def main(args):
 	else:
 		all_images = sorted(glob.glob(os.path.join(image_original_path, '*.nii.gz')))
 
+	print(f'Number of images found in the dataset: {len(all_images)}')
+
 	for image_original_path in all_images:
 		ID_image = os.path.basename(image_original_path).replace('.npz','').replace('_affine3D','').replace('_rigid3D','').replace('.nii.gz','').replace('.nii','').replace('_label','').replace('.mhd','')
 		print(f'Image ID: {ID_image}')
