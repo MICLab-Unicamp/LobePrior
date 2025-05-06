@@ -166,6 +166,7 @@ class Lightning(pl.LightningModule):
 
 		return loss_low+loss_lobes+loss_airway
 
+	@torch.no_grad()
 	def validation_step(self, val_batch, batch_idx):
 		x_high, y_lobes_high, y_airway_high, x, y_lobes, y_airway, template = val_batch["image_h"], val_batch["label_h"], val_batch["airway_h"], val_batch["image"], val_batch["label"], val_batch["airway"], val_batch["template"]
 

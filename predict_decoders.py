@@ -162,6 +162,7 @@ class LoberModule(pl.LightningModule):
 
 		return output_lung, output_lobes, output_airway
 
+	@torch.no_grad()
 	def test_step(self, test_batch):
 		x_high, x, template = test_batch["image_h"],  test_batch["image"], test_batch["template"]
 
