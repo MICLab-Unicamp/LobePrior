@@ -28,38 +28,38 @@ TEMP_IMAGES = 'temp_images'
 RAW_DATA_FOLDER = 'raw_images' #os.path.join(HOME, 'raw_images')
 
 def get_sample_image(npz_path):
-		ID_image = os.path.basename(npz_path).replace('.npz','')
-		print(f'\tImage name: {ID_image}')
+	ID_image = os.path.basename(npz_path).replace('.npz','')
+	print(f'\tImage name: {ID_image}')
 
-		npz = np.load(npz_path)
-		img = npz["image"][:].astype(np.float32)
-		#print('Shape:', img.shape)
-		#print('MinMax:', img.min(), img.max())
+	npz = np.load(npz_path)
+	img = npz["image"][:].astype(np.float32)
+	#print('Shape:', img.shape)
+	#print('MinMax:', img.min(), img.max())
 
-		group = npz["group"]
-		#print('Group:', group)
+	group = npz["group"]
+	#print('Group:', group)
 
-		npz_template_path = os.path.join(RAW_DATA_FOLDER, 'model_fusion/group_'+str(group)+'.npz')
+	npz_template_path = os.path.join(RAW_DATA_FOLDER, 'model_fusion/group_'+str(group)+'.npz')
 
-		template = np.load(npz_template_path)["model"][:].astype(np.float32)
+	template = np.load(npz_template_path)["model"][:].astype(np.float32)
 
-		img = img.transpose(2,1,0)
+	img = img.transpose(2,1,0)
 
-		if len(img.shape)==3:
-			img = np.expand_dims(img, 0)
+	if len(img.shape)==3:
+		img = np.expand_dims(img, 0)
 
-		subject = tio.Subject(
-			image=tio.ScalarImage(tensor = img),
-		)
-		transform = tio.Resize((128, 128, 128))
-		transformed = transform(subject)
-		img_high = transformed.image.numpy()
+	subject = tio.Subject(
+		image=tio.ScalarImage(tensor = img),
+	)
+	transform = tio.Resize((128, 128, 128))
+	transformed = transform(subject)
+	img_high = transformed.image.numpy()
 
-		img_high = torch.tensor(img_high, dtype=torch.float32).unsqueeze(dim=0).cuda()
-		img = torch.tensor(img, dtype=torch.float32).unsqueeze(dim=0).cuda()
-		template = torch.tensor(template, dtype=torch.float32).unsqueeze(dim=0).cuda()
+	img_high = torch.tensor(img_high, dtype=torch.float32).unsqueeze(dim=0).cuda()
+	img = torch.tensor(img, dtype=torch.float32).unsqueeze(dim=0).cuda()
+	template = torch.tensor(template, dtype=torch.float32).unsqueeze(dim=0).cuda()
 
-		return {"image_h": img_high, "image": img, "template": template, "npz_path": npz_path, "ID_image":ID_image}
+	return {"image_h": img_high, "image": img, "template": template, "npz_path": npz_path, "ID_image":ID_image}
 
 class LoberModule(pl.LightningModule):
 	def __init__(self, hparams):
@@ -176,8 +176,8 @@ class LoberModule(pl.LightningModule):
 
 	def predict(self, npz_path, image_original_path, output_path, group=None, post_processed=True) -> np.ndarray:
 
-		ckpt_path = os.path.join(TEMP_IMAGES, 'results/outputs')
-		os.makedirs(ckpt_path, exist_ok=True)
+		#ckpt_path = os.path.join(TEMP_IMAGES, 'results/outputs')
+		#os.makedirs(ckpt_path, exist_ok=True)
 
 		ID_image = os.path.basename(image_original_path).replace('.npz','').replace('.nii.gz','').replace('.nii','').replace('.mhd','').replace('.mha','')
 
