@@ -1,0 +1,10 @@
+pytorch_lightning
+torch
+matplotlib
+pydicom
+torchvision
+scikit-image
+monai
+torchio
+SimpleITK==2.0.2
+tensorboard
