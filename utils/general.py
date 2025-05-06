@@ -584,6 +584,12 @@ def unified_img_reading(path, mask_path=None, lung_path=None, airway_path=None, 
 
 	return data, mask, lung, airway, spacing, shape
 
+def load_config(config_name):
+	with open(os.path.join(config_name)) as file:
+		config = yaml.safe_load(file)
+
+	return config
+
 def busca_path(ID_image, group):
 
 	rigid_path = os.path.join(TEMP_IMAGES, 'registered_images/groups/group_'+str(group)+'/pickle', ID_image+'_'+str(group)+'.pkl')
