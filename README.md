@@ -12,7 +12,9 @@ Initial project presented at the XXIX Congresso Brasileiro de Engenharia Bioméd
 
 This tool was tested on Ubuntu 20.04. The following instructions refer to quickly running the tool by installing it with Miniconda and pip. The minimum recommended GPU memory is 12 GB for inference and 24 GB for training. The required dependencies are installed during setup and are listed in the requirements.txt file.  
 
-It is recommended to use a Miniconda/Anaconda environment for installation. To install Miniconda on Linux, follow the instructions available at: [Miniconda](https://docs.conda.io/en/latest/miniconda.html). It is also recommended to create a dedicated environment to run the LobePrior method to avoid interference with your current environment. To create a Miniconda environment named lobeprior, run:
+It is recommended to create a dedicated environment to run the LobePrior method to avoid interference with your current environment. To install Miniconda on Linux, follow the instructions available at: [Miniconda](https://docs.conda.io/en/latest/miniconda.html).
+
+To create a Miniconda environment named lobeprior, run:
 
 > conda create -n lobeprior python=3.8
 
