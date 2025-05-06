@@ -44,6 +44,12 @@ Extract the .ckpt files inside the LobePrior/weight folder and raw_images inside
 
 Finally, go into the top level folder, inside LobePrior folder.
 
+<div align="center">
+	<figure>
+	    <img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/directory.png", alt="Unet",  width="200", height="auto">
+	</figure>
+</div>
+
 ## To predict lung lobe segmentation from an image with probabilistic templates
 
 > python predict.py -i input -o output
