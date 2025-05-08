@@ -151,6 +151,8 @@ class LungModule(pl.LightningModule):
 
 
 def main(args):
+	print('Parameters:', args)
+
 	npz_path = '/mnt/data/registered_images_no_dice_hcu/test/group_9/460068.npz'
 	npz_path = '/mnt/data/temp_images/registered_images/groups/group_9/npz_rigid/460068.npz'
 

@@ -252,6 +252,7 @@ class LoberModule(pl.LightningModule):
 		del image
 
 def main(args):
+	print('Parameters:', args)
 
 	image_original_path = sys.argv[1]
 

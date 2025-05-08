@@ -26,7 +26,6 @@ RAW_DATA_FOLDER = 'raw_images' #os.path.join(HOME, 'raw_images')
 def main(args):
 	print('Parameters:', args)
 
-	image_original_path = sys.argv[1]
 	modo_register = True
 	delete_data = False
 	output_path = os.path.join(TEMP_IMAGES, 'outputs')
@@ -67,6 +66,7 @@ def main(args):
 		all_images = sorted(glob.glob(os.path.join(image_original_path, '*.nii.gz')))
 
 	print(f'Number of images found in the dataset: {len(all_images)}')
+
 	if len(all_images)==0:
 		print('Either the image path is incorrect or the input image is missing.')
 		print('python predict.py -i <input.nii.gz>')
