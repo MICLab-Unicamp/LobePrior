@@ -155,15 +155,16 @@ def main(args):
 			best_image, best_score = find_best_registration(results)
 
 			# Imprime os resultados
-			print("\nRegistration results for all images:")
-			for image_name, metrics in results.items():
-				print(f"\nImage: {image_name}")
-				print(f"MSE: {metrics['MSE']:.4f}")
-				print(f"NCC: {metrics['NCC']:.4f}")
-				print(f"MI: {metrics['MI']:.4f}")
+			#print("\nRegistration results for all images:")
+			#for image_name, metrics in results.items():
+			#	print(f"\nImage: {image_name}")
+			#	print(f"MSE: {metrics['MSE']:.4f}")
+			#	print(f"NCC: {metrics['NCC']:.4f}")
+			#	print(f"MI: {metrics['MI']:.4f}")
 
-			print(f"\nBest register: {best_image}")
-			print(f"Combined score: {best_score:.4f}")
+			#print(f"\nBest register: {best_image}")
+			#print(f"Combined score: {best_score:.4f}")
+			print("Best registration successfully found!")
 
 			ID_template = os.path.basename(best_image).replace('.npz','')
 

@@ -1,4 +1,4 @@
-torchio
+torchio==0.20.1
 torchvision
 SimpleITK==2.0.2
 nibabel
