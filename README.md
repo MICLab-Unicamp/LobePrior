@@ -36,7 +36,7 @@ Due to the large size of network weights, you need to go into the Releases in th
 
 > wget https://github.com/MICLab-Unicamp/LobePrior/releases/download/LobePrior/data.zip
 
-If this method of downloading the weights doesn't work for you, use this alternative link [Data](https://github.com/MICLab-Unicamp/LobePrior/releases/download/LobePrior/data.zip).
+If this method of downloading the weights doesn't work for you, use this alternative link [Data](https://github.com/MICLab-Unicamp/LobePrior/releases/download/LobePrior/data.zip). The names of the folders and files must not be changed.
 
 Extract the .ckpt files inside the LobePrior/weight folder and raw_images inside the LobePrior folder.
 
@@ -57,6 +57,12 @@ Finally, go into the top level folder, inside LobePrior folder.
 ## To predict lung lobe segmentation from an image without probabilistic templates
 
 > python predict.py -i input -o output -n
+
+## Images for testing
+
+If you wish to test the LobePrior method, you may use a public dataset referred to here as CoronaCases. The COVID-19 CT Lung and Infection Segmentation Dataset, available on Zenodo, provides 20 computed tomography (CT) scans of COVID-19 patients. You can access and download the dataset directly via the following link:
+
+[CoronaCases](https://zenodo.org/records/3757476)
 
 <!--
 We present an approach using probabilistic models, constructed from lung CT images. The images were recorded and separated into groups, according to shape and appearance. The images were separated into groups because of the great difference between the shapes that the lung has between patients. Added to post-processing and templates, a model capable of segmenting CT images of lungs affected by severe diseases was developed. The main contribution of this work was to improve the quality of these segmentations and present a model capable of identifying lobar fissures more efficiently, as this is a task considered very difficult, overcoming the difficulty of the methods in finding the fissures correctly, as they are healthy. deformed by lung diseases such as cancer and COVID-19.
