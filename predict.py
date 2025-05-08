@@ -4,8 +4,8 @@
 import os
 import sys
 import glob
-import torchvision
 import argparse
+import torchvision
 import numpy as np
 import SimpleITK as sitk
 import nibabel as nib
