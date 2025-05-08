@@ -26,13 +26,19 @@ TEMP_IMAGES = 'temp_images'
 RAW_DATA_FOLDER = 'raw_images' #os.path.join(HOME, 'raw_images')
 
 def get_sample_image(npz_path):
-	ID_image = os.path.basename(npz_path).replace('.npz','')
+	ID_image = os.path.basename(npz_path).replace('.npz','').replace('_affine3D','').replace('_rigid3D','')
 	print(f'\tImage name: {ID_image}')
 
 	npz = np.load(npz_path)
 	img = npz["image"][:].astype(np.float32)
 	print('Shape:', img.shape)
 	print('MinMax:', img.min(), img.max())
+
+	#group = npz["group"]
+	#print('Group:', group)
+	#npz_template_path = os.path.join(RAW_DATA_FOLDER, 'model_fusion/group_'+str(group)+'.npz')
+
+	#template = np.load(npz_template_path)["model"][:].astype(np.float32)
 
 	img = img.transpose(2,1,0)
 
@@ -124,11 +130,6 @@ class LungModule(pl.LightningModule):
 			output_lung = output_lung.numpy()
 
 		output_lung = post_processing_lung(output_lung, largest=2)
-
-		#ID_image = os.path.basename(npz_path).replace('.npz','')
-
-		#output = sitk.GetImageFromArray(output_lung.squeeze())
-		#sitk.WriteImage(output, os.path.join('', ID_image+"_lung.nii.gz"))
 
 		return output_lung
 
@@ -227,11 +228,34 @@ def main(args):
 		image_path = os.path.join(TEMP_IMAGES, 'output_convert_cliped_isometric/images', ID_image+'.nii.gz')
 
 		image = nib.load(image_path).get_fdata()
-		save_path = os.path.join(TEMP_IMAGES, 'registered_images', 'npz_rigid')
-		os.makedirs(save_path, exist_ok=True)
-		np.savez_compressed(save_path, image=image)
 
-		image_path = os.path.join(TEMP_IMAGES, 'registered_images', 'npz_rigid', ID_image+'.npz')
+		# Analisa todas as imagens
+		registered_folder = os.path.join(RAW_DATA_FOLDER, "images_npz")
+		results = analyze_registration_quality(image, ID_image, registered_folder)
+
+		# Encontra a melhor imagem
+		best_image, best_score = find_best_registration(results)
+
+		# Imprime os resultados
+		#print("\nResultados de registro para todas as imagens:")
+		#for image_name, metrics in results.items():
+		#	print(f"\nImage: {image_name}")
+		#	print(f"MSE: {metrics['MSE']:.4f}")
+		#	print(f"NCC: {metrics['NCC']:.4f}")
+		#	print(f"MI: {metrics['MI']:.4f}")
+
+		#print(f"\nBest register: {best_image}")
+		#print(f"Combined score: {best_score:.4f}")
+		print('Registration completed successfully!')
+
+		ID_template = os.path.basename(best_image).replace('.npz','')
+
+		template_path = os.path.join(registered_folder, ID_template+'.npz')
+		template_array = np.load(template_path)["image"][:].astype(np.float32)
+		template_array = template_array.transpose(2,1,0)
+		group = np.load(template_path)["group"]
+
+		image_path = os.path.join(TEMP_IMAGES, 'registered_images/groups/group_'+str(group), 'npz_rigid', ID_image+'.npz')
 		image_array = np.load(image_path)["image"][:].astype(np.float32)
 		image_array = image_array.transpose(2,1,0)
 
@@ -245,7 +269,8 @@ def main(args):
 		lung = test_model_lung.predict_lung(image_path)
 		#lung = test_model_lung.predict(sample, ID_image)
 
-		salvaImageRebuilt(lung.squeeze(), image_original_path, rigid_path=None, ID_image=ID_image, msg='lung', output_path=output_path)
+		rigid_path = busca_path(ID_image, group)
+		salvaImageRebuilt(lung.squeeze(), image_original_path, rigid_path=rigid_path, ID_image=ID_image, msg='lung', output_path=output_path)
 
 if __name__ == '__main__':
 	os.system('cls' if os.name == 'nt' else 'clear')
