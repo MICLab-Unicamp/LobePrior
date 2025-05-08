@@ -60,7 +60,7 @@ Finally, go into the top level folder, inside LobePrior folder.
  
 ## To predict lung segmentation
 
-> python predict_lung.py -i input -o output -n
+> python predict_lung.py -i input -o output
 
 ## Images for testing
 
