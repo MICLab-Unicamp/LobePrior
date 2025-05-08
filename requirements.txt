@@ -1,6 +1,6 @@
+SimpleITK==2.4.0
 torchio==0.20.1
 torchvision
-SimpleITK==2.0.2
 nibabel
 connected-components-3d
 pydicom
