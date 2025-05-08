@@ -246,6 +246,7 @@ class LoberModule(pl.LightningModule):
 		#print(f'Salvando imagem com pós-processamento final: {image.shape} {image.squeeze().shape}')
 
 		salvaImageRebuilt(image.squeeze(), image_original_path, rigid_path=rigid_path, ID_image=ID_image, output_path=output_path)
+		salvaImageRebuilt(airway.squeeze(), image_original_path, rigid_path=rigid_path, ID_image=ID_image, msg='airway', output_path=output_path)
 
 		del lung
 		del template
@@ -254,14 +255,42 @@ class LoberModule(pl.LightningModule):
 def main(args):
 	print('Parameters:', args)
 
-	image_original_path = sys.argv[1]
-
 	modo_register = True
+	delete_data = False
+	output_path = os.path.join(TEMP_IMAGES, 'outputs')
+
+	parser = argparse.ArgumentParser(description='Lung lobe segmentation on CT images using prior information.')
+	parser.add_argument('--input', "-i", default="inputs", help= "Input image or folder with volumetric images.", type=str)
+	parser.add_argument('--output', "-o", default="outputs", help= "Directory to store the final segmentation.", type=str)
+	parser.add_argument('--normal', "-n", action="store_true", help= "Use Prior Information.") 			# true se passou --normal
+	parser.add_argument('--delete', "-d", action="store_true", help= "Delete temporary files.") 		# true se passou --delete
+
+	args = parser.parse_args()
+
+	image_original_path = args.input
+	output_path = args.output
+	modo_normal = args.normal
+	delete_data = args.delete
+
+	print(f'Input: {image_original_path}')
+	print(f'Output: {output_path}')
+	print(f'Prior Information: {modo_register}')
+	print(f'Delete temporary files : {delete_data}')
 
 	if os.path.isfile(image_original_path):
+		path = Path(image_original_path)
+		ext = "".join(path.suffixes)
+		if ext not in ['.nii', '.nii.gz', '.mhd', '.mha']:
+			print(f'The file format is not valid: {ext}')
+			print(f'The image name must not contain dots or the image extension must be .nii, .nii.gz, .mhd or .mha')
+			return 0
 		all_images = [image_original_path]
 	elif os.path.isdir(image_original_path):
-		all_images = sorted(glob.glob(os.path.join(image_original_path, '*.nii.gz')))
+		extensoes = ['*.nii', '*.nii.gz', '*.mhd', '*.mha']
+		all_images = []
+		for ext in extensoes:
+			all_images.extend(glob.glob(os.path.join(image_original_path, ext)))
+		#all_images = sorted(glob.glob(os.path.join(image_original_path, '*.nii.gz')))
 	else:
 		all_images = sorted(glob.glob(os.path.join(image_original_path, '*.nii.gz')))
 
@@ -330,15 +359,16 @@ def main(args):
 		best_image, best_score = find_best_registration(results)
 
 		# Imprime os resultados
-		print("\nResultados de registro para todas as imagens:")
-		for image_name, metrics in results.items():
-			print(f"\nImage: {image_name}")
-			print(f"MSE: {metrics['MSE']:.4f}")
-			print(f"NCC: {metrics['NCC']:.4f}")
-			print(f"MI: {metrics['MI']:.4f}")
+		#print("\nResultados de registro para todas as imagens:")
+		#for image_name, metrics in results.items():
+		#	print(f"\nImage: {image_name}")
+		#	print(f"MSE: {metrics['MSE']:.4f}")
+		#	print(f"NCC: {metrics['NCC']:.4f}")
+		#	print(f"MI: {metrics['MI']:.4f}")
 
-		print(f"\nBest register: {best_image}")
-		print(f"Combined score: {best_score:.4f}")
+		#print(f"\nBest register: {best_image}")
+		#print(f"Combined score: {best_score:.4f}")
+		print('Registration completed successfully!')
 
 		ID_template = os.path.basename(best_image).replace('.npz','')
 
