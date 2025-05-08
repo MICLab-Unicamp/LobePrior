@@ -388,7 +388,7 @@ def main(args):
 		test_model = LoberModule.load_from_checkpoint(pre_trained_model_path, strict=False)
 		checkpoint = torch.load(pre_trained_model_path, map_location=torch.device('cpu'))
 
-		test_model.predict(image_path, image_original_path, group=group, post_processed=True)
+		test_model.predict(image_path, image_original_path, output_path, group=group, post_processed=True)
 
 	#os.rmdir(os.path.join(TEMP_IMAGES, 'output_convert_cliped_isometric'))
 	#os.rmdir(os.path.join(TEMP_IMAGES, 'registered_images'))
