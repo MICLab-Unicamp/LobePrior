@@ -152,14 +152,12 @@ def main(args):
 	parser = argparse.ArgumentParser(description='Lung lobe segmentation on CT images using prior information.')
 	parser.add_argument('--input', "-i", default="inputs", help= "Input image or folder with volumetric images.", type=str)
 	parser.add_argument('--output', "-o", default="outputs", help= "Directory to store the final segmentation.", type=str)
-	parser.add_argument('--normal', "-n", action="store_true", help= "Use Prior Information.") 			# true se passou --normal
 	parser.add_argument('--delete', "-d", action="store_true", help= "Delete temporary files.") 		# true se passou --delete
 
 	args = parser.parse_args()
 
 	image_original_path = args.input
 	output_path = args.output
-	modo_normal = args.normal
 	delete_data = args.delete
 
 	print(f'Input: {image_original_path}')

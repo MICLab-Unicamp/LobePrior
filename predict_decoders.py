@@ -262,6 +262,7 @@ def main(args):
 	parser.add_argument('--output', "-o", default="outputs", help= "Directory to store the final segmentation.", type=str)
 	parser.add_argument('--normal', "-n", action="store_true", help= "Use Prior Information.") 			# true se passou --normal
 	parser.add_argument('--delete', "-d", action="store_true", help= "Delete temporary files.") 		# true se passou --delete
+	parser.add_argument('--pool', "-p", action="store_true", help= "Parallel processing.") 		# true se passou --pool
 
 	args = parser.parse_args()
 
@@ -269,6 +270,7 @@ def main(args):
 	output_path = args.output
 	modo_normal = args.normal
 	delete_data = args.delete
+	parallel_processing = args.pool
 
 	print(f'Input: {image_original_path}')
 	print(f'Output: {output_path}')
@@ -320,20 +322,22 @@ def main(args):
 
 
 
-		N_THREADS = mp.cpu_count()//2
-		arg_list = []
-		#pool = mp.Pool(N_THREADS)
+		if parallel_processing:
+			N_THREADS = mp.cpu_count()//2
+			arg_list = []
 
-		image_path = os.path.join(TEMP_IMAGES, 'output_convert_cliped_isometric/images', ID_image+'.nii.gz')
+			image_path = os.path.join(TEMP_IMAGES, 'output_convert_cliped_isometric/images', ID_image+'.nii.gz')
 
-		for group in range(1,11):
+			for group in range(1,11):
+				if teste_pickle_by_image(ID_image, group)==False:
+					arg_list.append((image_path, None, None, None, group))
 
-			if teste_pickle_by_image(ID_image, group)==False:
-		#		register_single(image_path, None, None, None, group)
-				arg_list.append((image_path, None, None, None, group))
-
-		with mp.Pool(N_THREADS) as pool:
-			results = list(tqdm(pool.starmap(register_single, arg_list), total=len(arg_list)))
+			with mp.Pool(N_THREADS) as pool:
+				results = list(tqdm(pool.starmap(register_single, arg_list), total=len(arg_list)))
+		else:
+			for group in range(1,11):
+				if teste_pickle_by_image(ID_image, group)==False:
+					register_single(image_path, None, None, None, group)
 
 		print('Registration completed successfully!')
 

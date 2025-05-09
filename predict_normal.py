@@ -208,13 +208,41 @@ class LoberModuleNormal(pl.LightningModule):
 			del lung
 
 def main(args):
+	print('Parameters:', args)
 
-	image_original_path = sys.argv[1]
+	modo_register = True
+	delete_data = False
+	output_path = os.path.join(TEMP_IMAGES, 'outputs')
+
+	parser = argparse.ArgumentParser(description='Lung lobe segmentation on CT images using prior information.')
+	parser.add_argument('--input', "-i", default="inputs", help= "Input image or folder with volumetric images.", type=str)
+	parser.add_argument('--output', "-o", default="outputs", help= "Directory to store the final segmentation.", type=str)
+	parser.add_argument('--delete', "-d", action="store_true", help= "Delete temporary files.") 		# true se passou --delete
+
+	args = parser.parse_args()
+
+	image_original_path = args.input
+	output_path = args.output
+	delete_data = args.delete
+
+	print(f'Input: {image_original_path}')
+	print(f'Output: {output_path}')
+	print(f'Prior Information: {modo_register}')
+	print(f'Delete temporary files : {delete_data}')
 
 	if os.path.isfile(image_original_path):
+		path = Path(image_original_path)
+		ext = "".join(path.suffixes)
+		if ext not in ['.nii', '.nii.gz', '.mhd', '.mha']:
+			print(f'The file format is not valid: {ext}')
+			print(f'The image name must not contain dots or the image extension must be .nii, .nii.gz, .mhd or .mha')
+			return 0
 		all_images = [image_original_path]
 	elif os.path.isdir(image_original_path):
-		all_images = sorted(glob.glob(os.path.join(image_original_path, '*.nii.gz')))
+		extensoes = ['*.nii', '*.nii.gz', '*.mhd', '*.mha']
+		all_images = []
+		for ext in extensoes:
+			all_images.extend(glob.glob(os.path.join(image_original_path, ext)))
 	else:
 		all_images = sorted(glob.glob(os.path.join(image_original_path, '*.nii.gz')))
 
