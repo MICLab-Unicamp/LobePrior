@@ -62,7 +62,7 @@ Finally, go into the top level folder, inside LobePrior folder.
 
 > python predict_lung.py -i input -o output
 
-## <h2>To predict lung lobe segmentation with parallel computing add -p</h2>
+## &nbsp;&nbsp;&nbsp;&nbsp; To predict lung lobe segmentation with parallel computing add -p
 
 > python predict.py -i input -o output -p
 
