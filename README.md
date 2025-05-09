@@ -72,7 +72,9 @@ Finally, go into the top level folder, inside LobePrior folder.
 
 If you wish to test the LobePrior method, you may use a public dataset referred to here as CoronaCases. The COVID-19 CT Lung and Infection Segmentation Dataset, available on Zenodo, provides 20 CT scans of COVID-19 patients. You can access and download the dataset directly via the following link:
 
-[CoronaCases](https://zenodo.org/records/3757476)
+> [LOCCA](https://redu.unicamp.br/dataset.xhtml?persistentId=doi:10.25824/redu/ORXJKS)
+
+> [CoronaCases](https://zenodo.org/records/3757476)
 
 <!--
 We present an approach using probabilistic models, constructed from lung CT images. The images were recorded and separated into groups, according to shape and appearance. The images were separated into groups because of the great difference between the shapes that the lung has between patients. Added to post-processing and templates, a model capable of segmenting CT images of lungs affected by severe diseases was developed. The main contribution of this work was to improve the quality of these segmentations and present a model capable of identifying lobar fissures more efficiently, as this is a task considered very difficult, overcoming the difficulty of the methods in finding the fissures correctly, as they are healthy. deformed by lung diseases such as cancer and COVID-19.
@@ -140,6 +142,29 @@ We present an approach using probabilistic models, constructed from lung CT imag
 	    	<img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/gifs/coronacases_010_nnUnet.gif" alt="nnUnet", style="width: 50%;">
 	</figure>
 </div>
+
+<p align="center">
+  <figure style="display:inline-block; margin:10px">
+    <img src="https://raw.githubusercontent.com/MICLab-Unicamp/LobePrior/main/images/coronacases_010_lobeprior.gif" width="150">
+    <figcaption align="center">Legenda 1</figcaption>
+  </figure>
+  <figure style="display:inline-block; margin:10px">
+    <img src="https://raw.githubusercontent.com/MICLab-Unicamp/LobePrior/main/images/coronacases_010_lungmask.gif" width="150">
+    <figcaption align="center">Legenda 2</figcaption>
+  </figure>
+  <figure style="display:inline-block; margin:10px">
+    <img src="https://raw.githubusercontent.com/MICLab-Unicamp/LobePrior/main/images/coronacases_010_nnUnet.gif" width="150">
+    <figcaption align="center">Legenda 3</figcaption>
+  </figure>
+  <figure style="display:inline-block; margin:10px">
+    <img src="https://raw.githubusercontent.com/MICLab-Unicamp/LobePrior/main/images/coronacases_010_nnUnet.gif" width="150">
+    <figcaption align="center">Legenda 4</figcaption>
+  </figure>
+  <figure style="display:inline-block; margin:10px">
+    <img src="https://raw.githubusercontent.com/MICLab-Unicamp/LobePrior/main/images/coronacases_010_nnUnet.gif" width="150">
+    <figcaption align="center">Legenda 5</figcaption>
+  </figure>
+</p>
 
 <!--
 Outputs for LobePrior       |  Outputs for nnUnet    |  Outputs for Lungmask
