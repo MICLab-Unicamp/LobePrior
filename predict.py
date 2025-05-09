@@ -131,11 +131,11 @@ def main(args):
 			for group in range(1,11):
 
 				if teste_pickle_by_image(ID_image, group)==False:
-					register_single(image_path, None, None, None, group)
-			#		arg_list.append((image_path, None, None, None, group))
+			#		register_single(image_path, None, None, None, group)
+					arg_list.append((image_path, None, None, None, group))
 
-			#for _ in tqdm(pool.imap_unordered(register_single, arg_list)):
-			#	pass
+			with mp.Pool(N_THREADS) as pool:
+			results = list(tqdm(pool.starmap(register_single, arg_list), total=len(arg_list)))
 
 			print('Registration completed successfully!')
 

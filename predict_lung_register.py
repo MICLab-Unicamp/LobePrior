@@ -12,11 +12,13 @@ import torchio as tio
 import SimpleITK as sitk
 import nibabel as nib
 import pytorch_lightning as pl
+import multiprocessing as mp
 from monai.inferers import sliding_window_inference
 from pathlib import Path
 
 from utils.general import analyze_registration_quality, find_best_registration
 from utils.general import post_processing_lung
+from utils.general import register_single, teste_pickle_by_image
 from utils.general import unified_img_reading, busca_path, salvaImageRebuilt
 from model.unet_diedre import UNet_Diedre
 from utils.transform3D import CTHUClip
@@ -229,11 +231,11 @@ def main(args):
 
 		for group in range(1,11):
 			if teste_pickle_by_image(ID_image, group)==False:
-				register_single(image_path, None, None, None, group)
-		#		arg_list.append((image_path, None, None, None, group))
+		#		register_single(image_path, None, None, None, group)
+				arg_list.append((image_path, None, None, None, group))
 
-		#for _ in tqdm(pool.imap_unordered(register_single, arg_list)):
-		#	pass
+		with mp.Pool(N_THREADS) as pool:
+			results = list(tqdm(pool.starmap(register_single, arg_list), total=len(arg_list)))
 
 		print('Registration completed successfully!')
 

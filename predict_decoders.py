@@ -15,6 +15,7 @@ import pytorch_lightning as pl
 import multiprocessing as mp
 from monai.inferers import sliding_window_inference
 from pathlib import Path
+from tqdm import tqdm
 
 from model.unet_diedre import UNet_SeteDecoders
 from predict_lung import LungModule
@@ -321,18 +322,18 @@ def main(args):
 
 		N_THREADS = mp.cpu_count()//2
 		arg_list = []
-		pool = mp.Pool(N_THREADS)
+		#pool = mp.Pool(N_THREADS)
 
 		image_path = os.path.join(TEMP_IMAGES, 'output_convert_cliped_isometric/images', ID_image+'.nii.gz')
 
 		for group in range(1,11):
 
 			if teste_pickle_by_image(ID_image, group)==False:
-				register_single(image_path, None, None, None, group)
-		#		arg_list.append((image_path, None, None, None, group))
+		#		register_single(image_path, None, None, None, group)
+				arg_list.append((image_path, None, None, None, group))
 
-		#for _ in tqdm(pool.imap_unordered(register_single, arg_list)):
-		#	pass
+		with mp.Pool(N_THREADS) as pool:
+			results = list(tqdm(pool.starmap(register_single, arg_list), total=len(arg_list)))
 
 		print('Registration completed successfully!')
 

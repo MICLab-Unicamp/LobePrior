@@ -602,7 +602,7 @@ def teste_pickle_by_image(ID_image, group=None):
 			pickle_path = os.path.join(TEMP_IMAGES, 'registered_images/groups/group_'+str(group)+'/pickle/'+ID_image+'_'+str(group)+'.pkl')
 
 			if os.path.exists(pickle_path)==False:
-				print(f'Pickle não existe: {ID_image}')
+				#print(f'Pickle não existe: {ID_image}')
 				return False
 			else:
 				rigid_path = str(pickle_path)
@@ -612,7 +612,7 @@ def teste_pickle_by_image(ID_image, group=None):
 		pickle_path = os.path.join(TEMP_IMAGES, 'registered_images/groups/group_'+str(group)+'/pickle/'+ID_image+'_'+str(group)+'.pkl')
 
 		if os.path.exists(pickle_path)==False:
-			print(f'Pickle não existe: {ID_image}')
+			#print(f'Pickle não existe: {ID_image}')
 			return False
 		else:
 			rigid_path = str(pickle_path)
