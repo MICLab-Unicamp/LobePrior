@@ -138,10 +138,55 @@ We present an approach using probabilistic models, constructed from lung CT imag
 <div align="center">
 	<figure>
 		<img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/gifs/coronacases_010_lobeprior.gif" alt="LobePrior", style="width: 50%;">
-		<img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/gifs/coronacases_010_lungmask.gif" alt="Lungmask", style="width: 50%;">
+		<img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/gifs/coronacases_010_lungmask.gif" a
+<p align="center">
+  <figure style="display:inline-block; margin:10px">
+    <img src="https://raw.githubusercontent.com/MICLab-Unicamp/LobePrior/main/images/coronacases_010_lungmask.gif" width="150">
+    <figcaption align="center">Legenda 1</figcaption>
+  </figure>
+  <figure style="display:inline-block; margin:10px">
+    <img src="https://raw.githubusercontent.com/MICLab-Unicamp/LobePrior/main/images/coronacases_010_lungmask.gif" width="150">
+    <figcaption align="center">Legenda 2</figcaption>
+  </figure>
+  <figure style="display:inline-block; margin:10px">
+    <img src="https://raw.githubusercontent.com/MICLab-Unicamp/LobePrior/main/images/coronacases_010_nnUnet.gif" width="150">
+    <figcaption align="center">Legenda 3</figcaption>
+  </figure>
+  <figure style="display:inline-block; margin:10px">
+    <img src="https://raw.githubusercontent.com/MICLab-Unicamp/LobePrior/main/images/coronacases_010_nnUnet.gif" width="150">
+    <figcaption align="center">Legenda 4</figcaption>
+  </figure>
+  <figure style="display:inline-block; margin:10px">
+    <img src="https://raw.githubusercontent.com/MICLab-Unicamp/LobePrior/main/images/coronacases_010_nnUnet.gif" width="150">
+    <figcaption align="center">Legenda 5</figcaption>
+  </figure>
+</p>lt="Lungmask", style="width: 50%;">
 	    	<img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/gifs/coronacases_010_nnUnet.gif" alt="nnUnet", style="width: 50%;">
 	</figure>
 </div>
+
+<p align="center">
+  <div style="display: inline-block; text-align: center; margin: 10px;">
+    <img src="https://raw.githubusercontent.com/MICLab-Unicamp/LobePrior/main/images/coronacases_010_lungmask.gif" width="150">
+    <div>Lung Mask</div>
+  </div>
+  <div style="display: inline-block; text-align: center; margin: 10px;">
+    <img src="https://raw.githubusercontent.com/MICLab-Unicamp/LobePrior/main/images/coronacases_010_lungmask.gif" width="150">
+    <div>Lung Mask (Repeat)</div>
+  </div>
+  <div style="display: inline-block; text-align: center; margin: 10px;">
+    <img src="https://raw.githubusercontent.com/MICLab-Unicamp/LobePrior/main/images/coronacases_010_nnUnet.gif" width="150">
+    <div>nnUNet Output 1</div>
+  </div>
+  <div style="display: inline-block; text-align: center; margin: 10px;">
+    <img src="https://raw.githubusercontent.com/MICLab-Unicamp/LobePrior/main/images/coronacases_010_nnUnet.gif" width="150">
+    <div>nnUNet Output 2</div>
+  </div>
+  <div style="display: inline-block; text-align: center; margin: 10px;">
+    <img src="https://raw.githubusercontent.com/MICLab-Unicamp/LobePrior/main/images/coronacases_010_nnUnet.gif" width="150">
+    <div>nnUNet Output 3</div>
+  </div>
+</p>
 
 <p align="center">
   <figure style="display:inline-block; margin:10px">
