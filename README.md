@@ -165,51 +165,31 @@ We present an approach using probabilistic models, constructed from lung CT imag
 	</figure>
 </div>
 
-<p align="center">
-  <div style="display: inline-block; text-align: center; margin: 10px;">
-    <img src="https://raw.githubusercontent.com/MICLab-Unicamp/LobePrior/main/images/coronacases_010_lungmask.gif" width="150">
-    <div>Lung Mask</div>
-  </div>
-  <div style="display: inline-block; text-align: center; margin: 10px;">
-    <img src="https://raw.githubusercontent.com/MICLab-Unicamp/LobePrior/main/images/coronacases_010_lungmask.gif" width="150">
-    <div>Lung Mask (Repeat)</div>
-  </div>
-  <div style="display: inline-block; text-align: center; margin: 10px;">
-    <img src="https://raw.githubusercontent.com/MICLab-Unicamp/LobePrior/main/images/coronacases_010_nnUnet.gif" width="150">
-    <div>nnUNet Output 1</div>
-  </div>
-  <div style="display: inline-block; text-align: center; margin: 10px;">
-    <img src="https://raw.githubusercontent.com/MICLab-Unicamp/LobePrior/main/images/coronacases_010_nnUnet.gif" width="150">
-    <div>nnUNet Output 2</div>
-  </div>
-  <div style="display: inline-block; text-align: center; margin: 10px;">
-    <img src="https://raw.githubusercontent.com/MICLab-Unicamp/LobePrior/main/images/coronacases_010_nnUnet.gif" width="150">
-    <div>nnUNet Output 3</div>
-  </div>
-</p>
+<<table>
+  <tr>
+    <td align="center">
+      <img src="https://raw.githubusercontent.com/MICLab-Unicamp/LobePrior/main/images/coronacases_010_lungmask.gif" width="150"><br>
+      <sub>Lung Mask 1</sub>
+    </td>
+    <td align="center">
+      <img src="https://raw.githubusercontent.com/MICLab-Unicamp/LobePrior/main/images/coronacases_010_lungmask.gif" width="150"><br>
+      <sub>Lung Mask 2</sub>
+    </td>
+    <td align="center">
+      <img src="https://raw.githubusercontent.com/MICLab-Unicamp/LobePrior/main/images/coronacases_010_nnUnet.gif" width="150"><br>
+      <sub>nnUNet 1</sub>
+    </td>
+    <td align="center">
+      <img src="https://raw.githubusercontent.com/MICLab-Unicamp/LobePrior/main/images/coronacases_010_nnUnet.gif" width="150"><br>
+      <sub>nnUNet 2</sub>
+    </td>
+    <td align="center">
+      <img src="https://raw.githubusercontent.com/MICLab-Unicamp/LobePrior/main/images/coronacases_010_nnUnet.gif" width="150"><br>
+      <sub>nnUNet 3</sub>
+    </td>
+  </tr>
+</table>
 
-<p align="center">
-  <figure style="display:inline-block; margin:10px">
-    <img src="https://raw.githubusercontent.com/MICLab-Unicamp/LobePrior/main/images/coronacases_010_lungmask.gif" width="150">
-    <figcaption align="center">Legenda 1</figcaption>
-  </figure>
-  <figure style="display:inline-block; margin:10px">
-    <img src="https://raw.githubusercontent.com/MICLab-Unicamp/LobePrior/main/images/coronacases_010_lungmask.gif" width="150">
-    <figcaption align="center">Legenda 2</figcaption>
-  </figure>
-  <figure style="display:inline-block; margin:10px">
-    <img src="https://raw.githubusercontent.com/MICLab-Unicamp/LobePrior/main/images/coronacases_010_nnUnet.gif" width="150">
-    <figcaption align="center">Legenda 3</figcaption>
-  </figure>
-  <figure style="display:inline-block; margin:10px">
-    <img src="https://raw.githubusercontent.com/MICLab-Unicamp/LobePrior/main/images/coronacases_010_nnUnet.gif" width="150">
-    <figcaption align="center">Legenda 4</figcaption>
-  </figure>
-  <figure style="display:inline-block; margin:10px">
-    <img src="https://raw.githubusercontent.com/MICLab-Unicamp/LobePrior/main/images/coronacases_010_nnUnet.gif" width="150">
-    <figcaption align="center">Legenda 5</figcaption>
-  </figure>
-</p>
 
 <!--
 Outputs for LobePrior       |  Outputs for nnUnet    |  Outputs for Lungmask
