@@ -133,7 +133,11 @@ We present an approach using probabilistic models, constructed from lung CT imag
 	</figure>
    </div>
 
-
+<div align="center">
+  <figure>
+    <img src="https://raw.githubusercontent.com/MICLab-Unicamp/LobePrior/main/images/Cbeb_volumes.png" alt="Unet" height="400" width="700">
+  </figure>
+</div>
 
 <div align="center">
 	<figure>
