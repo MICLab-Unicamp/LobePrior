@@ -746,9 +746,9 @@ def random_crop_ZXY(image, lung, label, airway, crop_size=(128,128,128)):
 
 	if (image.shape[2] < depth):
 		depth = image.shape[2]
-	assert image.shape[4] >= depth
-	assert image.shape[2] >= height
-	assert image.shape[3] >= width
+	assert image.shape[2] >= depth
+	assert image.shape[3] >= height
+	assert image.shape[4] >= width
 
 	z = random.randint(0, image.shape[2] - depth)
 	x = random.randint(0, image.shape[3] - height)
@@ -762,23 +762,51 @@ def random_crop_ZXY(image, lung, label, airway, crop_size=(128,128,128)):
 	return image, lung, label, airway
 
 def random_crop_XYZ(image, lung, label, airway, crop_size=(128,128,128)):
-	depth, width, height = crop_size[0], crop_size[1], crop_size[2]
+	width, height, depth = crop_size[0], crop_size[1], crop_size[2]
 
 	assert (len(image.shape)==5 and len(lung.shape)==5 and len(label.shape)==5 and len(airway.shape)==5), f'Tamanho de shape diferente de 5.'
 	assert image.shape[2] == image.shape[3], f'{image.shape}'
 
 	if (image.shape[4] < depth):
 		depth = image.shape[4]
-	assert image.shape[4] >= depth
 	assert image.shape[2] >= height
 	assert image.shape[3] >= width
+	assert image.shape[4] >= depth
 
 	z = random.randint(0, image.shape[4] - depth)
 	x = random.randint(0, image.shape[2] - height)
 	y = random.randint(0, image.shape[3] - width)
 
 	image = image[:, :, x:x+height, y:y+width, z:z+depth]
-	lung = lung[:, :, z:z+depth, x:x+height, y:y+width]
+	lung = lung[:, :, x:x+height, y:y+width, z:z+depth]
+	label = label[:, :, x:x+height, y:y+width, z:z+depth]
+	airway = airway[:, :, x:x+height, y:y+width, z:z+depth]
+
+	return image, lung, label, airway
+
+def random_crop_all(image, lung, label, airway, crop_size=(128,128,128)):
+	width, height, depth = crop_size[0], crop_size[1], crop_size[2]
+
+	assert (len(image.shape)==5 and len(lung.shape)==5 and len(label.shape)==5 and len(airway.shape)==5), f'Tamanho de shape diferente de 5.'
+	#assert image.shape[2] == image.shape[3], f'{image.shape}'
+
+	if (image.shape[4] < depth):
+		depth = image.shape[4]
+	if (image.shape[2] < height):
+		height = image.shape[4]
+	if (image.shape[3] < width):
+		width = image.shape[4]
+
+	assert image.shape[2] >= height
+	assert image.shape[3] >= width
+	assert image.shape[4] >= depth
+
+	z = random.randint(0, image.shape[4] - depth)
+	x = random.randint(0, image.shape[2] - height)
+	y = random.randint(0, image.shape[3] - width)
+
+	image = image[:, :, x:x+height, y:y+width, z:z+depth]
+	lung = lung[:, :, x:x+height, y:y+width, z:z+depth]
 	label = label[:, :, x:x+height, y:y+width, z:z+depth]
 	airway = airway[:, :, x:x+height, y:y+width, z:z+depth]
 
@@ -789,3 +817,5 @@ def random_crop(image, lung, label, airway, crop_size=(128,128,128)):
 		return random_crop_XYZ(image, lung, label, airway, crop_size=crop_size)
 	elif image.shape[3]==image.shape[4]:
 		return random_crop_ZXY(image, lung, label, airway, crop_size=crop_size)
+	else:
+		return random_crop_all(image, lung, label, airway, crop_size=crop_size)
