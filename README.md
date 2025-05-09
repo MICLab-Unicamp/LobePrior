@@ -70,7 +70,7 @@ Finally, go into the top level folder, inside LobePrior folder.
 
 ##### Images for testing
 
-If you wish to test the LobePrior method, you may use a public dataset referred to here as CoronaCases. The COVID-19 CT Lung and Infection Segmentation Dataset, available on Zenodo, provides 20 computed tomography (CT) scans of COVID-19 patients. You can access and download the dataset directly via the following link:
+If you wish to test the LobePrior method, you may use a public dataset referred to here as CoronaCases. The COVID-19 CT Lung and Infection Segmentation Dataset, available on Zenodo, provides 20 CT scans of COVID-19 patients. You can access and download the dataset directly via the following link:
 
 [CoronaCases](https://zenodo.org/records/3757476)
 
