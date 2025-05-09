@@ -253,7 +253,6 @@ class LoberModule(pl.LightningModule):
 def main(args):
 	print('Parameters:', args)
 
-	modo_register = True
 	delete_data = False
 	output_path = os.path.join(TEMP_IMAGES, 'outputs')
 
@@ -274,7 +273,7 @@ def main(args):
 
 	print(f'Input: {image_original_path}')
 	print(f'Output: {output_path}')
-	print(f'Prior Information: {modo_register}')
+	print(f'Prior Information: {not modo_normal}')
 	print(f'Delete temporary files : {delete_data}')
 
 	if os.path.isfile(image_original_path):
@@ -321,12 +320,11 @@ def main(args):
 
 
 
+		image_path = os.path.join(TEMP_IMAGES, 'output_convert_cliped_isometric/images', ID_image+'.nii.gz')
 
 		if parallel_processing:
 			N_THREADS = mp.cpu_count()//2
 			arg_list = []
-
-			image_path = os.path.join(TEMP_IMAGES, 'output_convert_cliped_isometric/images', ID_image+'.nii.gz')
 
 			for group in range(1,11):
 				if teste_pickle_by_image(ID_image, group)==False:
@@ -378,7 +376,6 @@ def main(args):
 		pre_trained_model_path = 'weights/LightningLobes_6_decoders_pre_treino_epoch=62-val_loss=0.145_attUnet_template_lr=0.0001_AdamW_focal_loss_kaggle_saida=6.ckpt'
 
 		test_model = LoberModule.load_from_checkpoint(pre_trained_model_path, strict=False)
-		checkpoint = torch.load(pre_trained_model_path, map_location=torch.device('cpu'))
 
 		test_model.predict(image_path, image_original_path, output_path, group=group, post_processed=True)
 

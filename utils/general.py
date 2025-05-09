@@ -632,34 +632,13 @@ def register_single(moving_path, moving_label_path, moving_lung_path, moving_air
 	os.makedirs(OUTPUT_DIR_PICKLE, exist_ok=True)
 	os.makedirs(OUTPUT_DIR_NPZ_RIGID, exist_ok=True)
 
-	if GROUP==1:
-		fixed_path = os.path.join(RAW_DATA_FOLDER, 'groups/group_'+str(GROUP)+'/1.3.6.1.4.1.14519.5.2.1.6279.6001.192256506776434538421891524301.nii.gz')
-	elif GROUP==2:
-		fixed_path = os.path.join(RAW_DATA_FOLDER, 'groups/group_'+str(GROUP)+'/1.3.6.1.4.1.14519.5.2.1.6279.6001.194465340552956447447896167830.nii.gz')
-	elif GROUP==3:
-		fixed_path = os.path.join(RAW_DATA_FOLDER, 'groups/group_'+str(GROUP)+'/1.3.6.1.4.1.14519.5.2.1.6279.6001.183843376225716802567192412456.nii.gz')
-	elif GROUP==4:
-		fixed_path = os.path.join(RAW_DATA_FOLDER, 'groups/group_'+str(GROUP)+'/1.3.6.1.4.1.14519.5.2.1.6279.6001.265133389948279331857097127422.nii.gz')
-	elif GROUP==5:
-		fixed_path = os.path.join(RAW_DATA_FOLDER, 'groups/group_'+str(GROUP)+'/1.3.6.1.4.1.14519.5.2.1.6279.6001.316911475886263032009840828684.nii.gz')
-	elif GROUP==6:
-		fixed_path = os.path.join(RAW_DATA_FOLDER, 'groups/group_'+str(GROUP)+'/1.3.6.1.4.1.14519.5.2.1.6279.6001.842980983137518332429408284002.nii.gz')
-	elif GROUP==7:
-		fixed_path = os.path.join(RAW_DATA_FOLDER, 'groups/group_'+str(GROUP)+'/1.3.6.1.4.1.14519.5.2.1.6279.6001.177685820605315926524514718990.nii.gz')
-	elif GROUP==8:
-		fixed_path = os.path.join(RAW_DATA_FOLDER, 'groups/group_'+str(GROUP)+'/coronacases_005.nii.gz')
-	elif GROUP==9:
-		fixed_path = os.path.join(RAW_DATA_FOLDER, 'groups/group_'+str(GROUP)+'/1.3.6.1.4.1.14519.5.2.1.6279.6001.188385286346390202873004762827.nii.gz')
-	elif GROUP==10:
-		fixed_path = os.path.join(RAW_DATA_FOLDER, 'groups/group_'+str(GROUP)+'/1.3.6.1.4.1.14519.5.2.1.6279.6001.249530219848512542668813996730.nii.gz')
-	elif GROUP==11:
-		fixed_path = os.path.join(RAW_DATA_FOLDER, 'groups/group_'+str(GROUP)+'/1.3.6.1.4.1.14519.5.2.1.6279.6001.300392272203629213913702120739.nii.gz')
+	fixed_path = os.path.join(RAW_DATA_FOLDER, 'groups/group_'+str(GROUP)+'.nii.gz')
 
-	print('Fixed path', fixed_path)
+	print(f'\nFixed path: {fixed_path}')
 
 	ID_fixed = os.path.basename(fixed_path).replace(".nii.gz", '')
 	ID_moving = os.path.basename(moving_path).replace(".nii.gz", '')
-	print(f'\n{ID_moving}')
+	print(f'{ID_moving}')
 
 	#fixed_label_path = os.path.join(RAW_DATA_FOLDER, 'labels', ID_fixed+'.nii.gz')
 
