@@ -168,8 +168,6 @@ class LoberModule(pl.LightningModule):
 	def test_step(self, test_batch):
 		x_high, x, template = test_batch["image_h"],  test_batch["image"], test_batch["template"]
 
-		#print(x_high.shape, x.shape, template.shape)
-
 		output_lung, output_lobes, output_airway = self.forward(x_high, x, template)
 
 		#assert output_high.shape==y_high.shape, f'Shapes diferentes (val) {output_high.shape} {y_high.shape}'
@@ -178,9 +176,6 @@ class LoberModule(pl.LightningModule):
 		return output_lung.cpu(), output_lobes.cpu(), output_airway.cpu()
 
 	def predict(self, npz_path, image_original_path, output_path, group=None, post_processed=True) -> np.ndarray:
-
-		#ckpt_path = os.path.join(TEMP_IMAGES, 'results/outputs')
-		#os.makedirs(ckpt_path, exist_ok=True)
 
 		ID_image = os.path.basename(image_original_path).replace('.npz','').replace('.nii.gz','').replace('.nii','').replace('.mhd','').replace('.mha','')
 
@@ -292,7 +287,6 @@ def main(args):
 		all_images = []
 		for ext in extensoes:
 			all_images.extend(glob.glob(os.path.join(image_original_path, ext)))
-		#all_images = sorted(glob.glob(os.path.join(image_original_path, '*.nii.gz')))
 	else:
 		all_images = sorted(glob.glob(os.path.join(image_original_path, '*.nii.gz')))
 
@@ -326,26 +320,19 @@ def main(args):
 
 
 		N_THREADS = mp.cpu_count()//2
+		arg_list = []
+		pool = mp.Pool(N_THREADS)
 
 		image_path = os.path.join(TEMP_IMAGES, 'output_convert_cliped_isometric/images', ID_image+'.nii.gz')
 
-		image = sitk.GetArrayFromImage(sitk.ReadImage(image_path))
-		#print(image_path)
-		#print(image.shape, image.min(), image.max())
-
-		for group in range(1,12):
-
-			arg_list = []
-			pool = mp.Pool(N_THREADS)
+		for group in range(1,11):
 
 			if teste_pickle_by_image(ID_image, group)==False:
 				register_single(image_path, None, None, None, group)
-			#for group in range(1,13):
-			#	if teste_pickle_by_image(ID_image, group)==False:
-			#		arg_list.append((image_path, None, None, None, group))
+		#		arg_list.append((image_path, None, None, None, group))
 
-			#for _ in tqdm(pool.imap_unordered(register_single, arg_list)):
-			#	pass
+		#for _ in tqdm(pool.imap_unordered(register_single, arg_list)):
+		#	pass
 
 		print('Registration completed successfully!')
 

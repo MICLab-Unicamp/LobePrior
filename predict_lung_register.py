@@ -64,10 +64,6 @@ class LungModule(pl.LightningModule):
 		# O nome precisar ser hparams para o PL.
 		self.save_hyperparameters(hparams)
 
-		# Métricas
-		#self.metric = Dice_chavg_per_label_metric()
-		#self.dice_metric = DiceMetric(include_background=False, reduction="mean")
-
 		if self.hparams.mode == "segmentation":
 			self.model_low = UNet_Diedre(n_channels=1, n_classes=1, norm="instance", dim='3d', init_channel=16, joany_conv=False, dict_return=False)
 			self.model = UNet_Diedre(n_channels=2, n_classes=1, norm="instance", dim='3d', init_channel=16, joany_conv=False, dict_return=False)
@@ -107,6 +103,7 @@ class LungModule(pl.LightningModule):
 
 		return y_low_resize, output_lung
 
+	@torch.no_grad()
 	def test_step(self, val_batch):
 		x_high, x = val_batch["image_h"],  val_batch["image"]
 
@@ -189,7 +186,6 @@ def main(args):
 		all_images = []
 		for ext in extensoes:
 			all_images.extend(glob.glob(os.path.join(image_original_path, ext)))
-		#all_images = sorted(glob.glob(os.path.join(image_original_path, '*.nii.gz')))
 	else:
 		all_images = sorted(glob.glob(os.path.join(image_original_path, '*.nii.gz')))
 
@@ -226,6 +222,20 @@ def main(args):
 
 
 		image_path = os.path.join(TEMP_IMAGES, 'output_convert_cliped_isometric/images', ID_image+'.nii.gz')
+
+		N_THREADS = mp.cpu_count()//2
+		arg_list = []
+		pool = mp.Pool(N_THREADS)
+
+		for group in range(1,11):
+			if teste_pickle_by_image(ID_image, group)==False:
+				register_single(image_path, None, None, None, group)
+		#		arg_list.append((image_path, None, None, None, group))
+
+		#for _ in tqdm(pool.imap_unordered(register_single, arg_list)):
+		#	pass
+
+		print('Registration completed successfully!')
 
 		image = nib.load(image_path).get_fdata()
 

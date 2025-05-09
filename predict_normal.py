@@ -142,6 +142,7 @@ class LoberModuleNormal(pl.LightningModule):
 
 		return y_low_resize, output_lobes, output_low_lung, output_lung
 
+	@torch.no_grad()
 	def test_step(self, test_batch):
 		x_high, x = test_batch["image_h"],  test_batch["image"]
 
@@ -153,10 +154,6 @@ class LoberModuleNormal(pl.LightningModule):
 
 		if (rebuild):
 			assert save_image==True, f'Erro: save_image == False'
-
-		#if (save_image):
-		#	ckpt_path = os.path.join(TEMP_IMAGES, 'results/outputs')
-		#	os.makedirs(ckpt_path, exist_ok=True)
 
 		sample = get_sample(npz_path)
 
@@ -204,8 +201,6 @@ class LoberModuleNormal(pl.LightningModule):
 			image = post_processing_dist_lung(image, lung)
 
 			assert image.min()==0 and image.max()==5, f'MinMax incorretos {image.shape}: {image.min()} e {image.max()}'
-
-			#print(f'Salvando imagem com pós-processamento final: {image.shape} {image.squeeze().shape}')
 
 			salvaImageRebuilt(image.squeeze(), image_original_path, rigid_path=None, ID_image=ID_image, output_path=output_path)
 

@@ -58,10 +58,6 @@ class LungModule(pl.LightningModule):
 		# O nome precisar ser hparams para o PL.
 		self.save_hyperparameters(hparams)
 
-		# Métricas
-		#self.metric = Dice_chavg_per_label_metric()
-		#self.dice_metric = DiceMetric(include_background=False, reduction="mean")
-
 		if self.hparams.mode == "segmentation":
 			self.model_low = UNet_Diedre(n_channels=1, n_classes=1, norm="instance", dim='3d', init_channel=16, joany_conv=False, dict_return=False)
 			self.model = UNet_Diedre(n_channels=2, n_classes=1, norm="instance", dim='3d', init_channel=16, joany_conv=False, dict_return=False)
@@ -101,6 +97,7 @@ class LungModule(pl.LightningModule):
 
 		return y_low_resize, output_lung
 
+	@torch.no_grad()
 	def test_step(self, val_batch):
 		x_high, x = val_batch["image_h"],  val_batch["image"]
 
@@ -124,11 +121,6 @@ class LungModule(pl.LightningModule):
 			output_lung = output_lung.numpy()
 
 		output_lung = post_processing_lung(output_lung, largest=2)
-
-		#ID_image = os.path.basename(npz_path).replace('.npz','')
-
-		#output = sitk.GetImageFromArray(output_lung.squeeze())
-		#sitk.WriteImage(output, os.path.join('', ID_image+"_lung.nii.gz"))
 
 		return output_lung
 
@@ -188,7 +180,6 @@ def main(args):
 		all_images = []
 		for ext in extensoes:
 			all_images.extend(glob.glob(os.path.join(image_original_path, ext)))
-		#all_images = sorted(glob.glob(os.path.join(image_original_path, '*.nii.gz')))
 	else:
 		all_images = sorted(glob.glob(os.path.join(image_original_path, '*.nii.gz')))
 
