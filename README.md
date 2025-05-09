@@ -50,23 +50,25 @@ Finally, go into the top level folder, inside LobePrior folder.
 	</figure>
 </div>
 
-## To predict lung lobe segmentation from an image with probabilistic templates
+## Testing
+
+##### To predict lung lobe segmentation from an image with probabilistic templates
 
 > python predict.py -i input -o output
 
-## To predict lung lobe segmentation from an image without probabilistic templates add -n
+##### To predict lung lobe segmentation from an image without probabilistic templates add -n
 
 > python predict.py -i input -o output -n
  
-## To predict lung segmentation
+##### To predict lung segmentation
 
 > python predict_lung.py -i input -o output
 
-## &nbsp;&nbsp;&nbsp;&nbsp; To predict lung lobe segmentation with parallel computing add -p
+##### To predict lung lobe segmentation with parallel computing add -p
 
 > python predict.py -i input -o output -p
 
-## Images for testing
+##### Images for testing
 
 If you wish to test the LobePrior method, you may use a public dataset referred to here as CoronaCases. The COVID-19 CT Lung and Infection Segmentation Dataset, available on Zenodo, provides 20 computed tomography (CT) scans of COVID-19 patients. You can access and download the dataset directly via the following link:
 
