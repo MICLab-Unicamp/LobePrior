@@ -135,14 +135,14 @@ We present an approach using probabilistic models, constructed from lung CT imag
   </figure>
 </div>
 
-<br><br><br>
+<br>
 
 <div align="center">
 <table>
   <tr>
     <td align="center">
       <img src="https://raw.githubusercontent.com/MICLab-Unicamp/LobePrior/main/images/gifs//coronacases_010_nnUnet.gif" width="145"><br>
-      <sub>LobePrior</sub>
+      <sub>nnU-Net</sub>
     </td>
     <td align="center">
       <img src="https://raw.githubusercontent.com/MICLab-Unicamp/LobePrior/main/images/gifs/coronacases_010_lungmask.gif" width="145"><br>
