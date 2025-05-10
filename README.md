@@ -155,7 +155,7 @@ We present an approach using probabilistic models, constructed from lung CT imag
       <sub>LungMask</sub>
     </td>
     <td align="center">
-      <img src="https://raw.githubusercontent.com/MICLab-Unicamp/LobePrior/main/images/gifs/coronacases_010_all" width="155"><br>
+      <img src="https://raw.githubusercontent.com/MICLab-Unicamp/LobePrior/main/images/gifs/coronacases_010_all.gif" width="155"><br>
       <sub>TootalSegmentor</sub>
     </td>
     <td align="center">
@@ -163,7 +163,7 @@ We present an approach using probabilistic models, constructed from lung CT imag
       <sub>LobePrior/sub>
     </td>
     <td align="center">
-      <img src="https://raw.githubusercontent.com/MICLab-Unicamp/LobePrior/main/images/gifs/coronacases_010_gt" width="155"><br>
+      <img src="https://raw.githubusercontent.com/MICLab-Unicamp/LobePrior/main/images/gifs/coronacases_010_gt.gif" width="155"><br>
       <sub>Ground Truth</sub>
     </td>
   </tr>
