@@ -143,30 +143,32 @@ We present an approach using probabilistic models, constructed from lung CT imag
 	</figure>
 </div>
 
+<div align="center">
 <table>
   <tr>
     <td align="center">
-      <img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/gifs/coronacases_010_lobeprior.gif" width="150"><br>
+      <img src="https://raw.githubusercontent.com/MICLab-Unicamp/LobePrior/main/images/gifs//coronacases_010_nnUnet.gif" width="155"><br>
       <sub>LobePrior</sub>
     </td>
     <td align="center">
-      <img src="https://raw.githubusercontent.com/MICLab-Unicamp/LobePrior/main/images/gifs/coronacases_010_lungmask.gif" width="150"><br>
+      <img src="https://raw.githubusercontent.com/MICLab-Unicamp/LobePrior/main/images/gifs/coronacases_010_lungmask.gif" width="155"><br>
       <sub>LungMask</sub>
     </td>
     <td align="center">
-      <img src="https://raw.githubusercontent.com/MICLab-Unicamp/LobePrior/main/images/gifs/coronacases_010_nnUnet.gif" width="150"><br>
-      <sub>nnU-Net</sub>
+      <img src="https://raw.githubusercontent.com/MICLab-Unicamp/LobePrior/main/images/gifs/coronacases_010_all" width="155"><br>
+      <sub>TootalSegmentor</sub>
     </td>
     <td align="center">
-      <img src="https://raw.githubusercontent.com/MICLab-Unicamp/LobePrior/main/images/gifs/coronacases_010_nnUnet.gif" width="150"><br>
-      <sub>nnUNet 2</sub>
+      <img src="https://raw.githubusercontent.com/MICLab-Unicamp/LobePrior/main/images/gifs/coronacases_010_lobeprior.gif" width="155"><br>
+      <sub>LobePrior/sub>
     </td>
     <td align="center">
-      <img src="https://raw.githubusercontent.com/MICLab-Unicamp/LobePrior/main/images/gifs/coronacases_010_nnUnet.gif" width="150"><br>
-      <sub>nnUNet 3</sub>
+      <img src="https://raw.githubusercontent.com/MICLab-Unicamp/LobePrior/main/images/gifs/coronacases_010_gt" width="155"><br>
+      <sub>Ground Truth</sub>
     </td>
   </tr>
 </table>
+</div>
 
 
 <!--
