@@ -135,13 +135,6 @@ We present an approach using probabilistic models, constructed from lung CT imag
   </figure>
 </div>
 
-<div align="center">
-	<figure>
-		<img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/gifs/coronacases_010_lobeprior.gif" alt="LobePrior", style="width: 50%;">
-		<img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/gifs/coronacases_010_lungmask.gif", style="width: 50%;">
-	    	<img src="https://github.com/MICLab-Unicamp/LobePrior/blob/main/images/gifs/coronacases_010_nnUnet.gif" alt="nnUnet", style="width: 50%;">
-	</figure>
-</div>
 
 <div align="center">
 <table>
@@ -171,13 +164,7 @@ We present an approach using probabilistic models, constructed from lung CT imag
 </div>
 
 
-<!--
-Outputs for LobePrior       |  Outputs for nnUnet    |  Outputs for Lungmask
-:-------------------------:|:-------------------------:
-![LobePrior](images/gifs/coronacases_010_lobeprior.gif)  |
-![nnUnet](images/gifs/coronacases_010_nnUnet.gif)   |
-![Lungmask](images/gifs/coronacases_010_lungmask.gif)
--->
+
 
 
 ## Citation
