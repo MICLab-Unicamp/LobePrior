@@ -278,9 +278,9 @@ def main(args):
 	print(f'Output: {output_path}')
 	print(f'Prior Information: {not modo_normal}')
 	print(f'Delete temporary files : {delete_data}')
-	print(f'Parallel processing : {parallel_processing}')
+	print(f'Parallel processing: {parallel_processing}')
 	if parallel_processing:
-		print(f'Quantity of works : {N_THREADS}')
+		print(f'Number of processes: {N_THREADS}')
 
 	if os.path.isfile(image_original_path):
 		path = Path(image_original_path)
