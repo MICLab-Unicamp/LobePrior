@@ -11,6 +11,7 @@ import SimpleITK as sitk
 import nibabel as nib
 import multiprocessing as mp
 from pathlib import Path
+from tqdm import tqdm
 
 from utils.general import register_single, teste_pickle_by_image
 from utils.general import unified_img_reading
