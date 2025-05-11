@@ -32,7 +32,7 @@ def main(args):
 	parser = argparse.ArgumentParser(description='Lung lobe segmentation on CT images using prior information.')
 	parser.add_argument('--input', "-i", default="inputs", help= "Input image or folder with volumetric images.", type=str)
 	parser.add_argument('--output', "-o", default="outputs", help= "Directory to store the final segmentation.", type=str)
-	parser.add_argument('--nworkers', "-n", default=mp.cpu_count()//2, help="Number of workers", type=int)
+	parser.add_argument('--nworkers', "-nw", default=mp.cpu_count()//2, help="Number of workers", type=int)
 	parser.add_argument('--normal', "-n", action="store_true", help= "Use Prior Information.") 			# true se passou --normal
 	parser.add_argument('--delete', "-d", action="store_true", help= "Delete temporary files.") 		# true se passou --delete
 	parser.add_argument('--pool', "-p", action="store_true", help= "Parallel processing.") 		# true se passou --pool
