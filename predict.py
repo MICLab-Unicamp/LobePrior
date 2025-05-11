@@ -32,6 +32,7 @@ def main(args):
 	parser = argparse.ArgumentParser(description='Lung lobe segmentation on CT images using prior information.')
 	parser.add_argument('--input', "-i", default="inputs", help= "Input image or folder with volumetric images.", type=str)
 	parser.add_argument('--output', "-o", default="outputs", help= "Directory to store the final segmentation.", type=str)
+	parser.add_argument('--nworkers', "-n", default=mp.cpu_count()//2, help="Number of workers", type=int)
 	parser.add_argument('--normal', "-n", action="store_true", help= "Use Prior Information.") 			# true se passou --normal
 	parser.add_argument('--delete', "-d", action="store_true", help= "Delete temporary files.") 		# true se passou --delete
 	parser.add_argument('--pool', "-p", action="store_true", help= "Parallel processing.") 		# true se passou --pool
@@ -43,11 +44,16 @@ def main(args):
 	modo_normal = args.normal
 	delete_data = args.delete
 	parallel_processing = args.pool
+	if parallel_processing:
+		N_THREADS = args.nworkers
 
 	print(f'Input: {image_original_path}')
 	print(f'Output: {output_path}')
 	print(f'Prior Information: {not modo_normal}')
 	print(f'Delete temporary files : {delete_data}')
+	print(f'Parallel processing : {parallel_processing}')
+	if parallel_processing:
+		print(f'Quantity of works : {N_THREADS}')
 
 	if os.path.isfile(image_original_path):
 		path = Path(image_original_path)
@@ -125,7 +131,7 @@ def main(args):
 			image_path = os.path.join(TEMP_IMAGES, 'output_convert_cliped_isometric/images', ID_image+'.nii.gz')
 
 			if parallel_processing:
-				N_THREADS = mp.cpu_count()//2
+				#N_THREADS = mp.cpu_count()//2
 				arg_list = []
 
 				for group in range(1,11):
