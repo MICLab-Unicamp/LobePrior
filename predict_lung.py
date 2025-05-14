@@ -216,7 +216,7 @@ def main(args):
 		image_path = os.path.join(TEMP_IMAGES, 'output_convert_cliped_isometric/images', ID_image+'.nii.gz')
 
 		image = nib.load(image_path).get_fdata()
-		save_path = os.path.join(TEMP_IMAGES, 'registered_images', 'npz_rigid')
+		save_path = os.path.join(TEMP_IMAGES, 'registered_images', 'npz_rigid', f'{ID_image}.npz'))
 		os.makedirs(save_path, exist_ok=True)
 		np.savez_compressed(save_path, image=image)
 
