@@ -218,7 +218,7 @@ def main(args):
 		image = nib.load(image_path).get_fdata()
 		save_path = os.path.join(TEMP_IMAGES, 'registered_images', 'npz_rigid')
 		os.makedirs(save_path, exist_ok=True)
-		arquivo_path = os.path.join(save_path, f'{ID_image}.npz'))
+		arquivo_path = os.path.join(save_path, f'{ID_image}.npz')
 		np.savez_compressed(arquivo_path, image=image)
 
 		image_path = os.path.join(TEMP_IMAGES, 'registered_images', 'npz_rigid', ID_image+'.npz')
