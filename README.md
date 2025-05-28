@@ -54,7 +54,7 @@ Finally, go into the top level folder, inside LobePrior folder.
 
 ## Testing
 
-** To predict lung lobe segmentation from an image with probabilistic templates **
+##### To predict lung lobe segmentation from an image with probabilistic templates
 
 > python predict.py -i input -o output
 
@@ -126,6 +126,9 @@ We present an approach using probabilistic models, constructed from lung CT imag
 	</figure>
    </div>
 
+---
+
+# Qualitative evaluation
 
 * Qualitative evaluation using 3D representations in CT images of lungs from patients with severe injuries:
 
