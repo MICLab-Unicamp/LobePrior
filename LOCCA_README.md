@@ -138,7 +138,9 @@ This script allows you to load and visualize 3D CT scans along with their corres
 
 ▶️ **How to Run the Script using the terminal**
 
-   - python load_image_and_annotation.py -image data/images/patient_001.nii.gz --mask data/labels/patient_001.nrrd
+```bash
+   python load_image_and_annotation.py -image data/images/patient_001.nii.gz --mask data/labels/patient_001.nrrd
+'''
 
 🖼️ **ITK-Snap**
 
