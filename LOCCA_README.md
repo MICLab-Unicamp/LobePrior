@@ -59,13 +59,13 @@ The main formats used here are:
 Install the following packages using `pip` or `conda`:
 
 ```bash
-pip install nibabel simpleitk numpy matplotlib jupyter
+pip install nibabel simpleitk numpy matplotlib jupyter pynrrd
 ```
 
 Or with Conda:
 
 ```bash
-conda install -c conda-forge nibabel simpleitk matplotlib jupyter
+conda install -c conda-forge nibabel simpleitk matplotlib jupyter pynrrd
 ```
 
 ---
@@ -135,12 +135,6 @@ conda install -c conda-forge nibabel simpleitk matplotlib jupyter
 ## Instructions for Using the Script
 
 This script allows you to load and visualize 3D CT scans along with their corresponding annotations (e.g., segmentation masks). It is intended for medical imaging tasks using Python.
-
-✅ **Requirements**
-
-Before running the script, make sure the following Python packages are installed:
-
-   - pip install nibabel pynrrd numpy matplotlib
 
 ▶️ **How to Run the Script using the terminal**
 
