@@ -50,9 +50,11 @@ Finally, go into the top level folder, inside LobePrior folder.
 	</figure>
 </div>
 
+---
+
 ## Testing
 
-##### To predict lung lobe segmentation from an image with probabilistic templates
+** To predict lung lobe segmentation from an image with probabilistic templates **
 
 > python predict.py -i input -o output
 
@@ -83,6 +85,8 @@ If you wish to test the LobePrior method, you may use a public dataset referred 
 <!--
 We present an approach using probabilistic models, constructed from lung CT images. The images were recorded and separated into groups, according to shape and appearance. The images were separated into groups because of the great difference between the shapes that the lung has between patients. Added to post-processing and templates, a model capable of segmenting CT images of lungs affected by severe diseases was developed. The main contribution of this work was to improve the quality of these segmentations and present a model capable of identifying lobar fissures more efficiently, as this is a task considered very difficult, overcoming the difficulty of the methods in finding the fissures correctly, as they are healthy. deformed by lung diseases such as cancer and COVID-19.
 -->
+
+---
 
 # Project
 
@@ -171,6 +175,7 @@ We present an approach using probabilistic models, constructed from lung CT imag
 
 
 
+---
 
 ## Citation
 
