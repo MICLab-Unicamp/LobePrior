@@ -1,4 +1,4 @@
-# README — LOCCA: Manual annotations for lung lobes in CT images of patients with cancer and COVID-19
+# LOCCA: Manual annotations for lung lobes in CT images of patients with cancer and COVID-19
 
 ## Dataset and Tools for Medical Image Visualization and Analysis
 
