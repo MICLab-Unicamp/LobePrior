@@ -146,7 +146,7 @@ Before running the script, make sure the following Python packages are installed
 
    - python load_image_and_annotation.py -image data/images/patient_001.nii.gz --mask data/labels/patient_001.nrrd
 
-**ITK-Snap**
+🖼️ **ITK-Snap**
 
 ITK-Snap is a free, open-source software for semi-automatic and manual segmentation of 3D medical images. It supports common formats like NIfTI, DICOM, MetaImage, among others, and allows visualization of volumetric images, creation of segmentation masks, and saving results for further analysis.
 
