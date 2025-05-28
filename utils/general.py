@@ -21,6 +21,35 @@ from dipy.align.transforms import (TranslationTransform3D, RigidTransform3D)
 TEMP_IMAGES = 'temp_images'
 RAW_DATA_FOLDER = 'raw_images' #os.path.join(HOME, 'raw_images')
 
+def convert_to_nifti(input_path, output_path=None):
+	"""
+	Converts a .mha or .mhd image to .nii.gz format preserving the original header.
+
+	Args:
+		input_path (str): Path to the input file (.mha or .mhd).
+		output_path (str, optional): Path to save the converted file. If not provided, saves in the same folder with a .nii.gz extension.
+	"""
+	# Verifica extensão
+	ext = os.path.splitext(input_path)[1].lower()
+	if ext not in ['.mha', '.mhd']:
+		raise ValueError(f"Unsupported format: {ext}. Use .mha or .mhd.")
+
+	# Set default output_path if not provided
+	if output_path is None:
+		base = os.path.splitext(input_path)[0]
+		os.makedirs('temp_images', exist_ok=True)
+		ID_image = os.path.basename(input_path).replace('.nii.gz','').replace('.nii','').replace('.mhd','').replace('.mha','')
+		output_path = 'temp_images/' + ID_image + '.nii.gz'
+
+	# Image reading
+	image = sitk.ReadImage(input_path)
+
+	# Writing while preserving the same header
+	sitk.WriteImage(image, output_path, True)  # True ensures compression to .nii.gz
+	print(f"Converted image saved to: {output_path}")
+
+	return output_path
+
 def get_connected_components(volume, return_largest=2, verbose=False):
 	'''
 	volume: input volume

@@ -2,6 +2,13 @@
 
 This repository contains medical image files, annotations, visualization scripts, and a tutorial to assist with data manipulation and analysis. The files are organized to support studies and experiments with biomedical imaging, particularly in lung computed tomography (CT).
 
+The main formats used here are:
+
+    NIfTI (.nii, .nii.gz): widely adopted format in neuroimaging and 3D medical imaging.
+
+    NRRD (.nrrd): commonly used for storing medical annotations, such as manual segmentations.
+
+
 ## Repository Contents
 
 1. **Compressed folder with annotations in NRRD format (`.nrrd`)**
@@ -119,8 +126,33 @@ conda install -c conda-forge nibabel simpleitk matplotlib jupyter
  ├── dataset_HCU.ipynb             # Jupyter Notebook with analysis scripts of the HCU dataset
  ├── dataset_Task06.ipynb          # Jupyter Notebook with analysis scripts of the Task06-Lung dataset
  ├── intensities_and_slices.ipynb  # Jupyter Notebook with analysis scripts of the HCU and Task06-Lung datasets
- └── ITK-Snap_guide.pdf            # PDF tutorial for ITK-Snap usage
+ ├── ITK-Snap_guide.pdf            # PDF tutorial for ITK-Snap usage
+ └── load_image_and_annotation.py  # Script to load CT images and their annotations using the Python environment. The requirements are listed in the file header.
 ```
+
+---
+
+## Instructions for Using the Script
+
+This script allows you to load and visualize 3D CT scans along with their corresponding annotations (e.g., segmentation masks). It is intended for medical imaging tasks using Python.
+
+✅ **Requirements**
+
+Before running the script, make sure the following Python packages are installed:
+
+   - pip install nibabel pynrrd numpy matplotlib
+
+▶️ **How to Run the Script using the terminal**
+
+   - python load_image_and_annotation.py -image data/images/patient_001.nii.gz --mask data/labels/patient_001.nrrd
+
+**ITK-Snap**
+
+ITK-Snap is a free, open-source software for semi-automatic and manual segmentation of 3D medical images. It supports common formats like NIfTI, DICOM, MetaImage, among others, and allows visualization of volumetric images, creation of segmentation masks, and saving results for further analysis.
+
+   - View ITK-Snap guide.pdf
+
+---
 
 ## Location
 

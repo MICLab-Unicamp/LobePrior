@@ -17,7 +17,7 @@ from pathlib import Path
 
 from utils.general import analyze_registration_quality, find_best_registration
 from utils.general import post_processing_lung
-from utils.general import unified_img_reading, busca_path, salvaImageRebuilt
+from utils.general import unified_img_reading, busca_path, salvaImageRebuilt, convert_to_nifti
 from model.unet_diedre import UNet_Diedre
 from utils.transform3D import CTHUClip
 
@@ -184,6 +184,10 @@ def main(args):
 	print(f'Number of images found in the dataset: {len(all_images)}')
 
 	for image_original_path in all_images:
+		path = Path(image_original_path)
+		ext = "".join(path.suffixes)
+		if ext in ['.mhd', '.mha']: 
+			image_original_path = convert_to_nifti(image_original_path)
 		ID_image = os.path.basename(image_original_path).replace('.npz','').replace('_affine3D','').replace('_rigid3D','').replace('.nii.gz','').replace('.nii','').replace('_label','').replace('.mhd','')
 		print(f'Image ID: {ID_image}')
 
