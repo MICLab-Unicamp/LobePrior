@@ -14,7 +14,7 @@ from pathlib import Path
 from tqdm import tqdm
 
 from utils.general import register_single, teste_pickle_by_image
-from utils.general import unified_img_reading
+from utils.general import unified_img_reading, convert_to_nifti
 from utils.general import analyze_registration_quality, find_best_registration
 from utils.transform3D import CTHUClip
 from predict_decoders import LoberModule
@@ -79,7 +79,11 @@ def main(args):
 		print('python predict.py -i <input.nii.gz>')
 
 	for image_original_path in all_images:
-		ID_image = os.path.basename(image_original_path).replace('.npz','').replace('_affine3D','').replace('_rigid3D','').replace('.nii.gz','').replace('.nii','').replace('_label','').replace('.mhd','')
+		path = Path(image_original_path)
+		ext = "".join(path.suffixes)
+		if ext in ['.mhd', '.mha']: 
+			image_original_path = convert_to_nifti(image_original_path)
+		ID_image = os.path.basename(image_original_path).replace('.nii.gz','').replace('.nii','').replace('.mhd','').replace('.mha','')
 		print(f'Image ID: {ID_image}')
 
 		if os.path.exists(os.path.join(TEMP_IMAGES, 'output_convert_cliped_isometric/images', ID_image+'.nii.gz'))==False:

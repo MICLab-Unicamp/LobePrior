@@ -188,7 +188,7 @@ def main(args):
 		ext = "".join(path.suffixes)
 		if ext in ['.mhd', '.mha']: 
 			image_original_path = convert_to_nifti(image_original_path)
-		ID_image = os.path.basename(image_original_path).replace('.npz','').replace('_affine3D','').replace('_rigid3D','').replace('.nii.gz','').replace('.nii','').replace('_label','').replace('.mhd','')
+		ID_image = os.path.basename(image_original_path).replace('.nii.gz','').replace('.nii','').replace('.mhd','').replace('.mha','')
 		print(f'Image ID: {ID_image}')
 
 		if os.path.exists(os.path.join(TEMP_IMAGES, 'output_convert_cliped_isometric/images', ID_image+'.nii.gz'))==False:
