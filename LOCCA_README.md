@@ -1,4 +1,6 @@
-# README — Dataset and Tools for Medical Image Visualization and Analysis
+# README — LOCCA: Manual annotations for lung lobes in CT images of patients with cancer and COVID-19
+
+## Dataset and Tools for Medical Image Visualization and Analysis
 
 This repository contains medical image files, annotations, visualization scripts, and a tutorial to assist with data manipulation and analysis. The files are organized to support studies and experiments with biomedical imaging, particularly in lung computed tomography (CT).
 
