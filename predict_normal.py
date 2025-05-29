@@ -16,7 +16,7 @@ from monai.inferers import sliding_window_inference
 
 from model.unet_diedre import UNet_SeisDecoders
 from utils.general import pos_processamento, post_processing_dist_lung, post_processing_lung
-from utils.general import unified_img_reading, busca_path, salvaImageRebuilt
+from utils.general import unified_img_reading, busca_path, salvaImageRebuilt, convert_to_nifti
 from utils.to_onehot import mask_to_onehot
 from utils.transform3D import CTHUClip
 from predict_lung  import LungModule
@@ -249,7 +249,11 @@ def main(args):
 	print(f'Number of images found in the dataset: {len(all_images)}')
 
 	for image_original_path in all_images:
-		ID_image = os.path.basename(image_original_path).replace('.npz','').replace('_affine3D','').replace('_rigid3D','').replace('.nii.gz','').replace('.nii','').replace('_label','').replace('.mhd','')
+		path = Path(image_original_path)
+		ext = "".join(path.suffixes)
+		if ext in ['.mhd', '.mha']: 
+			image_original_path = convert_to_nifti(image_original_path)
+		ID_image = os.path.basename(image_original_path).replace('.nii.gz','').replace('.nii','').replace('.mhd','').replace('.mha','')
 		print(f'Imagem ID: {ID_image}')
 
 		if os.path.exists(os.path.join(TEMP_IMAGES, 'output_convert_cliped_isometric/images', ID_image+'.nii.gz'))==False:
