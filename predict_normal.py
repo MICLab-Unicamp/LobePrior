@@ -290,7 +290,7 @@ def main(args):
 
 	test_model = LoberModuleNormal.load_from_checkpoint(pre_trained_model_path, strict=False)
 
-	test_model.predict(npz_path, image_original_path, post_processed=True, save_image=True, rebuild=True)
+	test_model.predict(npz_path, image_original_path, output_path, post_processed=True, save_image=True, rebuild=True)
 
 	return 0
 
