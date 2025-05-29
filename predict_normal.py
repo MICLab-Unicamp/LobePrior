@@ -14,6 +14,7 @@ import nibabel as nib
 import pytorch_lightning as pl
 from matplotlib import pyplot as plt
 from monai.inferers import sliding_window_inference
+from pathlib import Path
 
 from model.unet_diedre import UNet_SeisDecoders
 from utils.general import pos_processamento, post_processing_dist_lung, post_processing_lung
