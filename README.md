@@ -78,7 +78,7 @@ Finally, go into the top level folder, inside LobePrior folder.
 
 If you wish to test the LobePrior method, you may use a public dataset referred to here as CoronaCases. The COVID-19 CT Lung and Infection Segmentation Dataset, available on Zenodo, provides 20 CT scans of COVID-19 patients. You can access and download the dataset directly via the following link:
 
-> [LOCCA](https://redu.unicamp.br/dataset.xhtml?persistentId=doi:10.25824/redu/ORXJKS) or [MICLab-Unicamp/LOCCA](https://github.com/MICLab-Unicamp/LOCCA)
+> [LOCCA: Manual annotations on CT for lung LObes of COVID and CAncer patients](https://redu.unicamp.br/dataset.xhtml?persistentId=doi:10.25824/redu/ORXJKS) or [MICLab-Unicamp/LOCCA](https://github.com/MICLab-Unicamp/LOCCA)
 
 > [CoronaCases](https://zenodo.org/records/3757476)
 
