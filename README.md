@@ -185,12 +185,11 @@ We present an approach using probabilistic models, constructed from lung CT imag
 ``` 
 @DATASET{redu_ORXJKS_2025,
 	author = {Jean Antonio Ribeiro and Leticia Rittner and Diedre Santos do Carmo and Simone Appenzeller and Ricardo Siufi Magalhães and Sergio San Juan Dertkigil and Fabiano Reis},
-	publisher = {Repositório de Dados de Pesquisa da Unicamp},
-	title = {{LOCCA: Manual annotations for lung lobes in CT images of patients with cancer and COVID-19}},
+	journal={IEEE Data Descriptions}, 
+	title={Descriptor: Manually Annotated CT Dataset of Lung Lobes in COVID-19 and Cancer Patients (LOCCA)}, 
 	year = {2025},
 	version = {V1},
-	doi = {10.25824/redu/ORXJKS},
-	url = {https://doi.org/10.25824/redu/ORXJKS}
+	doi={10.1109/IEEEDATA.2025.3577999}
 }
 
 @ARTICLE{CBEB2024,
