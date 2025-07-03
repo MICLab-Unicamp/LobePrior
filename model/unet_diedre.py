@@ -369,7 +369,7 @@ class UNet_SeteDecoders(nn.Module):
 						"lung": self.dec_lung(*encoder_features),
 						"LUL": self.dec_one(*encoder_features),
 						"LLL": self.dec_two(*encoder_features),
-						"RLL": self.dec_three(*encoder_features),
+						"RUL": self.dec_three(*encoder_features),
 						"RML": self.dec_four(*encoder_features),
 						"RLL": self.dec_five(*encoder_features),
 						"airways": self.dec_airways(*encoder_features)
