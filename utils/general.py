@@ -264,7 +264,7 @@ def get_orientation(image_path):
 	return [orientation for orientation, value in orientations.items() if value]
 
 def rebuild_output(output_path, original_path, rigid_path, ID_image, path_save=None):
-	output = nib.load(output_path).get_fdata().astype(np.uint8)
+	output = nib.load(output_path).get_fdata()#.astype(np.uint8)
 
 	if rigid_path is None:
 		#print('rigid_path não existe!', rigid_path)
