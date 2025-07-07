@@ -6,9 +6,13 @@ import cc3d
 import pickle
 import pydicom
 import torch
+import yaml
+import random
 import numpy as np
 import nibabel as nib
 import SimpleITK as sitk
+import multiprocessing as mp
+from tqdm import tqdm
 from operator import itemgetter
 from pathlib import Path
 from collections import Counter
@@ -20,6 +24,24 @@ from dipy.align.transforms import (TranslationTransform3D, RigidTransform3D)
 
 TEMP_IMAGES = 'temp_images'
 RAW_DATA_FOLDER = 'raw_images' #os.path.join(HOME, 'raw_images')
+
+def process_images(image_path, ID_image, N_THREADS, parallel_processing=True):
+	if N_THREADS is None:
+		N_THREADS = mp.cpu_count() // 2
+
+	arg_list = []
+
+	#for group in range(1, 11):
+	for group in [2]:
+		if not teste_pickle_by_image(ID_image, group):
+			arg_list.append((image_path, None, None, None, group))
+
+	if parallel_processing:
+		with mp.Pool(N_THREADS) as pool:
+			results = list(tqdm(pool.starmap(register_single, arg_list), total=len(arg_list)))
+	else:
+		for args in arg_list:
+			register_single(*args)
 
 def convert_to_nifti(input_path, output_path=None):
 	"""
@@ -544,7 +566,7 @@ def unified_img_reading(path, mask_path=None, lung_path=None, airway_path=None, 
 		if mask_path is not None:
 			mask = sitk.GetArrayFromImage(sitk.ReadImage(mask_path))
 			mask = np.flip(mask, np.where(directions[[0,4,8]][::-1]<0)[0]).copy()
-			mask = corrige_label(mask)
+			#mask = corrige_label(mask)
 			print('Shape mask:', mask.shape)
 		if lung_path is not None:
 			lung = sitk.GetArrayFromImage(sitk.ReadImage(lung_path))

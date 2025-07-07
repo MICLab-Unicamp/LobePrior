@@ -15,10 +15,11 @@ import pytorch_lightning as pl
 import multiprocessing as mp
 from monai.inferers import sliding_window_inference
 from pathlib import Path
+from tqdm import tqdm
 
 from utils.general import analyze_registration_quality, find_best_registration
 from utils.general import post_processing_lung
-from utils.general import register_single, teste_pickle_by_image
+from utils.general import register_single, teste_pickle_by_image, process_images
 from utils.general import unified_img_reading, busca_path, salvaImageRebuilt, convert_to_nifti
 from model.unet_diedre import UNet_Diedre
 from utils.transform3D import CTHUClip
@@ -35,12 +36,6 @@ def get_sample_image(npz_path):
 	img = npz["image"][:].astype(np.float32)
 	print('Shape:', img.shape)
 	print('MinMax:', img.min(), img.max())
-
-	#group = npz["group"]
-	#print('Group:', group)
-	#npz_template_path = os.path.join(RAW_DATA_FOLDER, 'model_fusion/group_'+str(group)+'.npz')
-
-	#template = np.load(npz_template_path)["model"][:].astype(np.float32)
 
 	img = img.transpose(2,1,0)
 
@@ -179,6 +174,7 @@ def main(args):
 	print(f'Prior Information: {not modo_normal}')
 	print(f'Delete temporary files : {delete_data}')
 	print(f'Parallel processing: {parallel_processing}')
+
 	if parallel_processing:
 		print(f'Number of processes: {N_THREADS}')
 
@@ -203,7 +199,7 @@ def main(args):
 	for image_original_path in all_images:
 		path = Path(image_original_path)
 		ext = "".join(path.suffixes)
-		if ext in ['.mhd', '.mha']: 
+		if ext in ['.mhd', '.mha']:
 			image_original_path = convert_to_nifti(image_original_path)
 		ID_image = os.path.basename(image_original_path).replace('.nii.gz','').replace('.nii','').replace('.mhd','').replace('.mha','')
 		print(f'Image ID: {ID_image}')
@@ -236,20 +232,9 @@ def main(args):
 
 		image_path = os.path.join(TEMP_IMAGES, 'output_convert_cliped_isometric/images', ID_image+'.nii.gz')
 
-		if parallel_processing:
-			#N_THREADS = mp.cpu_count()//2
-			arg_list = []
 
-			for group in range(1,11):
-				if teste_pickle_by_image(ID_image, group)==False:
-					arg_list.append((image_path, None, None, None, group))
 
-			with mp.Pool(N_THREADS) as pool:
-				results = list(tqdm(pool.starmap(register_single, arg_list), total=len(arg_list)))
-		else:
-			for group in range(1,11):
-				if teste_pickle_by_image(ID_image, group)==False:
-					register_single(image_path, None, None, None, group)
+		process_images(image_path, ID_image, N_THREADS, parallel_processing=parallel_processing)
 
 		print('Registration completed successfully!')
 
