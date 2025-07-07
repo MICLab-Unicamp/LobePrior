@@ -81,7 +81,7 @@ def main(args):
 	for image_original_path in all_images:
 		path = Path(image_original_path)
 		ext = "".join(path.suffixes)
-		if ext in ['.mhd', '.mha']: 
+		if ext in ['.mhd', '.mha']:
 			image_original_path = convert_to_nifti(image_original_path)
 		ID_image = os.path.basename(image_original_path).replace('.nii.gz','').replace('.nii','').replace('.mhd','').replace('.mha','')
 		print(f'Image ID: {ID_image}')
