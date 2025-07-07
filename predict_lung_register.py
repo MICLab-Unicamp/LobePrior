@@ -233,8 +233,9 @@ def main(args):
 
 
 
-		#process_images(image_path, ID_image, N_THREADS, parallel_processing=parallel_processing)
+		process_images(image_path, ID_image, N_THREADS, parallel_processing=parallel_processing)
 
+		'''
 		if parallel_processing:
 			#N_THREADS = mp.cpu_count()//2
 			arg_list = []
@@ -249,6 +250,7 @@ def main(args):
 			for group in range(1,11):
 				if teste_pickle_by_image(ID_image, group)==False:
 					register_single(image_path, None, None, None, group)
+		'''
 
 		print('Registration completed successfully!')
 
