@@ -166,8 +166,7 @@ def main(args):
 	modo_normal = args.normal
 	delete_data = args.delete
 	parallel_processing = args.pool
-	if parallel_processing:
-		N_THREADS = args.nworkers
+	N_THREADS = args.nworkers
 
 	print(f'Input: {image_original_path}')
 	print(f'Output: {output_path}')
