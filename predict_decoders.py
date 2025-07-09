@@ -20,7 +20,7 @@ from tqdm import tqdm
 from model.unet_diedre import UNet_SeteDecoders
 from predict_lung import LungModule
 from utils.general import pos_processamento, post_processing_dist_lung, post_processing_lung
-from utils.general import register_single, teste_pickle_by_image
+from utils.general import register_single, teste_pickle_by_image, process_images
 from utils.general import unified_img_reading, busca_path, salvaImageRebuilt, convert_to_nifti
 from utils.general import analyze_registration_quality, find_best_registration
 from utils.to_onehot import mask_to_onehot
@@ -271,8 +271,7 @@ def main(args):
 	modo_normal = args.normal
 	delete_data = args.delete
 	parallel_processing = args.pool
-	if parallel_processing:
-		N_THREADS = args.nworkers
+	N_THREADS = args.nworkers
 
 	print(f'Input: {image_original_path}')
 	print(f'Output: {output_path}')
@@ -332,6 +331,9 @@ def main(args):
 
 		image_path = os.path.join(TEMP_IMAGES, 'output_convert_cliped_isometric/images', ID_image+'.nii.gz')
 
+		process_images(image_path, ID_image, N_THREADS, parallel_processing=parallel_processing)
+
+		'''
 		if parallel_processing:
 			#N_THREADS = mp.cpu_count()//2
 			arg_list = []
@@ -348,6 +350,7 @@ def main(args):
 					register_single(image_path, None, None, None, group)
 
 		print('Registration completed successfully!')
+		'''
 
 
 
