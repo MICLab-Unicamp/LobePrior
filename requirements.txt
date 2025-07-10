@@ -7,7 +7,7 @@ connected-components-3d
 pydicom
 scipy
 dipy==1.9.0
-pytorch_lightning
+pytorch_lightning==2.4.0
 torch
 monai
 matplotlib
