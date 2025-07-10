@@ -6,7 +6,7 @@ nibabel
 connected-components-3d
 pydicom
 scipy
-dipy
+dipy=1.9.0
 pytorch_lightning
 torch
 monai
