@@ -26,15 +26,10 @@ To activate the lobeprior environment and install the required packages:
 
 First, clone the repository and enter the `LobePrior` directory:
 
-```bash
-cd LobePrior
-
 > git clone https://github.com/MICLab-Unicamp/LobePrior
 > cd LobePrior
 
-Due to the large size of network weights, you need to go into the Releases in this repository, download the data.zip file, and put it inside the medpseg folder. This can be done through the command line with:
-
-
+Due to the large size of network weights, you need to go into the Releases in this repository, download the data.zip file, and put it inside the medpseg folder. To To download the files, run:  
 
 > wget https://github.com/MICLab-Unicamp/LobePrior/releases/download/LobePrior/data.zip
 
@@ -47,6 +42,8 @@ Extract the .ckpt files inside the LobePrior/weight folder and raw_images inside
 Install the dependencies
 
 > pip install -r requirements.txt
+
+### Final folder setup
 
 Finally, go into the top level folder, inside LobePrior folder.
 
