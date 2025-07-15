@@ -8,7 +8,7 @@ Initial project presented at the XXIX Congresso Brasileiro de Engenharia Bioméd
 
 > The development of efficient and robust algorithms for lung and lobe segmentation is essential for diagnosing and monitoring pulmonary diseases, such as pneumonia caused by COVID-19 and lung cancer. However, obtaining manual or automatic annotations of lung lobes is challenging, especially in patients with severe pulmonary abnormalities due to the difficulty of visualizing the lobar fissures. This work aims to provide an automated lung lobe segmentation method using deep neural networks and probabilistic models, called LobePrior. Segmentation is performed in three stages: a coarse stage that processes images with reduced resolution; a high-resolution stage, in which specialized AttUNets compete for the segmentation of each lung lobe; and a final stage where post-processing is applied to the segmented lobes. Probabilistic models, constructed from label fusion, are used to guide the model in regions where severe abnormalities have caused segmentation failures. The performance of the proposed approach was evaluated on LOLA11 (Grand Challenge) and four datasets with manual lobe annotations, in the presence of cancerous nodules and COVID-19 consolidations. Qualitative and quantitative results demonstrate that LobePrior achieved more accurate segmentations, closely matching the reference segmentation. All these results, when compared to other approaches, indicate that the LobePrior method achieved superior performance in lung lobe segmentation. The method has been incorporated into a tool developed by the MICLab group, called MEDPSeg, available on GitHub at [MEDPSeg](https://github.com/MICLab-Unicamp/medpseg).
 
-## To install  Miniconda and dependencies
+## To install  Miniconda
 
 This tool was tested on Ubuntu 20.04. The following instructions refer to quickly running the tool by installing it with Miniconda and pip. The minimum recommended GPU memory is 12 GB for inference and 24 GB for training. The required dependencies are installed during setup and are listed in the requirements.txt file.  
 
@@ -22,17 +22,19 @@ To activate the lobeprior environment and install the required packages:
 
 > conda activate lobeprior
 
-> pip install -r requirements.txt
-
 ## Installation
 
-First, clone the repository:
+First, clone the repository and enter the `LobePrior` directory:
+
+```bash
+cd LobePrior
 
 > git clone https://github.com/MICLab-Unicamp/LobePrior
+> cd LobePrior
 
 Due to the large size of network weights, you need to go into the Releases in this repository, download the data.zip file, and put it inside the medpseg folder. This can be done through the command line with:
 
-> cd LobePrior
+
 
 > wget https://github.com/MICLab-Unicamp/LobePrior/releases/download/LobePrior/data.zip
 
@@ -41,6 +43,10 @@ If this method of downloading the weights doesn't work for you, use this alterna
 Extract the .ckpt files inside the LobePrior/weight folder and raw_images inside the LobePrior folder.
 
 > unzip data.zip
+
+Install the dependencies
+
+> pip install -r requirements.txt
 
 Finally, go into the top level folder, inside LobePrior folder.
 
