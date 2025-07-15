@@ -27,6 +27,7 @@ To activate the lobeprior environment and install the required packages:
 First, clone the repository and enter the `LobePrior` directory:
 
 > git clone https://github.com/MICLab-Unicamp/LobePrior
+ 
 > cd LobePrior
 
 #### Automatic installation
