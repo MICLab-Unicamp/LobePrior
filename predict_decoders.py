@@ -21,7 +21,7 @@ from model.unet_diedre import UNet_SeteDecoders
 from predict_lung import LungModule
 from utils.general import pos_processamento, post_processing_dist_lung, post_processing_lung
 from utils.general import register_single, teste_pickle_by_image, process_images
-from utils.general import unified_img_reading, busca_path, salvaImageRebuilt, convert_to_nifti
+from utils.general import unified_img_reading, busca_path, salvaImageRebuilt, convert_to_nifti, remove_directories_if_exist
 from utils.general import analyze_registration_quality, find_best_registration
 from utils.to_onehot import mask_to_onehot
 from utils.transform3D import CTHUClip
@@ -187,7 +187,7 @@ class LoberModule(pl.LightningModule):
 
 
 
-		pre_trained_model_lung_path = 'weights/LightningLung_epoch=90-val_loss=0.014_attUnet_template_lr=0.0001_AdamW_focal_loss_kaggle_saida=6.ckpt'
+		pre_trained_model_lung_path = 'weights/LightningLung.ckpt'
 
 		test_model_lung = LungModule.load_from_checkpoint(pre_trained_model_lung_path, strict=False)
 
@@ -386,14 +386,18 @@ def main(args):
 		image_array = np.load(image_path)["image"][:].astype(np.float32)
 		image_array = image_array.transpose(2,1,0)
 
-		pre_trained_model_path = 'weights/LightningLobes_6_decoders_pre_treino_epoch=62-val_loss=0.145_attUnet_template_lr=0.0001_AdamW_focal_loss_kaggle_saida=6.ckpt'
+		pre_trained_model_path = 'weights/LightningLobes.ckpt'
 
 		test_model = LoberModule.load_from_checkpoint(pre_trained_model_path, strict=False)
 
 		test_model.predict(image_path, image_original_path, output_path, group=group, post_processed=True)
 
-	#os.rmdir(os.path.join(TEMP_IMAGES, 'output_convert_cliped_isometric'))
-	#os.rmdir(os.path.join(TEMP_IMAGES, 'registered_images'))
+	if delete_data:
+		dirs = [
+			os.path.join(TEMP_IMAGES, 'output_convert_cliped_isometric')
+			#os.rmdir(os.path.join(TEMP_IMAGES, 'registered_images'))
+		]
+		remove_directories_if_exist(dirs)
 
 	return 0
 

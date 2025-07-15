@@ -163,7 +163,7 @@ class LoberModuleNormal(pl.LightningModule):
 
 
 
-		pre_trained_model_lung_path = 'weights/LightningLung_epoch=90-val_loss=0.014_attUnet_template_lr=0.0001_AdamW_focal_loss_kaggle_saida=6.ckpt'
+		pre_trained_model_lung_path = 'weights/LightningLung.ckpt'
 
 		test_model_lung = LungModule.load_from_checkpoint(pre_trained_model_lung_path, strict=False)
 
@@ -286,7 +286,7 @@ def main(args):
 
 	np.savez_compressed(npz_path, image=image_data, ID=ID_image)
 
-	pre_trained_model_path = 'weights/LightningLobes_6_decoders_no_attUnet_template_epoch=39-val_loss=0.249_attUnet_template_lr=0.0001_AdamW_focal_loss_kaggle_saida=6.ckpt'
+	pre_trained_model_path = 'weights/LightningLobes_no_template.ckpt'
 
 	test_model = LoberModuleNormal.load_from_checkpoint(pre_trained_model_path, strict=False)
 

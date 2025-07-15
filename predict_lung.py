@@ -232,7 +232,7 @@ def main(args):
 
 
 
-		pre_trained_model_lung_path = 'weights/LightningLung_epoch=90-val_loss=0.014_attUnet_template_lr=0.0001_AdamW_focal_loss_kaggle_saida=6.ckpt'
+		pre_trained_model_lung_path = 'weights/LightningLung.ckpt'
 
 		test_model_lung = LungModule.load_from_checkpoint(pre_trained_model_lung_path, strict=False)
 

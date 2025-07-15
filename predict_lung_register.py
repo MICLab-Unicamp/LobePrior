@@ -5,6 +5,7 @@ import os
 import sys
 import glob
 import torch
+import shutil
 import argparse
 import torchvision
 import numpy as np
@@ -20,7 +21,7 @@ from tqdm import tqdm
 from utils.general import analyze_registration_quality, find_best_registration
 from utils.general import post_processing_lung
 from utils.general import register_single, teste_pickle_by_image, process_images
-from utils.general import unified_img_reading, busca_path, salvaImageRebuilt, convert_to_nifti
+from utils.general import unified_img_reading, busca_path, salvaImageRebuilt, convert_to_nifti, remove_directories_if_exist
 from model.unet_diedre import UNet_Diedre
 from utils.transform3D import CTHUClip
 
@@ -289,7 +290,7 @@ def main(args):
 
 
 
-		pre_trained_model_lung_path = 'weights/LightningLung_epoch=90-val_loss=0.014_attUnet_template_lr=0.0001_AdamW_focal_loss_kaggle_saida=6.ckpt'
+		pre_trained_model_lung_path = 'weights/LightningLung.ckpt'
 
 		test_model_lung = LungModule.load_from_checkpoint(pre_trained_model_lung_path, strict=False)
 
@@ -298,6 +299,16 @@ def main(args):
 
 		rigid_path = busca_path(ID_image, group)
 		salvaImageRebuilt(lung.squeeze(), image_original_path, rigid_path=rigid_path, ID_image=ID_image, msg='lung', output_path=output_path)
+
+	if delete_data:
+		#dirs.append(shutil.rmtree(os.path.join(TEMP_IMAGES, 'output_convert_cliped_isometric')))
+		dirs = [
+			os.path.join(TEMP_IMAGES, 'output_convert_cliped_isometric')
+			#os.path.join(TEMP_IMAGES, 'npz_without_registration')
+			#os.path.join(TEMP_IMAGES, 'registered_images')
+		]
+		print(dirs)
+		remove_directories_if_exist(dirs)
 
 if __name__ == '__main__':
 	os.system('cls' if os.name == 'nt' else 'clear')

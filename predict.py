@@ -13,8 +13,8 @@ import multiprocessing as mp
 from pathlib import Path
 from tqdm import tqdm
 
-from utils.general import register_single, teste_pickle_by_image
-from utils.general import unified_img_reading, convert_to_nifti
+from utils.general import register_single, teste_pickle_by_image, process_images
+from utils.general import unified_img_reading, convert_to_nifti, remove_directories_if_exist
 from utils.general import analyze_registration_quality, find_best_registration
 from utils.transform3D import CTHUClip
 from predict_decoders import LoberModule
@@ -45,8 +45,7 @@ def main(args):
 	modo_normal = args.normal
 	delete_data = args.delete
 	parallel_processing = args.pool
-	if parallel_processing:
-		N_THREADS = args.nworkers
+	N_THREADS = args.nworkers
 
 	print(f'Input: {image_original_path}')
 	print(f'Output: {output_path}')
@@ -121,20 +120,20 @@ def main(args):
 
 
 
-			pre_trained_model_path = 'weights/LightningLobes_6_decoders_no_attUnet_template_epoch=39-val_loss=0.249_attUnet_template_lr=0.0001_AdamW_focal_loss_kaggle_saida=6.ckpt'
+			pre_trained_model_path = 'weights/LightningLobes_no_template.ckpt'
 
 			test_model = LoberModuleNormal.load_from_checkpoint(pre_trained_model_path, strict=False)
 
 			test_model.predict(npz_path, image_original_path, output_path, post_processed=True, save_image=True, rebuild=True)
 
-			if delete_data:
-				os.rmdir(os.path.join(TEMP_IMAGES, 'output_convert_cliped_isometric'))
-				os.rmdir(os.path.join(TEMP_IMAGES, 'npz_without_registration'))
 		else:
 			print('Running with prior information.')
 
 			image_path = os.path.join(TEMP_IMAGES, 'output_convert_cliped_isometric/images', ID_image+'.nii.gz')
 
+			process_images(image_path, ID_image, N_THREADS, parallel_processing=parallel_processing)
+
+			'''
 			if parallel_processing:
 				#N_THREADS = mp.cpu_count()//2
 				arg_list = []
@@ -151,6 +150,7 @@ def main(args):
 						register_single(image_path, None, None, None, group)
 
 			print('Registration completed successfully!')
+			'''
 
 
 
@@ -186,15 +186,19 @@ def main(args):
 			image_array = np.load(image_path)["image"][:].astype(np.float32)
 			image_array = image_array.transpose(2,1,0)
 
-			pre_trained_model_path = 'weights/LightningLobes_6_decoders_pre_treino_epoch=62-val_loss=0.145_attUnet_template_lr=0.0001_AdamW_focal_loss_kaggle_saida=6.ckpt'
+			pre_trained_model_path = 'weights/LightningLobes.ckpt'
 
 			test_model = LoberModule.load_from_checkpoint(pre_trained_model_path, strict=False)
 
 			test_model.predict(image_path, image_original_path, output_path, group=group, post_processed=True)
 
-			if delete_data:
-				os.rmdir(os.path.join(TEMP_IMAGES, 'output_convert_cliped_isometric'))
-				os.rmdir(os.path.join(TEMP_IMAGES, 'registered_images'))
+	if delete_data:
+		dirs = [
+			os.path.join(TEMP_IMAGES, 'output_convert_cliped_isometric'),
+			os.path.join(TEMP_IMAGES, 'npz_without_registration')
+			#os.path.join(TEMP_IMAGES, 'registered_images')
+		]
+		remove_directories_if_exist(dirs)
 
 	return 0
 
