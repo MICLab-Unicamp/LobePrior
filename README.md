@@ -29,6 +29,14 @@ First, clone the repository and enter the `LobePrior` directory:
 > git clone https://github.com/MICLab-Unicamp/LobePrior
 > cd LobePrior
 
+##### Automatic installation
+
+> pip install .
+
+Go to the Final folder setup section
+
+##### Manual installation
+
 Due to the large size of network weights, you need to go into the Releases in this repository, download the data.zip file, and put it inside the medpseg folder. To To download the files, run:  
 
 > wget https://github.com/MICLab-Unicamp/LobePrior/releases/download/LobePrior/data.zip
@@ -43,7 +51,7 @@ Install the dependencies
 
 > pip install -r requirements.txt
 
-### Final folder setup
+##### Final folder setup
 
 Finally, go into the top level folder, inside LobePrior folder.
 
