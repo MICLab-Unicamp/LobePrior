@@ -49,11 +49,11 @@ def download_and_extract_data():
 
 	for folder in subfolders:
 		src = os.path.join(data_dir, folder)
-		dst = root_dir #os.path.join(root_dir, folder)
+		dst = os.path.join(root_dir, folder)
 		if os.path.exists(src):
 			if not os.path.exists(dst):
 				print(f"Moving {src} to {dst}")
-				shutil.move(src, dst)
+				shutil.move(src, root_dir)
 			else:
 				print(f"Destination folder {dst} already exists. Skipping..")
 		else:
