@@ -54,7 +54,7 @@ Install the dependencies
 
 #### Final folder setup
 
-Finally, the directory containing the LobePrior directory will look like this:
+Finally, the directory containing LobePrior will look like this:
 
 <div align="center">
 	<figure>
@@ -64,7 +64,7 @@ Finally, the directory containing the LobePrior directory will look like this:
 
 ---
 
-## Testing (in the LobePrior directory)
+## Testing (inside the LobePrior directory)
 
 ##### To predict lung lobe segmentation from an image with probabilistic templates
 
