@@ -184,6 +184,8 @@ We present an approach using probabilistic models, constructed from lung CT imag
 </div>
 
 
+<br><br><br>
+
 > Deep learning with probabilistic models for segmenting lung lobes on computed tomography images with severe abnormalities
 
 Initial project presented at the XXIX Congresso Brasileiro de Engenharia Biomédica (CBEB) 2024 (https://sbeb.org.br/cbeb2024). This manuscript represents an extended and enhanced version of the work previously published as a conference paper, with the following additional contributions:
