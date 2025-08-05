@@ -12,6 +12,8 @@ This manuscript represents an extended and enhanced version of the work previous
 
 - **Expanded dataset**: the present study uses a more diverse and comprehensive dataset compared to the previous version;
 
+- **Improved loss functions**: the loss functions were refined to better guide the learning process, especially in regions with ambiguous or incomplete fissures;
+
 - **More comprehensive evaluation**: the method was tested on a larger number of scans, including cases with multiple and extensive lesions, enabling a more rigorous validation of the proposed approach.
 
 ## Abstract
