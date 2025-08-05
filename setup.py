@@ -91,7 +91,7 @@ setup(
 		"nibabel",
 		"pydicom",
 		"scipy",
-		"dipy==1.9.0",
+		"dipy==1.7.0",
 		"connected-components-3d",
 		"pytorch_lightning",
 		"torch",
