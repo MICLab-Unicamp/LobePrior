@@ -1,21 +1,5 @@
 # LobePrior: Segmenting Lung Lobes on Computed Tomography Images in the Presence of Severe Abnormalities
 
-Initial project presented at the XXIX Congresso Brasileiro de Engenharia Biomédica (CBEB) 2024 (https://sbeb.org.br/cbeb2024)
-
-> Deep learning with probabilistic models for segmenting lung lobes on computed tomography images with severe abnormalities
-
-This manuscript represents an extended and enhanced version of the work previously published as a conference paper, with the following additional contributions:
-
-- **Synthetic lesion insertion**: a mechanism for simulating pulmonary lesions was incorporated to increase the model’s robustness when dealing with severe anatomical abnormalities;
-
-- **Creation of unbiased probabilistic models**: probabilistic maps of the lobar regions were developed based on normal cases, in a systematic manner and independently of the training data, thus avoiding bias and promoting a more generalizable anatomical representation;
-
-- **Expanded dataset**: the present study uses a more diverse and comprehensive dataset compared to the previous version;
-
-- **Improved loss functions**: the loss functions were refined to better guide the learning process, especially in regions with ambiguous or incomplete fissures;
-
-- **More comprehensive evaluation**: the method was tested on a larger number of scans, including cases with multiple and extensive lesions, enabling a more rigorous validation of the proposed approach.
-
 ## Abstract
 
 > The development of efficient and robust algorithms for lung and lobe segmentation is essential for diagnosing and monitoring pulmonary diseases, such as pneumonia caused by COVID-19 and lung cancer. However, obtaining manual or automatic annotations of lung lobes is challenging, especially in patients with severe pulmonary abnormalities due to the difficulty of visualizing the lobar fissures. This work aims to provide an automated lung lobe segmentation method using deep neural networks and probabilistic models, called LobePrior. Segmentation is performed in three stages: a coarse stage that processes images with reduced resolution; a high-resolution stage, in which specialized AttUNets compete for the segmentation of each lung lobe; and a final stage where post-processing is applied to the segmented lobes. Probabilistic models, constructed from label fusion, are used to guide the model in regions where severe abnormalities have caused segmentation failures. The performance of the proposed approach was evaluated on LOLA11 (Grand Challenge) and four datasets with manual lobe annotations, in the presence of cancerous nodules and COVID-19 consolidations. Qualitative and quantitative results demonstrate that LobePrior achieved more accurate segmentations, closely matching the reference segmentation. All these results, when compared to other approaches, indicate that the LobePrior method achieved superior performance in lung lobe segmentation. The method has been incorporated into a tool developed by the MICLab group, called MEDPSeg, available on GitHub at [MEDPSeg](https://github.com/MICLab-Unicamp/medpseg).
@@ -200,6 +184,19 @@ We present an approach using probabilistic models, constructed from lung CT imag
 </div>
 
 
+> Deep learning with probabilistic models for segmenting lung lobes on computed tomography images with severe abnormalities
+
+Initial project presented at the XXIX Congresso Brasileiro de Engenharia Biomédica (CBEB) 2024 (https://sbeb.org.br/cbeb2024). This manuscript represents an extended and enhanced version of the work previously published as a conference paper, with the following additional contributions:
+
+- **Synthetic lesion insertion**: a mechanism for simulating pulmonary lesions was incorporated to increase the model’s robustness when dealing with severe anatomical abnormalities;
+
+- **Creation of unbiased probabilistic models**: probabilistic maps of the lobar regions were developed based on normal cases, in a systematic manner and independently of the training data, thus avoiding bias and promoting a more generalizable anatomical representation;
+
+- **Expanded dataset**: the present study uses a more diverse and comprehensive dataset compared to the previous version;
+
+- **Improved loss functions**: the loss functions were refined to better guide the learning process, especially in regions with ambiguous or incomplete fissures;
+
+- **More comprehensive evaluation**: the method was tested on a larger number of scans, including cases with multiple and extensive lesions, enabling a more rigorous validation of the proposed approach.
 
 
 ---
