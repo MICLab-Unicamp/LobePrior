@@ -13,3 +13,4 @@ monai
 matplotlib
 scikit-image
 tensorboard
+psutil

@@ -99,7 +99,8 @@ setup(
 		"matplotlib",
 		"scikit-image",
 		"tensorboard",
-		"scikit-learn"
+		"scikit-learn",
+		"psutil"
 	],
 	cmdclass={
 		'install': CustomInstallCommand,  # Substitui o comando install padrão
