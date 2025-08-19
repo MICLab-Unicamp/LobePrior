@@ -196,11 +196,15 @@ Initial project presented at the XXIX Congresso Brasileiro de Engenharia Bioméd
 
 - **Creation of unbiased probabilistic models**: probabilistic maps of the lobar regions were developed based on normal cases, in a systematic manner and independently of the training data, thus avoiding bias and promoting a more generalizable anatomical representation;
 
-- **Expanded dataset**: the present study uses a more diverse and comprehensive dataset compared to the previous version;
+- **Expanded dataset**: expanded from 44 training and 14 testing samples to 150 training and 85 testing samples, now including cases with severe lung lesions;
 
-- **Improved loss functions**: the loss functions were refined to better guide the learning process, especially in regions with ambiguous or incomplete fissures;
+- **Test set**: added a new set including severe lesions to evaluate performance under challenging conditions;
+  
+- **Improved loss functions**: changed from Focal Loss to Dice Loss for better optimization. The loss functions were refined to better guide the learning process, especially in regions with ambiguous or incomplete fissures;
 
-- **More comprehensive evaluation**: the method was tested on a larger number of scans, including cases with multiple and extensive lesions, enabling a more rigorous validation of the proposed approach.
+- **More comprehensive evaluation**: the method was tested on a larger number of scans, including cases with multiple and extensive lesions, enabling a more rigorous validation of the proposed approach;
+
+- **Architecture redesign**: replaced five independent AttUNets (without weight sharing and inefficient) with a single network comprising seven decoders with shared weights.
 
 
 ---
@@ -219,10 +223,10 @@ Initial project presented at the XXIX Congresso Brasileiro de Engenharia Bioméd
 
 @ARTICLE{CBEB2024,
 	title = {Deep learning with probabilistic models for segmenting lung lobes on computed tomography images with severe abnormalities},
+	author = {Jean Antonio Ribeiro and Diedre Santos do Carmo and Fabiano Reis and Leticia Rittner},
 	journal = {CBEB 2024},
 	pages = {1-6},
 	year = {2024},
-	author = {Jean Antonio Ribeiro and Diedre Santos do Carmo and Fabiano Reis and Leticia Rittner}
 }
 
 @ARTICLE{review2022,
