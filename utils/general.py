@@ -72,6 +72,55 @@ def find_files():
 	else:
 		print('The directory is empty.')
 
+def collect_images_verbose(image_original_path):
+	"""
+		Finds image files even if the path contains spaces or accented characters.
+		Accepts extensions (case-insensitive): .nii, .nii.gz, .mhd, .mha
+		Allows filenames with multiple dots.
+		Filters only accessible files.
+		Provides detailed logs.
+	"""
+	valid_extensions = ['.nii', '.nii.gz', '.mhd', '.mha']
+	valid_extensions_lower = [ext.lower() for ext in valid_extensions]
+
+	path = Path(image_original_path)
+
+	if not path.exists():
+		raise ValueError(f"Path does not exist: {image_original_path}")
+
+	all_images = []
+
+	def is_valid_file(p: Path) -> bool:
+		path_str = str(p).lower()
+		return any(path_str.endswith(ext) for ext in valid_extensions_lower) and os.access(p, os.R_OK)
+
+	# If it is a file
+	if path.is_file():
+		if is_valid_file(path):
+			all_images = [str(path)]
+			print(f"Found valid file: {path}")
+		else:
+			print(f"Ignored invalid or inaccessible file: {path}")
+
+	# If it is a directory
+	elif path.is_dir():
+		for p in path.rglob("*"):  # busca recursiva
+			if p.is_file():
+				if is_valid_file(p):
+					all_images.append(str(p))
+					print(f"Found valid file: {p}")
+				else:
+					print(f"Ignored invalid or inaccessible file: {p}")
+
+		# Remove duplicates and sort
+		all_images = sorted(set(all_images), key=lambda x: x.lower())
+
+	else:
+		raise ValueError(f"Path is neither a file nor a directory: {image_original_path}")
+
+	print(f"\nNumber of valid images found: {len(all_images)}")
+	return all_images
+
 def process_images(image_path, ID_image, N_THREADS, parallel_processing=True):
 	if N_THREADS is None:
 		N_THREADS = mp.cpu_count() // 2

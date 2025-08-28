@@ -14,7 +14,7 @@ from pathlib import Path
 from tqdm import tqdm
 
 from utils.general import register_single, teste_pickle_by_image, process_images
-from utils.general import unified_img_reading, convert_to_nifti, remove_directories_if_exist
+from utils.general import unified_img_reading, convert_to_nifti, remove_directories_if_exist, collect_images_verbose
 from utils.general import analyze_registration_quality, find_best_registration
 from utils.transform3D import CTHUClip
 from predict_decoders import LoberModule
@@ -73,9 +73,12 @@ def main(args):
 
 	print(f'Number of images found in the dataset: {len(all_images)}')
 
+	all_images = collect_images_verbose(image_original_path)
+
 	if len(all_images)==0:
 		print('Either the image path is incorrect or the input image is missing.')
 		print('python predict.py -i <input.nii.gz>')
+		return 0
 
 	for image_original_path in all_images:
 		path = Path(image_original_path)
