@@ -55,6 +55,7 @@ def main(args):
 	if parallel_processing:
 		print(f'Number of processes: {N_THREADS}')
 
+	'''
 	if os.path.isfile(image_original_path):
 		path = Path(image_original_path)
 		ext = "".join(path.suffixes)
@@ -72,6 +73,7 @@ def main(args):
 		all_images = sorted(glob.glob(os.path.join(image_original_path, '*.nii.gz')))
 
 	print(f'Number of images found in the dataset: {len(all_images)}')
+	'''
 
 	all_images = collect_images_verbose(image_original_path)
 
