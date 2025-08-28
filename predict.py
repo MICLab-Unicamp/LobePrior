@@ -52,6 +52,7 @@ def main(args):
 	print(f'Prior Information: {not modo_normal}')
 	print(f'Delete temporary files : {delete_data}')
 	print(f'Parallel processing: {parallel_processing}')
+
 	if parallel_processing:
 		print(f'Number of processes: {N_THREADS}')
 

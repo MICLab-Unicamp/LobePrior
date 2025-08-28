@@ -21,7 +21,7 @@ from model.unet_diedre import UNet_SeteDecoders
 from predict_lung import LungModule
 from utils.general import pos_processamento, post_processing_dist_lung, post_processing_lung
 from utils.general import register_single, teste_pickle_by_image, process_images
-from utils.general import unified_img_reading, busca_path, salvaImageRebuilt, convert_to_nifti, remove_directories_if_exist
+from utils.general import unified_img_reading, busca_path, salvaImageRebuilt, convert_to_nifti, remove_directories_if_exist, collect_images_verbose
 from utils.general import analyze_registration_quality, find_best_registration
 from utils.to_onehot import mask_to_onehot
 from utils.transform3D import CTHUClip
@@ -281,23 +281,12 @@ def main(args):
 	if parallel_processing:
 		print(f'Number of processes: {N_THREADS}')
 
-	if os.path.isfile(image_original_path):
-		path = Path(image_original_path)
-		ext = "".join(path.suffixes)
-		if ext not in ['.nii', '.nii.gz', '.mhd', '.mha']:
-			print(f'The file format is not valid: {ext}')
-			print(f'The image name must not contain dots or the image extension must be .nii, .nii.gz, .mhd or .mha')
-			#return 0
-		all_images = [image_original_path]
-	elif os.path.isdir(image_original_path):
-		extensoes = ['*.nii', '*.nii.gz', '*.mhd', '*.mha']
-		all_images = []
-		for ext in extensoes:
-			all_images.extend(glob.glob(os.path.join(image_original_path, ext)))
-	else:
-		all_images = sorted(glob.glob(os.path.join(image_original_path, '*.nii.gz')))
+	all_images = collect_images_verbose(image_original_path)
 
-	print(f'Number of images found in the dataset: {len(all_images)}')
+	if len(all_images)==0:
+		print('Either the image path is incorrect or the input image is missing.')
+		print('python predict_decoders.py -i <input.nii.gz>')
+		return 0
 
 	for image_original_path in all_images:
 		path = Path(image_original_path)
