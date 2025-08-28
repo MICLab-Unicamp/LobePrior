@@ -61,7 +61,7 @@ def main(args):
 		if ext not in ['.nii', '.nii.gz', '.mhd', '.mha']:
 			print(f'The file format is not valid: {ext}')
 			print(f'The image name must not contain dots or the image extension must be .nii, .nii.gz, .mhd or .mha')
-			return 0
+			#return 0
 		all_images = [image_original_path]
 	elif os.path.isdir(image_original_path):
 		extensoes = ['*.nii', '*.nii.gz', '*.mhd', '*.mha']

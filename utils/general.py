@@ -194,19 +194,19 @@ def assign_all_voxels_random_order(image: np.ndarray,
 								   valid_labels: List[int] = [1, 2, 3, 4, 5],
 								   seed: Optional[int] = None) -> Tuple[np.ndarray, dict]:
 	"""
-	Atribui todos os voxels com target_label à label do vizinho mais próximo,
-	processando-os em ordem aleatória.
+	Assigns all voxels with the target_label to the label of their nearest neighbor,
+	processing them in random order.
 
 	Args:
-		image: Array 3D numpy com as labels.
-		target_label: Label que será reatribuída (default: 6).
-		valid_labels: Lista de labels válidas para atribuição (default: [1,2,3,4,5]).
-		seed: Semente para o gerador aleatório (opcional, para reprodução).
+		image: 3D numpy array containing the labels.
+		target_label: Label to be reassigned (default: 6).
+		valid_labels: List of valid labels for assignment (default: [1,2,3,4,5]).
+		seed: Seed for the random number generator (optional, for reproducibility).
 
 	Returns:
-		Tuple contendo:
-		- Imagem com novas labels atribuídas.
-		- Dicionário com estatísticas sobre as mudanças.
+		Tuple containing:
+		- Image with the new labels assigned.
+		- Dictionary with statistics about the changes.
 	"""
 	if seed is not None:
 		np.random.seed(seed)
@@ -228,19 +228,19 @@ def assign_all_voxels_random_order(image: np.ndarray,
 	labels_valid = image[tuple(coords_valid.T)]
 
 	if coords_valid.size == 0:
-		raise ValueError("Nenhuma valid_label encontrada na imagem.")
+		raise ValueError("No valid_label found in the image.")
 
-	# Criar árvore para busca rápida do vizinho mais próximo
+	# Create a tree for fast nearest-neighbor search
 	tree = cKDTree(coords_valid)
 
-	# Atribuir cada voxel ao vizinho mais próximo
+	# Assign each voxel to the nearest neighbor
 	distances, indices = tree.query(coords_target, k=1)
 	new_labels = labels_valid[indices]
 
 	for coord, label in zip(coords_target, new_labels):
 		result[tuple(coord)] = label
 
-	# Estatísticas
+	# Statistics
 	stats = {
 		"changed_voxels": len(coords_target),
 		"distribution": {
@@ -255,7 +255,7 @@ def post_processing_dist_lung(image, lung, max_value=None):
 	segmentation_filled = image.copy()
 
 	if lung.max()>1:
-		print(f'Lung com label maior que 1 {lung.shape}: {lung.min()} e {lung.max()}')
+		print(f'Voxels in the lung with label values greater than 1 {lung.shape}: {lung.min()} e {lung.max()}')
 		lung[lung>1]=1
 
 	if max_value is None:
@@ -264,10 +264,10 @@ def post_processing_dist_lung(image, lung, max_value=None):
 	if torch.is_tensor(lung):
 		lung = lung.numpy().astype(np.uint8)
 
-	# preenche os lobos com valores iguais a 6, onde no pulmão é 1 e no lobo é 0
+	# Fills the lobes with a value of 6, where lung = 1 and lobe = 0
 	segmentation_filled[(segmentation_filled == 0) & (lung == 1)] = 6
 
-	# Preencher buracos na segmentação
+	# Filling holes in the segmentation
 	segmentation_filled = assign_all_voxels_random_order(segmentation_filled, target_label=max_value, valid_labels=[1, 2, 3, 4, 5], seed=42)[0]
 
 	return segmentation_filled
@@ -285,20 +285,20 @@ def pos_processamento(output, template, segmentation=None):
 	return output.cpu()
 
 def get_orientation(image_path):
-	# Carrega a imagem
+	# Loads the image
 	img = nib.load(image_path)
 
-	# Obtém a matriz de rotação da imagem
+	# Get the rotation matrix of the image
 	aff_matrix = img.affine
-	# Calcula os vetores das direções das coordenadas
+	# Compute the coordinate direction vectors
 	directions = np.array(aff_matrix[:3, :3])
 
-	# Verifica o sinal do determinante da matriz de direções
-	# RAS: Determinante positivo
-	# PIL: Determinante negativo
+	# Check the sign of the determinant of the direction matrix
+	# RAS: Positive determinant
+	# PIL: Negative determinant
 	determinant = np.linalg.det(directions)
 
-	# Define as orientações
+	# Define the orientations
 	orientations = {
 		"RAS": determinant > 0,
 		"LAI": all(determinant * np.array([1, 1, -1]) > 0),
@@ -311,7 +311,7 @@ def get_orientation(image_path):
 		"PIL": determinant < 0
 	}
 
-	# Retorna as orientações encontradas
+	# Returns the orientations identified in the image
 	return [orientation for orientation, value in orientations.items() if value]
 
 def rebuild_output(output_path, original_path, rigid_path, ID_image, path_save=None):
@@ -441,43 +441,43 @@ def find_best_registration(results):
 
 def calculate_similarity_metrics(fixed_image, moving_image):
 	"""
-	Calcula múltiplas métricas de similaridade entre duas imagens 3D
+	Calculates multiple similarity metrics between two 3D images.
 
 	Args:
-		fixed_image: Array numpy 3D da imagem fixa
-		moving_image: Array numpy 3D da imagem em movimento (registrada)
+		fixed_image: 3D numpy array of the fixed image
+		moving_image: 3D numpy array of the moving image (registered)
 
 	Returns:
-		dict: Dicionário com as métricas calculadas
+		dict: Dictionary containing the computed metrics
 	"""
-	# Normaliza as imagens para terem valores entre 0 e 1
+	# Normalize the images to have values between 0 and 1
 	fixed_norm = (fixed_image - fixed_image.min()) / (fixed_image.max() - fixed_image.min())
 	moving_norm = (moving_image - moving_image.min()) / (moving_image.max() - moving_image.min())
 
-	# 1. Erro Médio Quadrático (MSE)
+	# 1. Mean Squared Error (MSE)
 	mse = np.mean((fixed_norm - moving_norm) ** 2)
 
-	# 2. Correlação Cruzada Normalizada (NCC)
+	# 2. Normalized Cross-Correlation (NCC)
 	fixed_mean = fixed_norm.mean()
 	moving_mean = moving_norm.mean()
 	numerator = np.sum((fixed_norm - fixed_mean) * (moving_norm - moving_mean))
 	denominator = np.sqrt(np.sum((fixed_norm - fixed_mean) ** 2) * np.sum((moving_norm - moving_mean) ** 2))
 	ncc = numerator / denominator if denominator != 0 else 0
 
-	# 3. Informação Mútua (MI)
+	# 3. Mutual Information (MI)
 	hist_2d, x_edges, y_edges = np.histogram2d(
 		fixed_norm.ravel(),
 		moving_norm.ravel(),
 		bins=20
 	)
 
-	# Normaliza o histograma para obter probabilidades
+	# Normalize the histogram to get probabilities
 	pxy = hist_2d / float(np.sum(hist_2d))
 	px = np.sum(pxy, axis=1)
 	py = np.sum(pxy, axis=0)
 	px_py = px[:, None] * py[None, :]
 
-	# Remove zeros para evitar log(0)
+	# Remove zeros to avoid log(0)
 	nzs = pxy > 0
 	mutual_info = np.sum(pxy[nzs] * np.log(pxy[nzs] / px_py[nzs]))
 
@@ -489,18 +489,18 @@ def calculate_similarity_metrics(fixed_image, moving_image):
 
 def analyze_registration_quality(reference_array, ID_image, registered_images_folder):
 	"""
-	Analisa a qualidade do registro entre uma imagem de referência e múltiplas imagens registradas
+	Analyzes the registration quality between a reference image and multiple registered images.
 
 	Args:
-		reference_image_path: Caminho para a imagem CT 3D de referência (A)
-		registered_images_folder: Pasta contendo as 11 imagens registradas
+		reference_image_path: Path to the 3D reference CT image (A)
+		registered_images_folder: Folder containing the 11 registered images
 
 	Returns:
-		dict: Resultados da análise para cada imagem
+		dict: Analysis results for each image
 	"""
 	results = {}
 	registered_files = sorted(Path(registered_images_folder).glob('*.npz'))  # Ajuste a extensão conforme necessário
-	#print(f'Quantidade de imagens registradas encontradas na pasta: {len(registered_files)}')
+	#print(f'Number of registered images found in the folder: {len(registered_files)}')
 
 	for reg_file in registered_files:
 		arq = str(reg_file).replace('images_npz', 'model_fusion')
