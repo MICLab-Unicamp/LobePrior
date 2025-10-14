@@ -244,7 +244,7 @@ class LoberModule(pl.LightningModule):
 		#print(f'Salvando imagem com pós-processamento final: {image.shape} {image.squeeze().shape}')
 
 		salvaImageRebuilt(image.squeeze(), image_original_path, rigid_path=rigid_path, ID_image=ID_image, output_path=output_path)
-		salvaImageRebuilt(airway.squeeze(), image_original_path, rigid_path=rigid_path, ID_image=ID_image, msg='airway', output_path=output_path)
+		#salvaImageRebuilt(airway.squeeze(), image_original_path, rigid_path=rigid_path, ID_image=ID_image, msg='airway', output_path=output_path)
 
 		del lung
 		del template
