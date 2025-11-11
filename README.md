@@ -221,6 +221,18 @@ Initial project presented at the XXIX Congresso Brasileiro de Engenharia Bioméd
 	doi={10.1109/IEEEDATA.2025.3577999}
 }
 
+@ARTICLE{Ribeiro_LOCCA,
+	author={Ribeiro, Jean A. and Carmo, Diedre S. Do and Reis, Fabiano and Magalhães, Ricardo S. and Dertkigil, Sergio S. J. and Appenzeller, Simone and Rittner, Leticia},
+	journal={IEEE Data Descriptions}, 
+	title={Descriptor: Manually Annotated CT Dataset of Lung Lobes in COVID-19 and Cancer Patients (LOCCA)}, 
+	year={2025},
+	volume={2},
+	number={},
+	pages={239-246},
+	keywords={Lungs;Computed tomography;Annotations;Lung cancer;Biomedical imaging;Lesions;Image segmentation;Manuals;COVID-19;Three-dimensional displays;Cancer;computed tomography (CT) images;COVID-19;dataset;manual annotation for lung lobes},
+	doi={10.1109/IEEEDATA.2025.3577999}
+}
+
 @ARTICLE{CBEB2024,
 	title = {Deep learning with probabilistic models for segmenting lung lobes on computed tomography images with severe abnormalities},
 	author = {Jean Antonio Ribeiro and Diedre Santos do Carmo and Fabiano Reis and Leticia Rittner},
