@@ -34,7 +34,7 @@ Go to the **Final folder setup** section
 
 #### Manual installation
 
-Due to the large size of network weights, you need to go into the Releases in this repository, download the data.zip file, and put it inside the medpseg folder. To To download the files, run:  
+Due to the large size of network weights, you need to go into the Releases in this repository, download the data.zip file, and put it inside the lobeprior folder. To To download the files, run:  
 
 > wget https://github.com/MICLab-Unicamp/LobePrior/releases/download/LobePrior/data.zip
 
