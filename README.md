@@ -80,7 +80,7 @@ Finally, the directory containing LobePrior will look like this:
 
 ##### To predict lung lobe segmentation using parallel computing, add -p and -nw to specify the number of processes
 
-> python predict.py -i input -o output -p- nw 4
+> python predict.py -i input -o output -p -nw 4
 
 ##### Images for testing
 
