@@ -1,3 +1,9 @@
+# Custom
+*.zip
+raw_images
+temp_images
+weights
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

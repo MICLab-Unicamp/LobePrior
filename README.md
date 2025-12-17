@@ -12,7 +12,7 @@ It is recommended to create a dedicated environment to run the LobePrior method 
 
 To create a Miniconda environment named lobeprior, run:
 
-> conda create -n lobeprior python=3.8
+> conda create -n lobeprior python=3.9
 
 To activate the lobeprior environment and install the required packages:
 
@@ -60,7 +60,7 @@ Finally, the directory containing LobePrior will look like this:
 
 ---
 
-## Testing (inside the LobePrior directory)
+## Inference (terminal inside the LobePrior directory)
 
 ##### To predict lung lobe segmentation from an image with probabilistic templates
 
@@ -84,9 +84,11 @@ Finally, the directory containing LobePrior will look like this:
 
 ##### Images for testing
 
-If you wish to test the LobePrior method, you may use a public dataset referred to here as CoronaCases. The COVID-19 CT Lung and Infection Segmentation Dataset, available on Zenodo, provides 20 CT scans of COVID-19 patients. You can access and download the dataset directly via the following link:
+If you wish to test the LobePrior or other methods, you may use a public dataset referred to here as CoronaCases, and our published dataset named LOCCA. 
 
 > [LOCCA: Manual annotations on CT for lung LObes of COVID and CAncer patients](https://redu.unicamp.br/dataset.xhtml?persistentId=doi:10.25824/redu/ORXJKS) or [MICLab-Unicamp/LOCCA](https://github.com/MICLab-Unicamp/LOCCA)
+
+The COVID-19 CT Lung and Infection Segmentation Dataset, available on Zenodo, provides 20 CT scans of COVID-19 patients. You can access and download the dataset directly via the following link:
 
 > [CoronaCases](https://zenodo.org/records/3757476)
 
@@ -95,6 +97,9 @@ We present an approach using probabilistic models, constructed from lung CT imag
 -->
 
 ---
+# Known Issues
+
+* Using the lobeprior command directly on CLI/Terminal is not working. For now, please use LobePrior by calling predict.py using the lobeprior environment, as described above in the "Testing" section. 
 
 # Project
 
