@@ -12,7 +12,7 @@ It is recommended to create a dedicated environment to run the LobePrior method 
 
 To create a Miniconda environment named lobeprior, run:
 
-> conda create -n lobeprior python=3.8
+> conda create -n lobeprior python=3.9
 
 To activate the lobeprior environment and install the required packages:
 
