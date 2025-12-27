@@ -59,8 +59,8 @@ class LungModule(pl.LightningModule):
 		self.save_hyperparameters(hparams)
 
 		if self.hparams.mode == "segmentation":
-			self.model_low = UNet_Diedre(n_channels=1, n_classes=1, norm="instance", dim='3d', init_channel=16, joany_conv=False, dict_return=False)
-			self.model = UNet_Diedre(n_channels=2, n_classes=1, norm="instance", dim='3d', init_channel=16, joany_conv=False, dict_return=False)
+			self.model_low = UNet_Diedre(n_channels=1, n_classes=1, norm="instance", dim='3d', init_channel=16, dict_return=False)
+			self.model = UNet_Diedre(n_channels=2, n_classes=1, norm="instance", dim='3d', init_channel=16, dict_return=False)
 
 	def forward_per_lobe(self, x, y_seg_resize):
 

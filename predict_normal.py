@@ -61,9 +61,9 @@ class LoberModuleNormal(pl.LightningModule):
 
 		if self.hparams.mode == "segmentation":
 			# Hat: opera em low resolution (fov inteiro)
-			self.model_low = UNet_SeisDecoders(n_channels=1, n_classes=1, norm="instance", dim='3d', init_channel=16, joany_conv=False, dict_return=False)
+			self.model_low = UNet_SeisDecoders(n_channels=1, n_classes=1, norm="instance", dim='3d', init_channel=16, dict_return=False)
 			# Seg: opera em high resolution (patch)
-			self.model = UNet_SeisDecoders(n_channels=7, n_classes=1, norm="instance", dim='3d', init_channel=16, joany_conv=False, dict_return=False)
+			self.model = UNet_SeisDecoders(n_channels=7, n_classes=1, norm="instance", dim='3d', init_channel=16, dict_return=False)
 
 	def forward_per_lobe(self, x, y_seg_resize):
 

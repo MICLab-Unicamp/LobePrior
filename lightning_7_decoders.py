@@ -27,9 +27,9 @@ class Lightning(pl.LightningModule):
 
 		if self.hparams.mode == "segmentation":
 			# Hat: opera em low resolution (fov inteiro)
-			self.model_low = UNet_SeteDecoders(n_channels=1, n_classes=1, norm="instance", dim='3d', init_channel=16, joany_conv=False, dict_return=False)
+			self.model_low = UNet_SeteDecoders(n_channels=1, n_classes=1, norm="instance", dim='3d', init_channel=16, dict_return=False)
 			# Seg: opera em high resolution (patch)
-			self.model = UNet_SeteDecoders(n_channels=14, n_classes=1, norm="instance", dim='3d', init_channel=16, joany_conv=False, dict_return=False)
+			self.model = UNet_SeteDecoders(n_channels=14, n_classes=1, norm="instance", dim='3d', init_channel=16, dict_return=False)
 
 	def forward_per_lobe(self, x, template, y_seg_resize, y_lung, y_lobe, y_airway):
 
