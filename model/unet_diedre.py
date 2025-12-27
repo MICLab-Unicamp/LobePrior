@@ -23,32 +23,6 @@ from scipy.ndimage import zoom
 def assert_dim(dim):
 	assert dim in ('2d', '3d'), "dim {} not supported".format(dim)
 
-class Joany25D(nn.Module):
-	'''
-	Multi-modal 2.5D input idea by Joany implemented by Diedre
-	'''
-	def __init__(self, nmodal=3, size_25d=3, padding="valid", bias=False):
-		super().__init__()
-		self.conv3d = nn.Conv3d(nmodal, nmodal, size_25d, padding=padding, bias=bias)
-		self.act = nn.LeakyReLU()
-		self.norm = nn.BatchNorm2d(nmodal)
-		self.pad = nn.ConstantPad2d(size_25d//2, 0)
-
-	def forward(self, x):
-		x = self.conv3d(x).squeeze(2)
-
-		# Pad rows and cols
-		x = self.pad(x)
-
-		# Batch norm
-		x = self.norm(x)
-
-		# Non linear activation
-		x = self.act(x)
-
-		return x
-
-
 class SelfAttention(nn.Module):
 	'''
 	Spatial attention module, with 1x1 convolutions, idea from
@@ -142,10 +116,6 @@ class UNetEncoder(nn.Module):
 		init_channel = kwargs["init_channel"]
 		norm = kwargs["norm"]
 		dim = kwargs["dim"]
-		self.joany_conv = kwargs["joany_conv"]  # experimental 2.5D convolution
-
-		if self.joany_conv:
-			self.jc = Joany25D()  # TODO arguments
 
 		self.inc = DoubleConv(n_channels, init_channel, norm=norm, reduce=False, dim=dim)
 		self.att0 = SelfAttention(init_channel, dim=dim)
@@ -158,8 +128,6 @@ class UNetEncoder(nn.Module):
 		self.down4 = DoubleConv(init_channel*8, init_channel*8, norm=norm, reduce=True, dim=dim)
 
 	def forward(self, x):
-		if self.joany_conv:
-			x = self.jc(x)
 
 		self.input_shape = (x.shape[-3], x.shape[-2], x.shape[-1])
 		out_1 = self.att0(self.inc(x))
@@ -221,13 +189,12 @@ class UNet_Diedre(nn.Module):
 	Fixing design choices.
 	For old tunable unet check git history
 	Removed residual, small, sigmoid and softmax applications
-	joany_conv: experimental multi modal 2.5D with 3D conv
 	'''
-	def __init__(self, n_channels, n_classes, norm, dim, init_channel, joany_conv=False, dict_return=False):
+	def __init__(self, n_channels, n_classes, norm, dim, init_channel, dict_return=False):
 		super(UNet_Diedre, self).__init__()
 
 		self.dict_return = dict_return
-		self.enc = UNetEncoder(n_channels=n_channels, init_channel=init_channel, norm=norm, dim=dim, joany_conv=joany_conv)
+		self.enc = UNetEncoder(n_channels=n_channels, init_channel=init_channel, norm=norm, dim=dim)
 		self.dec = UNetDecoder(n_classes=n_classes, init_channel=init_channel, norm=norm, dim=dim)
 
 
@@ -248,11 +215,11 @@ class UNet_DoisDecoder(nn.Module):
 	Sai Lobes e Airways
 	key: "lobes", "airways"
 	'''
-	def __init__(self, n_channels, n_classes_lobes, n_classes_airways, norm, dim, init_channel, joany_conv=False, dict_return=False):
+	def __init__(self, n_channels, n_classes_lobes, n_classes_airways, norm, dim, init_channel, dict_return=False):
 		super(UNet_DoisDecoder, self).__init__()
 
 		self.dict_return = dict_return
-		self.enc = UNetEncoder(n_channels=n_channels, init_channel=init_channel, norm=norm, dim=dim, joany_conv=joany_conv)
+		self.enc = UNetEncoder(n_channels=n_channels, init_channel=init_channel, norm=norm, dim=dim)
 		self.dec_lobes = UNetDecoder(n_classes=n_classes_lobes, init_channel=init_channel, norm=norm, dim=dim)
 		self.dec_airways = UNetDecoder(n_classes=n_classes_airways, init_channel=init_channel, norm=norm, dim=dim)
 
@@ -277,11 +244,11 @@ class UNet_CincoDecoders(nn.Module):
 	Sai Lobes
 	key: "lobes""
 	'''
-	def __init__(self, n_channels, n_classes, norm, dim, init_channel, joany_conv=False, dict_return=False):
+	def __init__(self, n_channels, n_classes, norm, dim, init_channel, dict_return=False):
 		super(UNet_CincoDecoders, self).__init__()
 
 		self.dict_return = dict_return
-		self.enc = UNetEncoder(n_channels=n_channels, init_channel=init_channel, norm=norm, dim=dim, joany_conv=joany_conv)
+		self.enc = UNetEncoder(n_channels=n_channels, init_channel=init_channel, norm=norm, dim=dim)
 		self.dec_one = UNetDecoder(n_classes=n_classes, init_channel=init_channel, norm=norm, dim=dim)
 		self.dec_two = UNetDecoder(n_classes=n_classes, init_channel=init_channel, norm=norm, dim=dim)
 		self.dec_three = UNetDecoder(n_classes=n_classes, init_channel=init_channel, norm=norm, dim=dim)
@@ -309,11 +276,11 @@ class UNet_SeisDecoders(nn.Module):
 	Sai Lobes
 	key: "lobes""
 	'''
-	def __init__(self, n_channels, n_classes, norm, dim, init_channel, joany_conv=False, dict_return=False):
+	def __init__(self, n_channels, n_classes, norm, dim, init_channel, dict_return=False):
 		super(UNet_SeisDecoders, self).__init__()
 
 		self.dict_return = dict_return
-		self.enc = UNetEncoder(n_channels=n_channels, init_channel=init_channel, norm=norm, dim=dim, joany_conv=joany_conv)
+		self.enc = UNetEncoder(n_channels=n_channels, init_channel=init_channel, norm=norm, dim=dim)
 		self.dec_one = UNetDecoder(n_classes=n_classes, init_channel=init_channel, norm=norm, dim=dim)
 		self.dec_two = UNetDecoder(n_classes=n_classes, init_channel=init_channel, norm=norm, dim=dim)
 		self.dec_three = UNetDecoder(n_classes=n_classes, init_channel=init_channel, norm=norm, dim=dim)
@@ -342,11 +309,11 @@ class UNet_SeteDecoders(nn.Module):
 	Sai Lobes
 	key: "lobes""
 	'''
-	def __init__(self, n_channels, n_classes, norm, dim, init_channel, joany_conv=False, dict_return=False):
+	def __init__(self, n_channels, n_classes, norm, dim, init_channel, dict_return=False):
 		super(UNet_SeteDecoders, self).__init__()
 
 		self.dict_return = dict_return
-		self.enc = UNetEncoder(n_channels=n_channels, init_channel=init_channel, norm=norm, dim=dim, joany_conv=joany_conv)
+		self.enc = UNetEncoder(n_channels=n_channels, init_channel=init_channel, norm=norm, dim=dim)
 		self.dec_lung = UNetDecoder(n_classes=n_classes, init_channel=init_channel, norm=norm, dim=dim)
 		self.dec_one = UNetDecoder(n_classes=n_classes, init_channel=init_channel, norm=norm, dim=dim)
 		self.dec_two = UNetDecoder(n_classes=n_classes, init_channel=init_channel, norm=norm, dim=dim)
@@ -385,7 +352,7 @@ if __name__ == '__main__':
 	from torch.autograd import Variable
 	#from torchsummary import summary
 
-	net = UNet_Diedre(n_channels=1, n_classes=6, norm=False, dim='2d', init_channel=64, joany_conv=False, dict_return=False)
+	net = UNet_Diedre(n_channels=1, n_classes=6, norm=False, dim='2d', init_channel=64, dict_return=False)
 
 	data = Variable(torch.randn(1, 1, 128, 128))
 	print("input size: {}".format(data.size()))
@@ -398,7 +365,7 @@ if __name__ == '__main__':
 
 
 
-	net = UNet_Diedre(n_channels=1, n_classes=6, norm=False, dim='3d', init_channel=64, joany_conv=False, dict_return=False)
+	net = UNet_Diedre(n_channels=1, n_classes=6, norm=False, dim='3d', init_channel=64, dict_return=False)
 
 	data = Variable(torch.randn(1, 1, 32, 128, 128))
 	print("input size: {}".format(data.size()))
@@ -413,7 +380,7 @@ if __name__ == '__main__':
 
 
 
-	net = UNet_DoisDecoder(n_channels=1, n_classes_lobes=1, n_classes_airways=1, norm=False, dim='3d', init_channel=64, joany_conv=False, dict_return=False)
+	net = UNet_DoisDecoder(n_channels=1, n_classes_lobes=1, n_classes_airways=1, norm=False, dim='3d', init_channel=64, dict_return=False)
 
 	data = Variable(torch.randn(1, 1, 32, 128, 128))
 	print("input size: {}".format(data.size()))
@@ -427,7 +394,7 @@ if __name__ == '__main__':
 
 
 
-	net = UNet_CincoDecoders(n_channels=1, n_classes=1, norm=False, dim='3d', init_channel=64, joany_conv=False, dict_return=False)
+	net = UNet_CincoDecoders(n_channels=1, n_classes=1, norm=False, dim='3d', init_channel=64, dict_return=False)
 
 	data = Variable(torch.randn(1, 1, 32, 128, 128))
 	print("input size: {}".format(data.size()))
@@ -441,7 +408,7 @@ if __name__ == '__main__':
 
 
 
-	net = UNet_SeisDecoders(n_channels=1, n_classes=1, norm="instance", dim='3d', init_channel=64, joany_conv=False, dict_return=False)
+	net = UNet_SeisDecoders(n_channels=1, n_classes=1, norm="instance", dim='3d', init_channel=64, dict_return=False)
 
 	data = Variable(torch.randn(1, 1, 32, 128, 128))
 	print("input size: {}".format(data.size()))
@@ -457,7 +424,7 @@ if __name__ == '__main__':
 
 
 
-	net = UNet_SeteDecoders(n_channels=1, n_classes=1, norm="instance", dim='3d', init_channel=64, joany_conv=False, dict_return=False)
+	net = UNet_SeteDecoders(n_channels=1, n_classes=1, norm="instance", dim='3d', init_channel=64, dict_return=False)
 
 	data = Variable(torch.randn(1, 1, 32, 128, 128))
 	print("input size: {}".format(data.size()))
