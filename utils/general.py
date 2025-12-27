@@ -50,7 +50,7 @@ def remove_directories_if_exist(directories):
 
 def find_files():
 	# Folders where the files are located
-	files = sorted(glob.glob(os.path.join('raw_images/model_fusion', '*.npz')))
+	files = sorted(glob.glob(os.path.join(RAW_DATA_FOLDER, 'model_fusion', '*.npz')))
 	#print(f'Number of images found in the directory: {len(files)}')
 
 	if len(files)>0:
