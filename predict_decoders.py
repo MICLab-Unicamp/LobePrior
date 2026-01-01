@@ -225,8 +225,8 @@ class LoberModule(pl.LightningModule):
 
 			image = image.squeeze().numpy()
 
-			image = mask_to_onehot(image)
-			image = torch.from_numpy(image).unsqueeze(dim=0).float()
+			#image = mask_to_onehot(image)
+			#image = torch.from_numpy(image).unsqueeze(dim=0).float()
 
 			image = mask_to_onehot(image)
 			image = np.expand_dims(image, 0)
