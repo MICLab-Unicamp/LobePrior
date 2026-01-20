@@ -165,7 +165,7 @@ class LoberModuleNormal(pl.LightningModule):
 
 		pre_trained_model_lung_path = 'weights/LightningLung.ckpt'
 
-		test_model_lung = LungModule.load_from_checkpoint(pre_trained_model_lung_path, strict=False)
+		test_model_lung = LungModule.load_from_checkpoint(pre_trained_model_lung_path, strict=False, weights_only=False)
 
 		#lung = test_model_lung.predict_lung(npz_path)
 		lung = test_model_lung.predict(sample, ID_image)
@@ -277,7 +277,7 @@ def main(args):
 
 	pre_trained_model_path = 'weights/LightningLobes_no_template.ckpt'
 
-	test_model = LoberModuleNormal.load_from_checkpoint(pre_trained_model_path, strict=False)
+	test_model = LoberModuleNormal.load_from_checkpoint(pre_trained_model_path, strict=False, weights_only=False)
 
 	test_model.predict(npz_path, image_original_path, output_path, post_processed=True, save_image=True, rebuild=True)
 

@@ -83,6 +83,7 @@ setup(
 	author="MICLab Unicamp",
 	url="https://github.com/MICLab-Unicamp/LobePrior",
 	packages=found,
+	python_requires=">=3.9",  # Added to ensure sm_120 compatibility
 	install_requires=[
 		"numpy==1.24.4",
 		"SimpleITK==2.4.0",

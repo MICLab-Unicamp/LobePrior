@@ -223,7 +223,7 @@ def main(args):
 
 		pre_trained_model_lung_path = 'weights/LightningLung.ckpt'
 
-		test_model_lung = LungModule.load_from_checkpoint(pre_trained_model_lung_path, strict=False)
+		test_model_lung = LungModule.load_from_checkpoint(pre_trained_model_lung_path, strict=False, weights_only=False)
 
 		lung = test_model_lung.predict_lung(image_path)
 		#lung = test_model_lung.predict(sample, ID_image)
