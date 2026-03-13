@@ -1,0 +1,75 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "lobeprior"
+version = "1.0.0"
+description = "LobePrior Segments Lung Lobes on Computed Tomography Images in the Presence of Severe Abnormalities"
+readme = "README.md"
+license = { file = "LICENSE" }
+authors = [
+    { name = "MICLab Unicamp" }
+]
+maintainers = [
+    { name = "Jean Antonio Ribeiro", email = "j265739@dac.unicamp.br" }
+]
+keywords = ["lung", "lobe", "segmentation", "CT", "deep learning", "medical imaging"]
+requires-python = ">=3.9"
+
+dependencies = [
+    "numpy>=1.23,<2.0",
+    "SimpleITK>=2.2",
+    "torch>=1.13,<3.0",
+    "torchvision>=0.14",
+    "torchio>=0.20",
+    "monai>=1.2",
+    "pytorch_lightning>=1.9,<3.0",
+    "scipy",
+    "dipy>=1.6,<2.0",
+    "connected-components-3d",
+    "nibabel",
+    "pydicom",
+    "scikit-image",
+    "scikit-learn",
+    "matplotlib",
+    "tensorboard",
+    "psutil",
+    "platformdirs",
+]
+
+[project.urls]
+Homepage = "https://github.com/MICLab-Unicamp/LobePrior"
+Repository = "https://github.com/MICLab-Unicamp/LobePrior"
+
+[project.scripts]
+lobeprior             = "src.predict:main"
+lobeprior_decoders    = "src.predict_decoders:main"
+lobeprior_normal      = "src.predict_normal:main"
+lungprior             = "src.predict_lung:main"
+lungprior_register    = "src.predict_lung_register:main"
+
+# -------------------------------------------------------------------------
+# Hatchling — descoberta de pacotes
+# -------------------------------------------------------------------------
+
+[tool.hatch.build.targets.wheel]
+packages = ["src"]
+
+[tool.hatch.build.targets.wheel.shared-data]
+"src/weights"    = "src/weights"
+"src/raw_images" = "src/raw_images"
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "/lobeprior",
+    "/README.md",
+    "/LICENSE",
+]
+
+# -------------------------------------------------------------------------
+# Hook de build — executa hatch_build.py automaticamente no pip install
+# -------------------------------------------------------------------------
+
+[tool.hatch.build.hooks.custom]
+path = "hatch_build.py"
