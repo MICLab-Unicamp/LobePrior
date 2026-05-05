@@ -4,6 +4,10 @@
 
 > The development of efficient and robust algorithms for lung and lobe segmentation is essential for diagnosing and monitoring pulmonary diseases. However, obtaining manual or automatic annotations of lung lobes is challenging, especially in patients with severe abnormalities due to difficulty visualizing lobar fissures. This work aims to provide an automated lung lobe segmentation method using deep neural networks and probabilistic models, called LobePrior. Segmentation is performed in three stages: a coarse stage that processes images with reduced resolution; a high-resolution stage, in which specialized AttUNets compete for the segmentation of each lung lobe; and a final stage where post-processing is applied to the segmented lobes. Probabilistic models, constructed from label fusion, are responsible to carry anatomical information and guide the model in regions where severe abnormalities have caused segmentation failures. For additional resilience against abnormality presence, synthetic lesion generation was used as augmentation during training. The performance of the proposed approach was evaluated on LOLA11 (Grand Challenge) and three datasets with manual lobe annotations, in the presence of cancerous nodules and COVID-19 consolidations. Qualitative and quantitative results demonstrate that LobePrior achieved more accurate segmentations compared to manual ground truth, achieving state-of-the-art performance in the presence of severe abnormalities.
 
+The associated article is available at:
+
+> [LobePrior Segments Lung Lobes on Computed Tomography Images in the Presence of Severe Abnormalities](https://www.nature.com/articles/s41598-026-48136-8)
+
 ## To install  Miniconda
 
 This tool was tested on Ubuntu 20.04. The following instructions refer to quickly running the tool by installing it with Miniconda and pip. The minimum recommended GPU memory is 12 GB for inference and 24 GB for training. The required dependencies are installed during setup and are listed in the requirements.txt file.  
