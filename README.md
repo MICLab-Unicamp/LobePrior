@@ -1,6 +1,6 @@
 # LobePrior Segments Lung Lobes on Computed Tomography Images in the Presence of Severe Abnormalities
 
-Stay tuned for an upcoming integration with [MEDPSeg](https://github.com/MICLab-Unicamp/medpseg)! This will provide a complete tool for pulmonary structure and findings segmentation, leveraging LobePrior’s state-of-the-art, abnormality-aware lobe segmentation method.
+Stay tuned for an upcoming integration with [MEDPSeg](https://github.com/MICLab-Unicamp/medpseg). This will provide a complete tool for pulmonary structure and findings segmentation, leveraging LobePrior’s state-of-the-art, abnormality-aware lobe segmentation method.
 
 ## Abstract
 
